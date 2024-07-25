@@ -6,12 +6,15 @@ BLUE = \033[34m
 RED = \033[31m
 
 
-SRC_PARSER = init_parse.c
+PARSER = init_parse.c
+GNL = get_next_line.c get_next_line_utils.c
 
 
 
-SRC = $(addprefix ./src/parse_map/, $(SRC_PARSER))
+SRC_PARSER = $(addprefix ./src/parse_map/, $(PARSER))
+SRC_GNL = $(addprefix ./src/gnl/, $(GNL))
 
+SRC = $(SRC_GNL) $(SRC_PARSER) 
 
 CFLAGS = -g -I./ #-Wall -Wextra -Werror
 CC = cc
