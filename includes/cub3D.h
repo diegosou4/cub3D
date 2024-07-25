@@ -2,6 +2,10 @@
 #define CUB3D_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 typedef struct s_img
 {
 	void		*img;
@@ -26,5 +30,6 @@ typedef struct s_assets
 
 
 void init_parse(char *path);
+int	namemap(char *pathname);
 
 #endif
