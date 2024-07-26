@@ -67,18 +67,10 @@ void	*ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *src);
 int ft_is_space(char c);
+char	**ft_split(char const *s, char c, int len, int column);
 
 
-
-
-
-
-
-
-
-
-
-
+ 
 // GNL
 char	*get_next_line(int fd);
 int		ft_strlen(char *str);
