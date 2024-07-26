@@ -42,21 +42,24 @@ typedef struct s_assets
 
 typedef struct s_wall
 {
-	int direction;
 	t_assets *texture;
 }	t_wall;
 
 typedef struct s_game
 {	
 	t_wall wall[4];
-	char **map;
+
+
 }   t_game;
 
 void init_parse(char *path);
-int open_file(char *path);
+char	*open_read(int fd);
 int	namemap(char *pathname);
 
-
+//
+void	ftjoinmap2(char *str, char *buffer, char *new_str);
+char	*ftjoinmap(char *str, char *buffer);
+char	*joinmap(char *new_str, char *buffer);
 
 // Libft
  
