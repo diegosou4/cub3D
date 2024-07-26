@@ -8,13 +8,14 @@ RED = \033[31m
 
 PARSER = init_parse.c
 GNL = get_next_line.c get_next_line_utils.c
-
+LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c
 
 
 SRC_PARSER = $(addprefix ./src/parse_map/, $(PARSER))
 SRC_GNL = $(addprefix ./src/gnl/, $(GNL))
+SRC_LIBFT = $(addprefix ./src/libft/, $(LIBFT))
 
-SRC = $(SRC_GNL) $(SRC_PARSER) 
+SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT)
 
 CFLAGS = -g -I./ #-Wall -Wextra -Werror
 CC = cc

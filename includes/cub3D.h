@@ -10,6 +10,15 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+
+enum	direction
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+};
+
 typedef struct s_img
 {
 	void		*img;
@@ -31,8 +40,17 @@ typedef struct s_assets
     int img_height;
 }   t_assets;
 
+typedef struct s_wall
+{
+	int direction;
+	t_assets *texture;
+}	t_wall;
 
-
+typedef struct s_game
+{	
+	t_wall wall[4];
+	char **map;
+}   t_game;
 
 void init_parse(char *path);
 int open_file(char *path);
@@ -40,6 +58,12 @@ int	namemap(char *pathname);
 
 
 
+// Libft
+ 
+void	*ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strdup(const char *src);
+int ft_is_space(char c);
 
 
 
