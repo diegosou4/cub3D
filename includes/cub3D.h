@@ -48,7 +48,7 @@ typedef struct s_wall
 typedef struct s_game
 {	
 	t_wall wall[4];
-
+	char **map;
 
 }   t_game;
 
@@ -67,7 +67,7 @@ void	*ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *src);
 int ft_is_space(char c);
-char	**ft_split(char const *s, char c, int len, int column);
+char	**ft_split(char const *s, char c);
 
 
  
