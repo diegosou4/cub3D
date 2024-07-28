@@ -6,11 +6,55 @@
 /*   By: diegmore <diegmore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 12:30:32 by diegmore          #+#    #+#             */
-/*   Updated: 2024/07/26 15:54:27 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:04:55 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
+
+static int	ft_countwords(char *s, char sep)
+{
+	int	words;
+	int	i;
+
+	words = 0;
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] == sep)
+			i++;
+		if (s[i] != sep && s[i])
+		{
+			words++;
+			i++;
+		}
+		while (s[i] != sep && s[i])
+			i++;
+	}
+	return (words);
+}
+
+static int	ft_numberchar(char *s, char sep)
+{
+	int	i;
+	int	numberchar;
+
+	numberchar = 0;
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] == sep && s[i])
+			i++;
+		while (s[i] != sep && s[i])
+		{
+			i++;
+			numberchar++;
+		}
+		if (s[i] == sep)
+			return (numberchar);
+	}
+	return (numberchar);
+}
 
 static int	ft_givestring(char *s, char sep, char *dest)
 {
@@ -30,12 +74,8 @@ static int	ft_givestring(char *s, char sep, char *dest)
 			j++;
 		}
 		if (s[i] == sep)
-		{
-			dest[j] = '\0';
 			return (i);
-		}
 	}
-	dest[j] = '\0';
 	return (i);
 }
 
@@ -50,7 +90,7 @@ static void	*free_malloc(char **s, int i)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c, int len, int column)
+char	**ft_split(char const *s, char c)
 {
 	char	**str;
 	int		i;
@@ -62,18 +102,18 @@ char	**ft_split(char const *s, char c, int len, int column)
 	p = 0;
 	k = 0;
 	i = 0;
-	str = (char **)malloc((column + 1) * sizeof(char *));
+	str = (char **)ft_calloc((ft_countwords((char *)s, c) + 1), sizeof(char *));
 	if (!str)
 		return (0);
-	while (i < column)
+	while (i < ft_countwords((char *)s, c))
 	{
-		str[i] = (char *)malloc((len + 1) * sizeof(char));
+		str[i] = (char *)ft_calloc((ft_numberchar((char *)(s + p), c) + 1),
+				sizeof(char));
 		if (!str[i])
 			return (free_malloc(str, i - 1));
 		k = ft_givestring((char *)(s + p), c, str[i]);
 		p = p + k;
 		i++;
 	}
-	str[column] = NULL;
 	return (str);
 }

@@ -19,6 +19,12 @@ enum	direction
 	WEST
 };
 
+enum 	rbgtexture
+{
+	F,
+	C
+};
+
 typedef struct s_img
 {
 	void		*img;
@@ -45,9 +51,19 @@ typedef struct s_wall
 	t_assets *texture;
 }	t_wall;
 
+
+typedef struct s_color
+{
+	int r;
+	int g;
+	int b;
+}	t_color;
+
+
 typedef struct s_game
 {	
 	t_wall wall[4];
+	t_color color[2];
 	char **map;
 
 }   t_game;

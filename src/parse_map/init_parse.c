@@ -10,6 +10,7 @@ void check_line(char *line, t_game *game)
 {
 	printf("line: %s\n", line);
 	game->map = ft_split(line, '\n');
+	
 }
 
 
