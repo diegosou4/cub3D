@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+#include <stdbool.h>
 
 enum	direction
 {
@@ -42,13 +42,14 @@ typedef struct s_assets
 {
     t_img img;
     char *relative_path;
-    int img_witdh;
+    int img_width;
     int img_height;
 }   t_assets;
 
 typedef struct s_wall
 {
-	t_assets *texture;
+	t_assets texture;
+	bool filled;
 }	t_wall;
 
 
@@ -84,6 +85,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *src);
 int ft_is_space(char c);
 char	**ft_split(char const *s, char c);
+int	len_darray(char **arr);
 
 
  
@@ -94,5 +96,12 @@ char	*ft_strchr(char *s, int c);
 char	*ft_join(char *new_str, char *str, char *buffer);
 char	*ft_strjoin(char *str, char *buffer);
 char	*ft_rnewline(char *str);
+
+
+
+// Parse Map
+void check_direction(t_game *game);
+bool filled_textures(t_game *game);
+int valid_line(char *line);
 
 #endif

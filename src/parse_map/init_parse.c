@@ -10,6 +10,7 @@ void check_line(char *line, t_game *game)
 {
 	printf("line: %s\n", line);
 	game->map = ft_split(line, '\n');
+	check_direction(game);
 	
 }
 
@@ -19,7 +20,6 @@ char *open_file(char *path)
 
 	int fd;
 	char *line;
-	t_game *game;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -29,6 +29,19 @@ char *open_file(char *path)
 	}
 	line = open_read(fd);
 	return(line);
+}
+
+void fill_game(t_game *game)
+{
+	int i;
+
+	i = 0;
+
+	while(i != 4)
+	{
+		game->wall[i].filled = false;
+		i++;
+	}
 }
 
 void init_parse(char *path)
@@ -42,6 +55,7 @@ void init_parse(char *path)
 	if(line == NULL)
 		return;
 	game = ft_calloc(sizeof(t_game) , 1);
+	fill_game(game);
 	check_line(line,game);
     
 }
