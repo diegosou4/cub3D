@@ -86,7 +86,7 @@ char	*ft_strdup(const char *src);
 int ft_is_space(char c);
 char	**ft_split(char const *s, char c);
 int	len_darray(char **arr);
-
+bool ft_whitespaces(char *str);
 
  
 // GNL

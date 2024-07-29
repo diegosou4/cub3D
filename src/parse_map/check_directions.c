@@ -69,12 +69,10 @@ void split_line(char *line, t_game *game)
         if(ft_strlen(split[0]) == 2) 
             case_line(game,line);
     }
-    else if(len > 2)
+    else if(ft_whitespaces(line) == false)
     {
         printf("Error\n");
-    }else if(len == 1)
-    {
-        printf("Verificar se e spaces\n");
+        exit(0);
     }
     
 }
@@ -90,7 +88,7 @@ void check_direction(t_game *game)
         split_line(game->map[i],game);
         i++;
     }
-    
+   
 
 
 }
