@@ -58,6 +58,7 @@ typedef struct s_color
 	int r;
 	int g;
 	int b;
+	bool filled;
 }	t_color;
 
 
@@ -68,6 +69,10 @@ typedef struct s_game
 	char **map;
 
 }   t_game;
+
+
+
+typedef void (*t_case_line_func)(t_game *game, char *line, char **split);
 
 void init_parse(char *path);
 char	*open_read(int fd);
@@ -87,7 +92,8 @@ int ft_is_space(char c);
 char	**ft_split(char const *s, char c);
 int	len_darray(char **arr);
 bool ft_whitespaces(char *str);
-
+int	ft_atoi(const char *str);
+void	ft_freedarray(char **line);
  
 // GNL
 char	*get_next_line(int fd);
@@ -102,6 +108,7 @@ char	*ft_rnewline(char *str);
 // Parse Map
 void check_direction(t_game *game);
 bool filled_textures(t_game *game);
+bool filled_colors(t_game *game);
 int valid_line(char *line);
 
 #endif

@@ -15,3 +15,17 @@ bool filled_textures(t_game *game)
     }
     return (true);
 }
+
+bool filled_colors(t_game *game)
+{
+    int i;
+
+    i = 0;
+    while(i != 2)
+    {
+        if(game->color[i].filled == false)
+            return (false);
+        i++;
+    }
+    return (true);
+}
