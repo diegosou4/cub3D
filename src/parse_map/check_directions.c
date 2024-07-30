@@ -127,10 +127,14 @@ void check_direction(t_game *game)
     while (game->map[i] != NULL && filled_colors(game) != true)
         split_line(game->map[i++], game, case_color,1);
     check_texture(game); 
+    while (ft_whitespaces(game->map[++i]) == true)
+        ;
     while (game->map[i] != NULL)
     {
         printf("%s\n", game->map[i]);
         i++;
     }
+    
+    
     
 }
