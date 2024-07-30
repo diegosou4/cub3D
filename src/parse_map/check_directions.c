@@ -27,15 +27,19 @@ void case_text(t_game *game, char *line, char **split)
 bool all_num(char **split2)
 {
     int i;
-
+    int num;
+    
     i = 0;
-
+    num = 0;
     while(i != 3)
     {
         int j = 0;
+        if(ft_strlen(split2[i]) == 0 || ft_strlen(split2[i]) > 3)
+            return (false);
         while(split2[i][j] != '\0')
         {
-            if (ft_isdigit(split2[i][j]) == 0)
+            num = ft_atoi(split2[i]);
+            if (ft_isdigit(split2[i][j]) == 0 || num < 0 || num > 255)
                 return (false);
             j++;
         }
@@ -128,5 +132,5 @@ void check_direction(t_game *game)
         split_line(game->map[i], game, case_color,1);
         i++;
     }
-    printf(" Done \n");
+    printf("Done \n");
 }
