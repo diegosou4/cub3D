@@ -94,6 +94,7 @@ int	len_darray(char **arr);
 bool ft_whitespaces(char *str);
 int	ft_atoi(const char *str);
 void	ft_freedarray(char **line);
+int	ft_isdigit(int c);
  
 // GNL
 char	*get_next_line(int fd);

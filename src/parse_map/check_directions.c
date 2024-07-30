@@ -24,18 +24,36 @@ void case_text(t_game *game, char *line, char **split)
     }
 }
 
+bool all_num(char **split2)
+{
+    int i;
+
+    i = 0;
+
+    while(i != 3)
+    {
+        int j = 0;
+        while(split2[i][j] != '\0')
+        {
+            if (ft_isdigit(split2[i][j]) == 0)
+                return (false);
+            j++;
+        }
+        i++;
+    }
+    return(true);
+}
+
 void case_color(t_game *game, char *line, char **split)
 {
     char **split2;
-    
 
     split2 = ft_split(split[1], ',');
-    if (len_darray(split2) != 3)
+    if (len_darray(split2) != 3 || all_num(split2) == false)
     {
         printf("Error\n");
         exit(0);
     }
-
     if (line[0] == 'F')
     {
         game->color[F].r = ft_atoi(split2[0]);
