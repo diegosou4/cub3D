@@ -126,14 +126,11 @@ void check_direction(t_game *game)
         split_line(game->map[i++], game, case_text,2);
     while (game->map[i] != NULL && filled_colors(game) != true)
         split_line(game->map[i++], game, case_color,1);
-    i = -1;
-    while(++i != 4)
+    check_texture(game); 
+    while (game->map[i] != NULL)
     {
-        if(check_ext(game->wall[i].texture.relative_path, ".xpm", "texture") != 4)
-        {
-            printf("Invalid  Texture Path\n");
-            garabe_collector(game);
-            exit(0);
-        }
+        printf("%s\n", game->map[i]);
+        i++;
     }
+    
 }

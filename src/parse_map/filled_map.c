@@ -29,3 +29,16 @@ bool filled_colors(t_game *game)
     }
     return (true);
 }
+
+void check_texture(t_game *game)
+{
+   int i;
+
+   i = -1;
+
+    while(++i != 4) 
+    {
+        if(check_ext(game->wall[i].texture.relative_path, ".xpm", "texture") != 4)
+            print_free(game,"Invalid  Texture Path");
+    }
+}
