@@ -122,15 +122,17 @@ void check_direction(t_game *game)
     i = 0;
 
     while (game->map[i] != NULL && filled_textures(game) != true)
-    {
-        split_line(game->map[i], game, case_text,2);
-        i++;
-    }
-    printf("chega aqui\n");
+        split_line(game->map[i++], game, case_text,2);
     while (game->map[i] != NULL && filled_colors(game) != true)
+        split_line(game->map[i++], game, case_color,1);
+    i = -1;
+    while(++i != 4)
     {
-        split_line(game->map[i], game, case_color,1);
-        i++;
+        if(check_ext(game->wall[i].texture.relative_path, ".xpm", "texture") != 4)
+        {
+            printf("Invalid  Texture Path\n");
+            exit(0);
+        }
     }
     printf("Done \n");
 }

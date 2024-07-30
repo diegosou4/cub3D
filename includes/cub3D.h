@@ -38,6 +38,8 @@ typedef struct s_img
 	int			img_height;
 }				t_img;
 
+
+
 typedef struct s_wall
 {
 	t_img texture;
@@ -70,7 +72,7 @@ typedef void (*t_case_line_func)(t_game *game, char *line, char **split);
 
 void init_parse(char *path);
 char	*open_read(int fd);
-int	namemap(char *pathname);
+int	check_ext(char *pathname, char *format, char *type);
 
 //
 void	ftjoinmap2(char *str, char *buffer, char *new_str);
@@ -105,5 +107,9 @@ void check_direction(t_game *game);
 bool filled_textures(t_game *game);
 bool filled_colors(t_game *game);
 int valid_line(char *line);
+
+// Open Walls
+
+t_img	load_img(int texture, t_game *game);
 
 #endif

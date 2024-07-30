@@ -51,7 +51,7 @@ void init_parse(char *path)
     int fd;
 	t_game *game;
 	char *line;	
-    if(!namemap(path) == 4)
+    if(!check_ext(path,".cub","map") == 4)
         return;
     line =	open_file(path);
 	if(line == NULL)
@@ -87,7 +87,7 @@ char	*open_read(int fd)
 	return (str);
 }
 
-int	namemap(char *pathname)
+int	check_ext(char *pathname, char *format, char *type)
 {
 	int	i;
 	int	j;
@@ -97,18 +97,18 @@ int	namemap(char *pathname)
 	i = ft_strlen(pathname);
 	if (i <= 4)
 	{
-		printf("Invalid Format Map\n");
+		printf("Invalid Format %s\n", type);
 		return (0);
 	}
-	if (pathname[i - 1] == 'b')
+	if (pathname[i - 1] == format[3])
 		j = 1;
-	if (pathname[i - 2] == 'u')
+	if (pathname[i - 2] == format[2])
 		j += 1;
-	if (pathname[i - 3] == 'c')
+	if (pathname[i - 3] == format[1])
 		j += 1;
-	if (pathname[i - 4] == '.')
+	if (pathname[i - 4] == format[0])
 		j += 1;
 	if (j == 0)
-		printf("Invalid Format Map\n");
+		printf("Invalid Format %s\n", type);
 	return (j);
 }
