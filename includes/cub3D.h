@@ -108,8 +108,8 @@ bool filled_textures(t_game *game);
 bool filled_colors(t_game *game);
 int valid_line(char *line);
 
-// Open Walls
-
-t_img	load_img(int texture, t_game *game);
+// Garabe Collector
+void garabe_collector(t_game *game);
+void print_free(t_game *game, char *errostr);
 
 #endif

@@ -8,6 +8,7 @@ RED = \033[31m
 
 PARSER = init_parse.c join_map.c check_directions.c filled_map.c \
 		open_walls.c
+GARBAGE = free_structs.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 		ft_len_darray.c ft_whitespaces.c ft_atoi.c ft_freedarray.c \
@@ -17,8 +18,8 @@ LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 SRC_PARSER = $(addprefix ./src/parse_map/, $(PARSER))
 SRC_GNL = $(addprefix ./src/gnl/, $(GNL))
 SRC_LIBFT = $(addprefix ./src/libft/, $(LIBFT))
-
-SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT)
+SRC_GARBAGE = $(addprefix ./src/garbage/, $(GARBAGE))
+SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT) $(SRC_GARBAGE)
 
 CFLAGS = -g -I./ #-Wall -Wextra -Werror
 CC = cc

@@ -55,8 +55,9 @@ void case_color(t_game *game, char *line, char **split)
     split2 = ft_split(split[1], ',');
     if (len_darray(split2) != 3 || all_num(split2) == false)
     {
-        printf("Error\n");
-        exit(0);
+        ft_freedarray(split);
+        ft_freedarray(split2);
+        print_free(game, "Error when trying to parse the map");
     }
     if (line[0] == 'F')
     {
@@ -109,8 +110,8 @@ void split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
     }
     else if (ft_whitespaces(line) == false)
     {
-        printf("Error\n");
-        exit(0);
+        ft_freedarray(split);
+        print_free(game, "Error when trying to parse the map");
     }
     ft_freedarray(split);
 }
@@ -131,8 +132,8 @@ void check_direction(t_game *game)
         if(check_ext(game->wall[i].texture.relative_path, ".xpm", "texture") != 4)
         {
             printf("Invalid  Texture Path\n");
+            garabe_collector(game);
             exit(0);
         }
     }
-    printf("Done \n");
 }

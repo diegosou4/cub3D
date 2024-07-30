@@ -10,6 +10,7 @@ void check_line(char *line, t_game *game)
 {
 	// printf("line: %s\n", line);
 	game->map = ft_split(line, '\n');
+	free(line);
 	check_direction(game);
 	
 }
@@ -59,7 +60,7 @@ void init_parse(char *path)
 	game = ft_calloc(sizeof(t_game) , 1);
 	fill_game(game);
 	check_line(line,game);
-    free(line);
+	garabe_collector(game);
 }
 
 
