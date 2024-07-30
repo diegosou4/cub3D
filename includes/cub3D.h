@@ -38,17 +38,9 @@ typedef struct s_img
 	int			img_height;
 }				t_img;
 
-typedef struct s_assets
-{
-    t_img img;
-    char *relative_path;
-    int img_width;
-    int img_height;
-}   t_assets;
-
 typedef struct s_wall
 {
-	t_assets texture;
+	t_img texture;
 	bool filled;
 }	t_wall;
 
@@ -64,6 +56,8 @@ typedef struct s_color
 
 typedef struct s_game
 {	
+	void		*mlx;
+	void		*win;
 	t_wall wall[4];
 	t_color color[2];
 	char **map;
