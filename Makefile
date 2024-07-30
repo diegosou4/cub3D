@@ -10,7 +10,7 @@ PARSER = init_parse.c join_map.c check_directions.c filled_map.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 		ft_len_darray.c ft_whitespaces.c ft_atoi.c ft_freedarray.c \
-		ft_isdigit.c
+		ft_isdigit.c open_walls.c
 
 
 SRC_PARSER = $(addprefix ./src/parse_map/, $(PARSER))
