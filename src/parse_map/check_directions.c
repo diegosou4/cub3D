@@ -119,7 +119,8 @@ void split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 void check_direction(t_game *game)
 {
     int i;
-
+    int j;
+    
     i = 0;
 
     while (game->map[i] != NULL && filled_textures(game) != true)
@@ -129,10 +130,6 @@ void check_direction(t_game *game)
     check_texture(game); 
     while (ft_whitespaces(game->map[++i]) == true)
         ;
-    // int j = i;
-  
-    // check_map(game, i);
-    
-    
+    check_map(game, i);
     
 }

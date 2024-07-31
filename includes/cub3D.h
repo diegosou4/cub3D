@@ -63,6 +63,7 @@ typedef struct s_game
 	t_wall wall[4];
 	t_color color[2];
 	char **map;
+	char *line;
 
 }   t_game;
 
@@ -91,6 +92,7 @@ bool ft_whitespaces(char *str);
 int	ft_atoi(const char *str);
 void	ft_freedarray(char **line);
 int	ft_isdigit(int c);
+
  
 // GNL
 char	*get_next_line(int fd);
