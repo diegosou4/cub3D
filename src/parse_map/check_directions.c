@@ -129,11 +129,9 @@ void check_direction(t_game *game)
     check_texture(game); 
     while (ft_whitespaces(game->map[++i]) == true)
         ;
-    while (game->map[i] != NULL)
-    {
-        printf("%s\n", game->map[i]);
-        i++;
-    }
+    // int j = i;
+  
+    // check_map(game, i);
     
     
     

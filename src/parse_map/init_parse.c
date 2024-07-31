@@ -6,10 +6,25 @@
 // i will use slip to create **map
 // and after i will check the map
 
+
 void check_line(char *line, t_game *game)
 {
 	// printf("line: %s\n", line);
 	game->map = ft_split(line, '\n');
+	int j = 0;
+
+	// I need solve the problem because the 
+	// map is not being saved correctly
+	// split dont save when the line is empty
+	// I need to fix this
+	// I did try to fix this in the function ft_split
+	// but it`s not best solution
+	while(game->map[j] != NULL)
+    {
+        printf("Map[%d]: %s\n", j, game->map[j]);
+        j++;
+    }
+	
 	free(line);
 	check_direction(game);
 	
@@ -59,6 +74,7 @@ void init_parse(char *path)
 		return;
 	game = ft_calloc(sizeof(t_game) , 1);
 	fill_game(game);
+	
 	check_line(line,game);
 	garabe_collector(game);
 }

@@ -18,6 +18,18 @@ void check_first(t_game *game, char *line)
 // and after we will check the map
 // we will check if the map is surrounded by 1
 
+int sizemap(t_game *game,char **map, int i)
+{
+    while(map[i] != NULL && ft_whitespaces(map[i]) == false)
+    {
+        printf("Map[%d]: %s\n", i, map[i]);
+        i++;
+    }
+    if(map[i] != NULL)
+        print_free(game, "Invalid Map");
+    return(i);
+}
+
 void check_map(t_game *game, int i)
 {
     int j;
@@ -25,10 +37,12 @@ void check_map(t_game *game, int i)
     char *line;
 
     j = 0;    
-    while(game->map[i] != NULL)
-    {
-        line = game->map[i];
-        end = ft_strlen(line);
+    sizemap(game, game->map, i);
+    // while(game->map[i] != NULL)
+    // {
+    //     line = game->map[i];
+    //     end = ft_strlen(line);
         
-    }
+    // }
+    printf("Map is valid\n");
 }
