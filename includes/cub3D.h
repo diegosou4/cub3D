@@ -1,9 +1,7 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -110,7 +108,7 @@ bool filled_textures(t_game *game);
 bool filled_colors(t_game *game);
 int valid_line(char *line);
 void check_texture(t_game *game);
-void check_map(t_game *game, int i);
+void check_map(t_game *game, int start);
 // Garabe Collector
 void garabe_collector(t_game *game);
 void print_free(t_game *game, char *errostr);

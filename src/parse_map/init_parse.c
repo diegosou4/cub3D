@@ -13,7 +13,6 @@ void check_line(t_game *game)
 	game->map = ft_split(game->line, '\n');
 	free(game->line);	
 	check_direction(game);
-	
 }
 
 

@@ -133,3 +133,14 @@ void check_direction(t_game *game)
     check_map(game, i);
     
 }
+
+
+
+// primeiro map[0] so pode ter 1 ou espaco
+// depois na segunda verifiacao tenho que ver se map[1]
+// e maior ou menos que o map[0] se ele for maior
+// tenho salvar a posicao do primeiro 1 e ultimo do map[0]
+// depois tenho que verificar sempre se o map[0] tem 1 ou espaco
+// se ele tiver 1 e o map[1] tiver 0 ok, se ele tiver  ' ' e o map[1]
+// nao tiver 1 ele nao ta fechado
+//

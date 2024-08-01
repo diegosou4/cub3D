@@ -20,29 +20,38 @@ void check_first(t_game *game, char *line)
 
 int sizemap(t_game *game,char **map, int i)
 {
+    int size;
+
+    size = i;
     while(map[i] != NULL && ft_whitespaces(map[i]) == false)
-    {
-        printf("Map[%d]: %s\n", i, map[i]);
         i++;
-    }
     if(map[i] != NULL)
         print_free(game, "Invalid Map");
-    return(i);
+    return(i - size);
 }
 
-void check_map(t_game *game, int i)
+void check_fl(t_game *game, int start, int end)
 {
-    int j;
-    int end;
-    char *line;
+    int i;
+    i = 0;
+   
+    while(game->map[start][i] != '\0')
+    {
+        if(game->map[start][i] != '1' && game->map[start][i] != ' ')
+            print_free(game, "Invalid Map line start or end is inccorect");
+        i++;
+    }
+    if(end == start)
+        return;
+    start += end - 1;
+    end = start;
+    check_fl(game, start, end);
+}
 
-    j = 0;    
-    sizemap(game, game->map, i);
-    // while(game->map[i] != NULL)
-    // {
-    //     line = game->map[i];
-    //     end = ft_strlen(line);
-        
-    // }
-    printf("Map is valid\n");
+void check_map(t_game *game, int start)
+{
+    int end;
+
+    end = sizemap(game, game->map, start);
+    check_fl(game, start, end);
 }

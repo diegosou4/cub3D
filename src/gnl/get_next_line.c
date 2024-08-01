@@ -6,7 +6,7 @@
 /*   By: diegmore <diegmore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:47:08 by diegmore          #+#    #+#             */
-/*   Updated: 2024/07/25 16:53:02 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:15:57 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ char	*get_next_line(int fd)
 	int			bytes_read;
 
 	bytes_read = 1;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || 100 <= 0)
 		return (NULL);
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buffer = (char *)malloc(sizeof(char) * (100 + 1));
 	if (!buffer)
 		return (NULL);
 	while (bytes_read != 0 && !(ft_strchr(str, '\n')))
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		bytes_read = read(fd, buffer, 100);
 		if (bytes_read == -1)
 		{
 			ft_free(&str, buffer);
