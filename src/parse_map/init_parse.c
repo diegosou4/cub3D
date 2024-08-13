@@ -69,7 +69,7 @@ void init_parse(char *path)
 	fill_game(game);
 	
 	check_line(game);
-	garabe_collector(game,FINAL);
+	garabe_collector(game);
 }
 
 

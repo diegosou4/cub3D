@@ -5,6 +5,11 @@ void free_map_info(t_game *game)
     if(game->map_info != NULL)
         ft_freedarray(game->map_info);
 }
+void free_flood_map(t_game *game)
+{
+    if(game->ff_map != NULL)
+        ft_freedarray(game->ff_map);
+}
 
 void free_game(t_game *game)
 {
@@ -29,19 +34,24 @@ void free_map(t_game *game)
   if(game->map != NULL)
     ft_freedarray(game->map);
 }
-void garabe_collector(t_game *game, int option)
+void garabe_collector(t_game *game)
 {
-    if(option == PARSE)
+    if(game->status_free == PARSE)
         free_map_info(game);
-    else if(option == FINAL)
+    else if(game->status_free == FLOOD)
+    {
+          free_map(game);
+          free_flood_map(game);
+    }
+    else if(game->status_free == FINAL)
         free_map(game);
     free_texture(game);
     free_game(game);
 }
 
-void print_free(t_game *game, char *errostr, int option)
+void print_free(t_game *game, char *errostr)
 {
-    garabe_collector(game, option);
+    garabe_collector(game);
     printf("%s\n",errostr);
     exit(0);
 }

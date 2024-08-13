@@ -9,7 +9,7 @@ void check_first(t_game *game, char *line)
     while(line[i] != '\0')
     {
         if(line[i] != '1' && line[i] != ' ')
-            print_free(game, "Invalid Map", PARSE);
+            print_free(game, "Invalid Map");
         i++;
     }
 }
@@ -26,7 +26,7 @@ int sizemap(t_game *game)
     while(game->map[i] != NULL && ft_whitespaces(game->map[i]) == false)
         i++;
     if(game->map[i] != NULL)
-        print_free(game, "Invalid Map",FINAL);
+        print_free(game, "Invalid Map");
     return(i);
 }
 
@@ -38,7 +38,7 @@ void check_fl(t_game *game, int start, int end)
     while(game->map[start][i] != '\0')
     {
         if(game->map[start][i] != '1' && game->map[start][i] != ' ')
-            print_free(game, "Invalid Map line start or end is inccorect",FINAL);
+            print_free(game, "Invalid Map line start or end is inccorect");
         i++;
     }
     if(end == start)
@@ -67,8 +67,10 @@ void check_middle(t_game *game, int end)
 {
     int col;
     int row;
+    row = 0;
     col = 1;
     game->ff_map = ft_dstrdup(game->map);
+    game->status_free = FLOOD;
     while(game->map[col] != NULL && col < end)
     {
         while(game->map[col][row] != '\0')
@@ -77,11 +79,11 @@ void check_middle(t_game *game, int end)
             while(game->map[col][row] != '\0' && ft_whitespace(game->map[col][row]) == true)
                 row++;
             if(row == ft_strlen(game->map[col]))
-                print_free(game, "Invalid Map",FINAL);
+                print_free(game, "Invalid Map");
             if(game->map[col][row] != '1' || end_map(game->map[col]) == 0)
-                print_free(game, "Invalid Map",FINAL);
+                print_free(game, "Invalid Map");
             if(flood_fill(game,col, row + 1) == false)
-                print_free(game, "Invalid Map",FINAL);
+                print_free(game, "Invalid Map");
         break;
         }
         col++;
@@ -99,8 +101,8 @@ void check_middle(t_game *game, int end)
 void check_map(t_game *game, int start)
 {
     int end;
-
-   end = sizemap(game);
+    game->status_free = FINAL;
+    end = sizemap(game);
     check_fl(game, 0, end);
     check_middle(game, end);
 }
