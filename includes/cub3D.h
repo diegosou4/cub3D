@@ -23,6 +23,13 @@ enum 	rbgtexture
 	C
 };
 
+enum option
+{
+	PARSE,
+	FINAL
+};
+
+
 typedef struct s_img
 {
 	void		*img;
@@ -88,6 +95,7 @@ int ft_is_space(char c);
 char	**ft_split(char const *s, char c);
 int	len_darray(char **arr);
 bool ft_whitespaces(char *str);
+bool ft_whitespace(char c);
 int	ft_atoi(const char *str);
 void	ft_freedarray(char **line);
 int	ft_isdigit(int c);
@@ -112,7 +120,7 @@ int valid_line(char *line);
 void check_texture(t_game *game);
 void check_map(t_game *game, int start);
 // Garabe Collector
-void garabe_collector(t_game *game);
-void print_free(t_game *game, char *errostr);
-
+void garabe_collector(t_game *game, int option);
+void print_free(t_game *game, char *errostr, int option);
+void free_map_info(t_game *game);
 #endif
