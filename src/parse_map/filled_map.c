@@ -39,6 +39,6 @@ void check_texture(t_game *game)
     while(++i != 4) 
     {
         if(check_ext(game->wall[i].texture.relative_path, ".xpm", "texture") != 4)
-            print_free(game,"Invalid  Texture Path");
+            print_free(game,"Invalid  Texture Path",PARSE);
     }
 }

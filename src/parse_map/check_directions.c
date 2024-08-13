@@ -57,7 +57,7 @@ void case_color(t_game *game, char *line, char **split)
     {
         ft_freedarray(split);
         ft_freedarray(split2);
-        print_free(game, "Error when trying to parse the map");
+        print_free(game, "Error when trying to parse the map",PARSE);
     }
     if (line[0] == 'F')
     {
@@ -111,7 +111,7 @@ void split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
     else if (ft_whitespaces(line) == false)
     {
         ft_freedarray(split);
-        print_free(game, "Error when trying to parse the map");
+        print_free(game, "Error when trying to parse the map",PARSE);
     }
     ft_freedarray(split);
 }
@@ -131,6 +131,7 @@ void check_direction(t_game *game)
     while (ft_whitespaces(game->map_info[++i]) == true)
         ;
     game->map = ft_dstrdup(game->map_info + i);
+    free_map_info(game);
     check_map(game, i);
     
 }

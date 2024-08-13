@@ -9,7 +9,7 @@ void check_first(t_game *game, char *line)
     while(line[i] != '\0')
     {
         if(line[i] != '1' && line[i] != ' ')
-            print_free(game, "Invalid Map");
+            print_free(game, "Invalid Map", PARSE);
         i++;
     }
 }
@@ -26,7 +26,7 @@ int sizemap(t_game *game)
     while(game->map[i] != NULL && ft_whitespaces(game->map[i]) == false)
         i++;
     if(game->map[i] != NULL)
-        print_free(game, "Invalid Map");
+        print_free(game, "Invalid Map",FINAL);
     return(i);
 }
 
@@ -38,7 +38,7 @@ void check_fl(t_game *game, int start, int end)
     while(game->map[start][i] != '\0')
     {
         if(game->map[start][i] != '1' && game->map[start][i] != ' ')
-            print_free(game, "Invalid Map line start or end is inccorect");
+            print_free(game, "Invalid Map line start or end is inccorect",FINAL);
         i++;
     }
     if(end == start)

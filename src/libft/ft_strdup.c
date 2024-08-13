@@ -6,7 +6,7 @@
 /*   By: diegmore <diegmore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:19:52 by diegmore          #+#    #+#             */
-/*   Updated: 2024/08/13 10:56:03 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:10:37 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,12 @@ char **ft_dstrdup(char **src)
 
 	i = 0;
 	dest = (char **)ft_calloc((ft_dstrlen(src) + 1), sizeof(char *));
-	printf("size %d\n",ft_dstrlen(src));
 	while(src[i] != NULL)
 	{
 		dest[i] = ft_strdup(src[i]);
 		i++;
 	}
 	dest[i] = NULL;
-	for(int j = 0; dest[j] != NULL; j++)
-		printf("%s\n",dest[j]);
 	return(dest);
 }
 // pega o src e faz uma copia
