@@ -123,7 +123,6 @@ void check_direction(t_game *game)
     
     i = 0;
     game->status_free = PARSE;
-
     while (game->map_info[i] != NULL && filled_textures(game) != true)
         split_line(game->map_info[i++], game, case_text,2);
     while (game->map_info[i] != NULL && filled_colors(game) != true)
