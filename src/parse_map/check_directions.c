@@ -128,7 +128,7 @@ void check_direction(t_game *game)
     while (game->map_info[i] != NULL && filled_colors(game) != true)
         split_line(game->map_info[i++], game, case_color,1);
     check_texture(game); 
-    while (ft_whitespaces(game->map_info[i]) == true)
+    while (ft_whitespaces(game->map_info[++i]) == true)
         ;
     if(i == ft_dstrlen(game->map_info))
         print_free(game, "Error when trying to parse the map",PARSE);

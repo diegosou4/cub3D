@@ -15,12 +15,7 @@ void check_line(t_game *game)
 	game->player.x = -1;
 	game->player.y = -1;
 	game->player.direction = -1;
-	int j = 0;
-	while(game->map_info[j] != NULL)
-	{
-		printf("%s\n",game->map_info[j]);
-		j++;
-	}
+
 	check_direction(game);
 }
 
