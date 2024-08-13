@@ -79,6 +79,7 @@ typedef struct s_game
 	char **map;
 	char **ff_map;
 	char *line;
+	int status_free;
 
 }   t_game;
 
@@ -132,7 +133,7 @@ void check_map(t_game *game, int start);
 bool flood_fill(t_game *game, int c_col, int c_row);
 
 // Garabe Collector
-void garabe_collector(t_game *game, int option);
-void print_free(t_game *game, char *errostr, int option);
+void garabe_collector(t_game *game);
+void print_free(t_game *game, char *errostr);
 void free_map_info(t_game *game);
 #endif
