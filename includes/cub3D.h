@@ -60,6 +60,7 @@ typedef struct s_game
 	void		*win;
 	t_wall wall[4];
 	t_color color[2];
+	char **map_info;
 	char **map;
 	char *line;
 
@@ -90,8 +91,9 @@ bool ft_whitespaces(char *str);
 int	ft_atoi(const char *str);
 void	ft_freedarray(char **line);
 int	ft_isdigit(int c);
+int ft_dstrlen(char **str);
+char **ft_dstrdup(char **src);
 
- 
 // GNL
 char	*get_next_line(int fd);
 int		ft_strlen(char *str);

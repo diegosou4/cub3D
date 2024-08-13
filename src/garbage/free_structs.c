@@ -2,8 +2,8 @@
 
 void free_map(t_game *game)
 {
-    if(game->map != NULL)
-        ft_freedarray(game->map);
+    if(game->map_info != NULL)
+        ft_freedarray(game->map_info);
 }
 
 void free_game(t_game *game)
