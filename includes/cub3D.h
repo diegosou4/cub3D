@@ -26,7 +26,8 @@ enum 	rbgtexture
 enum option
 {
 	PARSE,
-	FINAL
+	FINAL,
+	FLOOD
 };
 
 
@@ -60,15 +61,23 @@ typedef struct s_color
 	bool filled;
 }	t_color;
 
+typedef struct s_player
+{
+	int x;
+	int y;
+	int direction;
+}	t_player;
 
 typedef struct s_game
 {	
 	void		*mlx;
 	void		*win;
+	t_player player;
 	t_wall wall[4];
 	t_color color[2];
 	char **map_info;
 	char **map;
+	char **ff_map;
 	char *line;
 
 }   t_game;
@@ -101,6 +110,7 @@ void	ft_freedarray(char **line);
 int	ft_isdigit(int c);
 int ft_dstrlen(char **str);
 char **ft_dstrdup(char **src);
+int	ft_strrchr(const char *str, int c);
 
 // GNL
 char	*get_next_line(int fd);
@@ -119,6 +129,8 @@ bool filled_colors(t_game *game);
 int valid_line(char *line);
 void check_texture(t_game *game);
 void check_map(t_game *game, int start);
+bool flood_fill(t_game *game, int c_col, int c_row);
+
 // Garabe Collector
 void garabe_collector(t_game *game, int option);
 void print_free(t_game *game, char *errostr, int option);

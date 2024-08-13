@@ -12,6 +12,15 @@ void check_line(t_game *game)
 
 	game->map_info = ft_split(game->line, '\n');
 	free(game->line);	
+	game->player.x = -1;
+	game->player.y = -1;
+	game->player.direction = -1;
+	int j = 0;
+	while(game->map_info[j] != NULL)
+	{
+		printf("%s\n",game->map_info[j]);
+		j++;
+	}
 	check_direction(game);
 }
 
@@ -58,6 +67,7 @@ void init_parse(char *path)
 	game->line = open_file(path);
 	if(game->line == NULL)
 	{
+		printf("Error\n");
 		free(game);
 		return;
 	}

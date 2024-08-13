@@ -5,6 +5,8 @@ bool ft_whitespaces(char *str)
 {
     int i;
 
+    if(str == NULL)
+        return (false);
     i = 0;
     while(str[i] != '\0')
     {

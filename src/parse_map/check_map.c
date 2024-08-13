@@ -68,7 +68,7 @@ void check_middle(t_game *game, int end)
     int col;
     int row;
     col = 1;
-
+    game->ff_map = ft_dstrdup(game->map);
     while(game->map[col] != NULL && col < end)
     {
         while(game->map[col][row] != '\0')
@@ -80,9 +80,18 @@ void check_middle(t_game *game, int end)
                 print_free(game, "Invalid Map",FINAL);
             if(game->map[col][row] != '1' || end_map(game->map[col]) == 0)
                 print_free(game, "Invalid Map",FINAL);
+            if(flood_fill(game,col, row + 1) == false)
+                print_free(game, "Invalid Map",FINAL);
         break;
         }
         col++;
+    }
+    printf("My Flood fillz\n");
+    int k = 0;
+    while(game->ff_map[k] != NULL)
+    {
+        printf("%s\n", game->ff_map[k]);
+        k++;
     }
     printf("Validing Sure i think \n");
 }
