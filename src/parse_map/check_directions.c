@@ -123,13 +123,14 @@ void check_direction(t_game *game)
     
     i = 0;
 
-    while (game->map[i] != NULL && filled_textures(game) != true)
-        split_line(game->map[i++], game, case_text,2);
-    while (game->map[i] != NULL && filled_colors(game) != true)
-        split_line(game->map[i++], game, case_color,1);
+    while (game->map_info[i] != NULL && filled_textures(game) != true)
+        split_line(game->map_info[i++], game, case_text,2);
+    while (game->map_info[i] != NULL && filled_colors(game) != true)
+        split_line(game->map_info[i++], game, case_color,1);
     check_texture(game); 
-    while (ft_whitespaces(game->map[++i]) == true)
+    while (ft_whitespaces(game->map_info[++i]) == true)
         ;
+    game->map = ft_dstrdup(game->map_info + i);
     check_map(game, i);
     
 }
