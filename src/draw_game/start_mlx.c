@@ -14,21 +14,22 @@ void start_window(t_game *game)
 			&game->canva.endian);
 
 	load_wall(game);
-	mlx_put_image_to_window(&game->mlx,&game->win, game->canva.img, 0, 0);
-	// mlx_loop(game->mlx);
+	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
+	mlx_loop(game->mlx);
 }
 
 t_img	load_img(t_game *game, int texture)
 {
 	t_img	img;
 
-	printf("%s path\n", game->wall[texture].texture.relative_path);
 	img.relative_path = game->wall[texture].texture.relative_path;
 	img.img = mlx_xpm_file_to_image(game->mlx, img.relative_path,
 			&img.img_width, &img.img_height);
 	if (img.img == NULL)
 	{
-		printf("Deu ruim papai");
+		free_walls(game, texture - 1);
+		destroy_game(game);
+		garabe_collector(game);
 		exit(0);
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
@@ -41,7 +42,7 @@ void load_wall(t_game *game)
 	int i;
 
 	i = 0;
-	while (i != 3)
+	while (i != 4)
 	{
 		game->wall[i].texture = load_img(game, i);
 		i++;

@@ -143,4 +143,6 @@ t_img	load_img(t_game *game, int texture);
 void garabe_collector(t_game *game);
 void print_free(t_game *game, char *errostr);
 void free_map_info(t_game *game);
+void free_walls(t_game *game, int texture);
+void destroy_game(t_game *game);
 #endif
