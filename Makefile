@@ -7,24 +7,26 @@ RED = \033[31m
 
 
 PARSER = init_parse.c join_map.c check_directions.c filled_map.c \
-		open_walls.c check_map.c flood_fill.c
+		 check_map.c flood_fill.c
 GARBAGE = free_structs.c
+DRAW = start_mlx.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 		ft_len_darray.c ft_whitespaces.c ft_atoi.c ft_freedarray.c \
 		ft_isdigit.c  ft_dstrlen.c ft_strrchr.c
 
 
+SRC_DRAW = $(addprefix ./src/draw_game/, $(DRAW))
 SRC_PARSER = $(addprefix ./src/parse_map/, $(PARSER))
 SRC_GNL = $(addprefix ./src/gnl/, $(GNL))
 SRC_LIBFT = $(addprefix ./src/libft/, $(LIBFT))
 SRC_GARBAGE = $(addprefix ./src/garbage/, $(GARBAGE))
-SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT) $(SRC_GARBAGE)
+SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT) $(SRC_GARBAGE) $(SRC_DRAW)
 
 CFLAGS = -g -I./ #-Wall -Wextra -Werror
 CC = cc
 LIB = minilibx-linux/libmlx_Linux.a
-
+LIBFLAGS = -lXext -lX11
 
 SRCOBJ = obj/
 OBJ = $(addprefix $(SRCOBJ), $(SRC:./src/%.c=%.o))
@@ -32,7 +34,7 @@ OBJ = $(addprefix $(SRCOBJ), $(SRC:./src/%.c=%.o))
 all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "$(BOLD)$(BLUE)cub3D huas been compiled successfully!$(RESET)"
-	@${CC} ${CFLAGS} ${LIB} main.c ${OBJ} -o $(NAME)
+	@${CC} ${CFLAGS}  main.c ${OBJ} ${LIB} ${LIBFLAGS} -o $(NAME)
 
 $(SRCOBJ)%.o: src/%.c
 	@mkdir -p $(dir $@)

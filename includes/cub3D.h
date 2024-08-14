@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdbool.h>
+#include "../minilibx-linux/mlx.h"
 
 enum	direction
 {
@@ -72,6 +73,7 @@ typedef struct s_game
 {	
 	void		*mlx;
 	void		*win;
+	t_img		canva;
 	t_player player;
 	t_wall wall[4];
 	t_color color[2];
@@ -80,7 +82,6 @@ typedef struct s_game
 	char **ff_map;
 	char *line;
 	int status_free;
-
 }   t_game;
 
 
@@ -131,6 +132,12 @@ int valid_line(char *line);
 void check_texture(t_game *game);
 void check_map(t_game *game, int start);
 bool flood_fill(t_game *game, int c_col, int c_row);
+// Draw Game
+
+void start_window(t_game *game);
+void load_wall(t_game *game);
+t_img	load_img(t_game *game, int texture);
+
 
 // Garabe Collector
 void garabe_collector(t_game *game);

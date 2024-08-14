@@ -13,10 +13,6 @@ void check_first(t_game *game, char *line)
         i++;
     }
 }
-// The idea is salve the first time we find a 1  
-// and the last time we find a 1 in first line
-// and after we will check the map
-// we will check if the map is surrounded by 1
 
 int sizemap(t_game *game)
 {
@@ -67,7 +63,7 @@ void check_middle(t_game *game, int end)
 {
     int col;
     int row;
-    
+
     row = 0;
     col = 1;
     game->ff_map = ft_dstrdup(game->map);

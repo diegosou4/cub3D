@@ -67,8 +67,8 @@ void init_parse(char *path)
 		return;
 	}
 	fill_game(game);
-	
 	check_line(game);
+	start_window(game);
 	garabe_collector(game);
 }
 
