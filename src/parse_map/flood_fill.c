@@ -11,9 +11,6 @@ int save_direction(t_game *game, int c_col,int c_row)
             printf("Invalid tem que tratar  isso\n");
             return (3);
         }
-            
-        game->player.x = c_col;
-        game->player.y = c_row;
         game->player.direction = game->ff_map[c_col][c_row];
         game->ff_map[c_col][c_row] = 'x';
         return (1);

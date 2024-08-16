@@ -7,8 +7,22 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <math.h>
 #include <stdbool.h>
 #include "../minilibx-linux/mlx.h"
+
+
+# define PI 3.14159265
+
+# define ESC 65307
+# define KEY_D 100
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_W 119
+# define TAM_Y_P 32
+# define TAM_X_P 32
+
 
 enum	direction
 {
@@ -67,6 +81,10 @@ typedef struct s_player
 	int x;
 	int y;
 	int direction;
+	int FOV;
+	int pdx;
+	int pdy;
+	int pa;
 }	t_player;
 
 typedef struct s_game
@@ -137,7 +155,7 @@ bool flood_fill(t_game *game, int c_col, int c_row);
 void start_window(t_game *game);
 void load_wall(t_game *game);
 t_img	load_img(t_game *game, int texture);
-
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 // Garabe Collector
 void garabe_collector(t_game *game);
