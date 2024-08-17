@@ -5,9 +5,9 @@
 void test_player(t_game *game, int color)
 {
 
-	for(int i = 0; i < TAM_X_P - 24; i++)
+	for(int i = 0; i < TAM_P; i++)
 	{
-		for(int j = 0; j < TAM_Y_P - 24; j++)
+		for(int j = 0; j < TAM_P; j++)
 		{
 			my_mlx_pixel_put(&game->canva, game->player.x + i, game->player.y + j, color);
 		}
@@ -19,28 +19,50 @@ int	key_event(int keycode, t_game *game)
 	if(keycode == KEY_W)
 	{
 		test_player(game,0xfdfdfd);
-		game->player.y -= TAM_Y_P - 24;
+	
+		game->player.y -= TAM_P;
+		game->player.ry =  game->player.y / TAM_Y_P;
+		printf("Player ry: %d\n",game->player.ry);
+		printf("Player rx: %d\n",game->player.rx);
+		printf("Player x: %d\n",game->player.x);
+		printf("Player y: %d\n",game->player.y);
 		test_player(game,0xcb1313);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 	}
 	if(keycode == KEY_S)
 	{
 		test_player(game,0xfdfdfd);
-		game->player.y += TAM_Y_P - 24;
+		game->player.y += TAM_P ;
+		game->player.ry =  game->player.y / TAM_Y_P;
+		printf("Player ry: %d\n",game->player.ry);
+		printf("Player rx: %d\n",game->player.rx);
+		printf("Player x: %d\n",game->player.x);
+		printf("Player y: %d\n",game->player.y);
 		test_player(game,0xcb1313);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 	}
 	if(keycode == KEY_D)
 	{
+
 		test_player(game,0xfdfdfd);
-		game->player.x += TAM_X_P - 24;
+		game->player.x += TAM_P;
+		game->player.rx = game->player.x / TAM_X_P;
+		printf("Player ry: %d\n",game->player.ry);
+		printf("Player rx: %d\n",game->player.rx);
+		printf("Player x: %d\n",game->player.x);
+		printf("Player y: %d\n",game->player.y);
 		test_player(game,0xcb1313);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 	}
 	if(keycode == KEY_A)
 	{
 		test_player(game,0xfdfdfd);
-		game->player.x -= TAM_X_P - 24;
+		game->player.x -= TAM_P;
+		game->player.rx = game->player.x / TAM_X_P;
+		printf("Player ry: %d\n",game->player.ry);
+		printf("Player rx: %d\n",game->player.rx);
+		printf("Player x: %d\n",game->player.x);
+		printf("Player y: %d\n",game->player.y);
 		test_player(game,0xcb1313);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 	}
@@ -56,10 +78,10 @@ void draw(int x,int y, int color, t_game *game)
 	int j;
 
 	i = 0;
-	while(i <= TAM_X_P)
+	while(i < TAM_X_P)
 	{
 		j = 0;
-		while(j <= TAM_Y_P)
+		while(j < TAM_Y_P)
 		{
 			my_mlx_pixel_put(&game->canva, x + i, y + j, color);
 			j++;
@@ -91,8 +113,21 @@ void draw_map(t_game *game)
 		{
 			if(game->map[i][j] == '1')
 				draw(x,y,808080,game);
-			else if(game->map[i][j] == '0' || game->map[i][j] == 'N')
-				draw(x,y,0xfdfdfd,game);		
+			else if(game->map[i][j] == '0')
+				draw(x,y,0xfdfdfd,game);
+			else if(game->map[i][j] == 'N')
+			{
+				game->player.x = x;
+				game->player.y = y;
+				game->player.rx = j;
+				game->player.ry = i;
+				printf("Player x: %d\n",game->player.x);
+				printf("Player y: %d\n",game->player.y);
+				printf("Player rx: %d\n",game->player.rx);
+				printf("Player ry: %d\n",game->player.ry);
+				draw(x,y,0xfdfdfd,game);
+			}
+				
 			j++;
 			x += TAM_X_P;
 		}
@@ -102,26 +137,25 @@ void draw_map(t_game *game)
 	}
 }
 
+
 void start_window(t_game *game)
 {
 
     game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, 1280, 720, "Cub3D");
-	game->canva.img = mlx_new_image(game->mlx, 1280,720);
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
+	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
 	game->canva.addr = mlx_get_data_addr(game->canva.img,
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
 
 	load_wall(game);
-	
+	game->player.x = 400;
+	game->player.y = 400;
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
-
-	
-	game->player.direction = 0;
-	game->player.FOV = 60;
+	game->player.direction = NORTH;
 	draw_map(game);
-	test_player(game,0xcb1313);
+	test_player(game,0xcb1313);	
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	mlx_hook(game->win, 2, 1L << 0, key_event, game);
 	mlx_loop(game->mlx);

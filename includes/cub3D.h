@@ -20,9 +20,16 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_W 119
+# define L_AR 65361
+# define R_AR 65363
+# define FOV 60
+
+#define WIDTH 1280
+#define HEIGHT 720
 # define TAM_Y_P 32
 # define TAM_X_P 32
 
+#define TAM_P  8
 
 enum	direction
 {
@@ -81,9 +88,8 @@ typedef struct s_player
 	int x;
 	int y;
 	int direction;
-	int FOV;
-	int pdx;
-	int pdy;
+	int ry;
+	int rx;
 	int pa;
 }	t_player;
 
