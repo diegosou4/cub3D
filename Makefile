@@ -9,7 +9,7 @@ RED = \033[31m
 PARSER = init_parse.c join_map.c check_directions.c filled_map.c \
 		 check_map.c flood_fill.c
 GARBAGE = free_structs.c free_mlx.c
-DRAW = start_mlx.c
+DRAW = start_mlx.c pixel.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 		ft_len_darray.c ft_whitespaces.c ft_atoi.c ft_freedarray.c \
@@ -26,7 +26,7 @@ SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT) $(SRC_GARBAGE) $(SRC_DRAW)
 CFLAGS = -g -I./ #-Wall -Wextra -Werror
 CC = cc
 LIB = minilibx-linux/libmlx_Linux.a
-LIBFLAGS = -lXext -lX11
+LIBFLAGS = -lXext -lX11 -lm
 
 SRCOBJ = obj/
 OBJ = $(addprefix $(SRCOBJ), $(SRC:./src/%.c=%.o))

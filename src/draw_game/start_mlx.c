@@ -2,76 +2,6 @@
 
 #include "../../includes/cub3D.h"
 
-void test_player(t_game *game, int color)
-{
-
-	for(int i = 0; i < TAM_P; i++)
-	{
-		for(int j = 0; j < TAM_P; j++)
-		{
-			my_mlx_pixel_put(&game->canva, game->player.x + i, game->player.y + j, color);
-		}
-	}
-}
-
-int	key_event(int keycode, t_game *game)
-{
-	if(keycode == KEY_W)
-	{
-		test_player(game,0xfdfdfd);
-	
-		game->player.y -= TAM_P;
-		game->player.ry =  game->player.y / TAM_Y_P;
-		printf("Player ry: %d\n",game->player.ry);
-		printf("Player rx: %d\n",game->player.rx);
-		printf("Player x: %d\n",game->player.x);
-		printf("Player y: %d\n",game->player.y);
-		test_player(game,0xcb1313);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == KEY_S)
-	{
-		test_player(game,0xfdfdfd);
-		game->player.y += TAM_P ;
-		game->player.ry =  game->player.y / TAM_Y_P;
-		printf("Player ry: %d\n",game->player.ry);
-		printf("Player rx: %d\n",game->player.rx);
-		printf("Player x: %d\n",game->player.x);
-		printf("Player y: %d\n",game->player.y);
-		test_player(game,0xcb1313);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == KEY_D)
-	{
-
-		test_player(game,0xfdfdfd);
-		game->player.x += TAM_P;
-		game->player.rx = game->player.x / TAM_X_P;
-		printf("Player ry: %d\n",game->player.ry);
-		printf("Player rx: %d\n",game->player.rx);
-		printf("Player x: %d\n",game->player.x);
-		printf("Player y: %d\n",game->player.y);
-		test_player(game,0xcb1313);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == KEY_A)
-	{
-		test_player(game,0xfdfdfd);
-		game->player.x -= TAM_P;
-		game->player.rx = game->player.x / TAM_X_P;
-		printf("Player ry: %d\n",game->player.ry);
-		printf("Player rx: %d\n",game->player.rx);
-		printf("Player x: %d\n",game->player.x);
-		printf("Player y: %d\n",game->player.y);
-		test_player(game,0xcb1313);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == ESC)
-	{
-		printf("ESC\n");
-		exit(0);
-	}
-}
 void draw(int x,int y, int color, t_game *game)
 {
 	int i;
@@ -90,7 +20,7 @@ void draw(int x,int y, int color, t_game *game)
 	}
 }
 
-void draw_map(t_game *game)
+void draw_map(t_game *game, int ftime)
 {
 	int i;
 	int j;
@@ -117,17 +47,15 @@ void draw_map(t_game *game)
 				draw(x,y,0xfdfdfd,game);
 			else if(game->map[i][j] == 'N')
 			{
-				game->player.x = x;
-				game->player.y = y;
-				game->player.rx = j;
-				game->player.ry = i;
-				printf("Player x: %d\n",game->player.x);
-				printf("Player y: %d\n",game->player.y);
-				printf("Player rx: %d\n",game->player.rx);
-				printf("Player ry: %d\n",game->player.ry);
+				if(ftime == 0)
+				{
+					game->player.rx = j;
+					game->player.ry = i;
+					game->player.x = x;
+					game->player.y = y;
+				}
 				draw(x,y,0xfdfdfd,game);
-			}
-				
+			}	
 			j++;
 			x += TAM_X_P;
 		}
@@ -136,6 +64,120 @@ void draw_map(t_game *game)
 		i++;
 	}
 }
+
+void test_player(t_game *game, int color)
+{
+
+	for(int i = 0; i < TAM_P; i++)
+	{
+		for(int j = 0; j < TAM_P; j++)
+		{
+			my_mlx_pixel_put(&game->canva, game->player.x + i, game->player.y + j, color);
+		}
+	}
+}
+
+
+void draw_ray(t_game *game)
+{
+	float x;
+	float y;
+	float dir_x;
+	float dir_y;
+
+	x = game->player.x + (TAM_P / 2);
+	y = game->player.y + (TAM_P / 2);
+
+	dir_x = cos(game->player.direction);
+	dir_y = sin(game->player.direction);
+
+	while (game->map[(int)(y / TAM_Y_P)][(int)(x / TAM_X_P)] != '1')
+	{
+		x += dir_x;
+		y += dir_y ;
+		my_mlx_pixel_put(&game->canva, (int)x, (int)y, 0x008000);
+	}
+}
+
+
+int	key_event(int keycode, t_game *game)
+{
+	if(keycode == KEY_W)
+	{
+		draw_map(game,1);
+		game->player.y -= TAM_P;
+		game->player.ry =  game->player.y / TAM_Y_P;
+		test_player(game,0xcb1313);
+		draw_ray(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
+	}
+	if(keycode == KEY_S)
+	{
+		draw_map(game,1);
+		game->player.y += TAM_P ;
+		game->player.ry =  game->player.y / TAM_Y_P;
+		draw_ray(game);
+		test_player(game,0xcb1313);
+
+		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
+	}
+	if(keycode == KEY_D)
+	{
+		draw_map(game,1);
+		game->player.x += TAM_P;
+		game->player.rx = game->player.x / TAM_X_P;
+		
+		test_player(game,0xcb1313);
+		draw_ray(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
+	}
+	if(keycode == KEY_A)
+	{
+		draw_map(game,1);
+		game->player.x -= TAM_P;
+		game->player.rx = game->player.x / TAM_X_P;
+		test_player(game,0xcb1313);
+		draw_ray(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
+	}
+	if(keycode == ESC)
+	{
+		printf("ESC\n");
+		exit(0);
+	}
+	if(keycode == L_AR)
+	{
+		draw_map(game,1);
+		game->player.direction += 0.1;
+		test_player(game,0xcb1313);
+		draw_ray(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
+	}
+	if(keycode == R_AR)
+	{
+		draw_map(game,1);
+		game->player.direction -= 0.1;
+		test_player(game,0xcb1313);
+		draw_ray(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
+	};
+	printf("x = %d y = %d rx e ry\n",game->player.rx,game->player.ry);
+	if(game->map[game->player.ry][game->player.rx] == '1')
+	{
+		printf("bateu\n");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 void start_window(t_game *game)
@@ -150,11 +192,10 @@ void start_window(t_game *game)
 			&game->canva.endian);
 
 	load_wall(game);
-	game->player.x = 400;
-	game->player.y = 400;
+	game->player.direction = 45;
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
-	game->player.direction = NORTH;
-	draw_map(game);
+	draw_map(game,0);
+	draw_ray(game);
 	test_player(game,0xcb1313);	
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	mlx_hook(game->win, 2, 1L << 0, key_event, game);

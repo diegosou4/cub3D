@@ -12,7 +12,11 @@
 #include "../minilibx-linux/mlx.h"
 
 
-# define PI 3.14159265
+
+
+#define M_PI 3.14159265358979323846
+
+
 
 # define ESC 65307
 # define KEY_D 100
@@ -22,6 +26,8 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
+
+
 # define FOV 60
 
 #define WIDTH 1280
@@ -87,7 +93,7 @@ typedef struct s_player
 {
 	int x;
 	int y;
-	int direction;
+	double direction;
 	int ry;
 	int rx;
 	int pa;
