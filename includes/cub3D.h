@@ -94,6 +94,7 @@ typedef struct s_player
 	int x;
 	int y;
 	double direction;
+	double angle;
 	int ry;
 	int rx;
 	int pa;
