@@ -20,6 +20,30 @@ void draw(int x,int y, int color, t_game *game)
 	}
 }
 
+void define_direction(t_game *game , char direction)
+{
+	if (direction == 'N')
+	{
+		game->player.direction = A_NORTH;
+		game->player.angle = 270 - 60;
+	}
+	else if (direction == 'S')
+	{
+		game->player.direction = A_SOUTH;
+		game->player.angle = 270 - 60;;
+	}
+	else if (direction == 'W')
+	{
+		game->player.direction = A_WEST;
+		game->player.angle = 270 - 60;;
+	}
+	else if (direction == 'E')
+	{
+		game->player.direction = A_EAST;
+		game->player.angle = 260;
+	}
+}
+
 void draw_map(t_game *game, int ftime)
 {
 	int i;
@@ -32,9 +56,7 @@ void draw_map(t_game *game, int ftime)
 
 	while(game->map[size] != NULL)
 		size++;
-
 	i = 0;
-
 	while (i < size)
 	{
 		x = 0;
@@ -45,10 +67,11 @@ void draw_map(t_game *game, int ftime)
 				draw(x,y,808080,game);
 			else if(game->map[i][j] == '0')
 				draw(x,y,0xfdfdfd,game);
-			else if(game->map[i][j] == 'N')
+			else if(game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'W' || game->map[i][j] == 'E')
 			{
 				if(ftime == 0)
 				{
+					define_direction(game,game->map[i][j]);
 					game->player.rx = j;
 					game->player.ry = i;
 					game->player.x = x;
@@ -107,36 +130,15 @@ int	key_event(int keycode, t_game *game)
 {
 
 	player_mov(game, keycode);
+	printf("keycode: %d\n", keycode);
 	if(keycode == ESC)
 	{
 		printf("ESC\n");
 		exit(0);
 	}
-	if(keycode == L_AR)
-	{
-		draw_map(game,1);
-		game->player.direction += 1;
-		if(game->player.direction > 360)
-			game->player.direction = 0;
-		test_player(game,0xcb1313);
-		game->player.angle =  290 + game->player.direction;
-		draw_ray(game, game->player.angle);
-		draw_ray(game, game->player.direction);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == R_AR)
-	{
-		draw_map(game,1);
-		game->player.direction -= 1;
-		if(game->player.direction < 0)
-			game->player.direction = 360;
-		test_player(game,0xcb1313);
-		game->player.angle =  290 + game->player.direction;
-		draw_ray(game, game->player.angle);
-		draw_ray(game, game->player.direction);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	printf("Angulo: %f\n", game->player.direction);
+
+	printf("Direcao: %f\n", game->player.direction);
+	printf("Angulo: %f\n", game->player.angle);
 	if(game->map[game->player.ry][game->player.rx] == '1')
 		printf("bateu\n");
 }
@@ -160,9 +162,6 @@ void start_window(t_game *game)
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	
 	draw_map(game,0);
-	game->player.direction = 10;
-	game->player.angle =  290 + game->player.direction;
-	printf("Angulo: %f\n", game->player.angle);
 	draw_ray(game, game->player.direction);
 	draw_ray(game, game->player.angle);
 	test_player(game,0xcb1313);	

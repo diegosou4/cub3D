@@ -12,51 +12,7 @@
 #include "../minilibx-linux/mlx.h"
 
 
-
-
-#define M_PI 3.14159265358979323846
-
-
-
-# define ESC 65307
-# define KEY_D 100
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_W 119
-# define L_AR 65361
-# define R_AR 65363
-
-
-# define FOV 60
-
-#define WIDTH 1280
-#define HEIGHT 720
-# define TAM_Y_P 32
-# define TAM_X_P 32
-
-#define TAM_P  8
-
-enum	direction
-{
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST
-};
-
-enum 	rbgtexture
-{
-	F,
-	C
-};
-
-enum option
-{
-	PARSE,
-	FINAL,
-	FLOOD
-};
+#include "macros.h"
 
 
 typedef struct s_img
@@ -169,15 +125,17 @@ void start_window(t_game *game);
 void load_wall(t_game *game);
 t_img	load_img(t_game *game, int texture);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-
 void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
+
 // Moviment
 
 int player_mov(t_game *game, int keycode);
 int key_da(t_game *game, int keycode);
 int key_ws(t_game *game, int keycode);
+int key_l(t_game *game, int keycode);
+int key_r(t_game *game, int keycode);
 // Garabe Collector
 void garabe_collector(t_game *game);
 void print_free(t_game *game, char *errostr);
