@@ -170,6 +170,14 @@ void load_wall(t_game *game);
 t_img	load_img(t_game *game, int texture);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
+void draw_ray(t_game *game, double angle);
+void draw_map(t_game *game, int ftime);
+void test_player(t_game *game, int color);
+// Moviment
+
+int player_mov(t_game *game, int keycode);
+int key_da(t_game *game, int keycode);
+int key_ws(t_game *game, int keycode);
 // Garabe Collector
 void garabe_collector(t_game *game);
 void print_free(t_game *game, char *errostr);

@@ -9,7 +9,7 @@ RED = \033[31m
 PARSER = init_parse.c join_map.c check_directions.c filled_map.c \
 		 check_map.c flood_fill.c
 GARBAGE = free_structs.c free_mlx.c
-DRAW = start_mlx.c pixel.c
+DRAW = start_mlx.c pixel.c mov.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 		ft_len_darray.c ft_whitespaces.c ft_atoi.c ft_freedarray.c \

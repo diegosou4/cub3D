@@ -105,48 +105,8 @@ void draw_ray(t_game *game, double angle)
 
 int	key_event(int keycode, t_game *game)
 {
-	if(keycode == KEY_W)
-	{
-		draw_map(game,1);
-		game->player.y -= TAM_P;
-		game->player.ry =  game->player.y / TAM_Y_P;
-		test_player(game,0xcb1313);
-		draw_ray(game, game->player.angle);
-		draw_ray(game, game->player.direction);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == KEY_S)
-	{
-		draw_map(game,1);
-		game->player.y += TAM_P ;
-		game->player.ry =  game->player.y / TAM_Y_P;
-		draw_ray(game, game->player.angle);
-		draw_ray(game, game->player.direction);
-		test_player(game,0xcb1313);
 
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == KEY_D)
-	{
-		draw_map(game,1);
-		game->player.x += TAM_P;
-		game->player.rx = game->player.x / TAM_X_P;
-		
-		test_player(game,0xcb1313);
-		draw_ray(game, game->player.angle);
-		draw_ray(game, game->player.direction);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
-	if(keycode == KEY_A)
-	{
-		draw_map(game,1);
-		game->player.x -= TAM_P;
-		game->player.rx = game->player.x / TAM_X_P;
-		test_player(game,0xcb1313);
-		draw_ray(game, game->player.angle);
-		draw_ray(game, game->player.direction);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-	}
+	player_mov(game, keycode);
 	if(keycode == ESC)
 	{
 		printf("ESC\n");
@@ -200,7 +160,7 @@ void start_window(t_game *game)
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	
 	draw_map(game,0);
-	game->player.direction = 180;
+	game->player.direction = 10;
 	game->player.angle =  290 + game->player.direction;
 	printf("Angulo: %f\n", game->player.angle);
 	draw_ray(game, game->player.direction);
