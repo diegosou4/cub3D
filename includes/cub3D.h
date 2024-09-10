@@ -128,7 +128,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
-
+void draw_allray(t_game *game);
 // Moviment
 
 int player_mov(t_game *game, int keycode);
@@ -140,6 +140,7 @@ int key_r(t_game *game, int keycode);
 void garabe_collector(t_game *game);
 void print_free(t_game *game, char *errostr);
 void free_map_info(t_game *game);
+void free_ff_map(t_game *game);
 void free_walls(t_game *game, int texture);
 void destroy_game(t_game *game);
 #endif

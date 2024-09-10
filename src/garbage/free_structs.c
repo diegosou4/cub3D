@@ -1,15 +1,23 @@
 #include "../../includes/cub3D.h"
 
+void free_ff_map(t_game *game)
+{
+    if(game->ff_map != NULL)
+        ft_freedarray(game->ff_map);
+}
+
 void free_map_info(t_game *game)
 {
     if(game->map_info != NULL)
         ft_freedarray(game->map_info);
+    free_ff_map(game);
 }
 void free_flood_map(t_game *game)
 {
     if(game->ff_map != NULL)
         ft_freedarray(game->ff_map);
 }
+
 
 void free_game(t_game *game)
 {
