@@ -30,12 +30,12 @@ void define_direction(t_game *game , char direction)
 	else if (direction == 'S')
 	{
 		game->player.direction = A_SOUTH;
-		game->player.angle = 270 - FOV;;
+		game->player.angle = 90 - FOV;;
 	}
 	else if (direction == 'W')
 	{
 		game->player.direction = A_WEST;
-		game->player.angle = 270 - FOV;;
+		game->player.angle = 180 - FOV;;
 	}
 	else if (direction == 'E')
 	{
@@ -107,10 +107,9 @@ void draw_ray(t_game *game, double angle)
 	float y;
 	float dir_x;
 	float dir_y;
-	
+
 	x = game->player.x + (TAM_P / 2);
 	y = game->player.y + (TAM_P / 2);
-
 	dir_x = cos(angle * (M_PI / 180));
 	dir_y = sin(angle * (M_PI / 180));
 
@@ -121,21 +120,41 @@ void draw_ray(t_game *game, double angle)
 		my_mlx_pixel_put(&game->canva, (int)x, (int)y, 0x008000);
 	}
 }
+void draw_allray(t_game *game)
+{
+	double angle;
+	double direction;
+
+	angle = game->player.angle;
+	direction = game->player.direction;
+	if(direction < 60)
+	{
+		angle = 0;
+		while (angle != direction)
+		{
+			draw_ray(game, angle);
+			angle += 1;
+		}
+		direction = 360;
+	}
+	angle = game->player.angle;
+	while(angle != direction)
+	{
+		draw_ray(game, angle);
+		angle += 1;
+	}
+}
 // Corigir angulos
 
 int	key_event(int keycode, t_game *game)
 {
 
 	player_mov(game, keycode);
-	printf("keycode: %d\n", keycode);
 	if(keycode == ESC)
 	{
 		printf("ESC\n");
 		exit(0);
 	}
-
-	printf("Direcao: %f\n", game->player.direction);
-	printf("Angulo: %f\n", game->player.angle);
 	if(game->map[game->player.ry][game->player.rx] == '1')
 		printf("bateu\n");
 }
@@ -159,8 +178,7 @@ void start_window(t_game *game)
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	
 	draw_map(game,0);
-	draw_ray(game, game->player.direction);
-	draw_ray(game, game->player.angle);
+	draw_allray(game);
 	test_player(game,0xcb1313);	
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	mlx_hook(game->win, 2, 1L << 0, key_event, game);
