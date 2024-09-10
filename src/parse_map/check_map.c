@@ -85,7 +85,6 @@ void check_middle(t_game *game, int end)
         }
         col++;
     }
-    free_ff_map(game);
 }
 
 int count_x(t_game *game)

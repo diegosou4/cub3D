@@ -40,7 +40,7 @@ void define_direction(t_game *game , char direction)
 	else if (direction == 'E')
 	{
 		game->player.direction = A_EAST;
-		game->player.angle = 260;
+		game->player.angle = 300;
 	}
 }
 
@@ -127,6 +127,8 @@ void draw_allray(t_game *game)
 
 	angle = game->player.angle;
 	direction = game->player.direction;
+	printf("direction %f\n",direction);
+	printf("angle %f\n",angle);
 	if(direction < 60)
 	{
 		angle = 0;
