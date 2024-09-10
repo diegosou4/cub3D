@@ -71,7 +71,7 @@ int key_l(t_game *game, int keycode)
         if(game->player.direction < 60)
             game->player.angle = 300 + game->player.direction;
         else
-            game->player.angle =  game->player.direction - 60;
+            game->player.angle =  game->player.direction - FOV;
 		draw_ray(game, game->player.angle);
 		draw_ray(game, game->player.direction);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
@@ -86,7 +86,7 @@ int key_r(t_game *game, int keycode)
         if(game->player.direction < 60)
             game->player.angle = 300 + game->player.direction;
         else
-            game->player.angle =  game->player.direction - 60;
+            game->player.angle =  game->player.direction - FOV;
         draw_ray(game, game->player.angle);
         draw_ray(game, game->player.direction);
         mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);

@@ -25,17 +25,17 @@ void define_direction(t_game *game , char direction)
 	if (direction == 'N')
 	{
 		game->player.direction = A_NORTH;
-		game->player.angle = 270 - 60;
+		game->player.angle = 270 - FOV;
 	}
 	else if (direction == 'S')
 	{
 		game->player.direction = A_SOUTH;
-		game->player.angle = 270 - 60;;
+		game->player.angle = 270 - FOV;;
 	}
 	else if (direction == 'W')
 	{
 		game->player.direction = A_WEST;
-		game->player.angle = 270 - 60;;
+		game->player.angle = 270 - FOV;;
 	}
 	else if (direction == 'E')
 	{
@@ -53,7 +53,6 @@ void draw_map(t_game *game, int ftime)
 	x = 0;
 	y = 0;
 	int size = 0;
-
 	while(game->map[size] != NULL)
 		size++;
 	i = 0;
@@ -82,7 +81,6 @@ void draw_map(t_game *game, int ftime)
 			j++;
 			x += TAM_X_P;
 		}
-	
 		y += TAM_Y_P;
 		i++;
 	}
@@ -115,9 +113,8 @@ void draw_ray(t_game *game, double angle)
 
 	dir_x = cos(angle * (M_PI / 180));
 	dir_y = sin(angle * (M_PI / 180));
-	printf("dir_x: %f\n", dir_x);
-	printf("dir_y: %f\n", dir_y);
-	while (game->map[(int)(y / TAM_Y_P)][(int)(x / TAM_X_P)] != '1')
+
+	while (ft_strrchr("0NSWE",game->map[(int)y / TAM_Y_P][(int)x / TAM_X_P]) == 1)
 	{
 		x += dir_x;
 		y += dir_y ;
