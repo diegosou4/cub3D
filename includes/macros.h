@@ -16,7 +16,7 @@
 # define R_AR 65363
 
 
-# define FOV 60
+# define FOV 66
 
 #define WIDTH 1280
 #define HEIGHT 720

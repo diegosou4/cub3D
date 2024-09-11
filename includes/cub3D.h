@@ -45,12 +45,15 @@ typedef struct s_color
 	bool filled;
 }	t_color;
 
+
 typedef struct s_player
 {
 	int x;
 	int y;
 	double direction;
 	double angle;
+	float deltax;
+	float deltay;
 	int ry;
 	int rx;
 	int pa;

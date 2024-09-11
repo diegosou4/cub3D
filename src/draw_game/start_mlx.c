@@ -105,18 +105,16 @@ void draw_ray(t_game *game, double angle)
 {
 	float x;
 	float y;
-	float dir_x;
-	float dir_y;
 
 	x = game->player.x + (TAM_P / 2);
 	y = game->player.y + (TAM_P / 2);
-	dir_x = cos(angle * (M_PI / 180));
-	dir_y = sin(angle * (M_PI / 180));
+	game->player.deltax = cos(angle * (M_PI / 180));
+	game->player.deltay = sin(angle * (M_PI / 180));
 
 	while (ft_strrchr("0NSWE",game->map[(int)y / TAM_Y_P][(int)x / TAM_X_P]) == 1)
 	{
-		x += dir_x;
-		y += dir_y ;
+		x += game->player.deltax;
+		y +=  game->player.deltay;
 		my_mlx_pixel_put(&game->canva, (int)x, (int)y, 0x008000);
 	}
 }
@@ -127,15 +125,13 @@ void draw_allray(t_game *game)
 
 	angle = game->player.angle;
 	direction = game->player.direction;
-	printf("direction %f\n",direction);
-	printf("angle %f\n",angle);
 	if(direction < 60)
 	{
 		angle = 0;
 		while (angle != direction)
 		{
 			draw_ray(game, angle);
-			angle += 1;
+			angle += 0.5;
 		}
 		direction = 360;
 	}
@@ -143,7 +139,7 @@ void draw_allray(t_game *game)
 	while(angle != direction)
 	{
 		draw_ray(game, angle);
-		angle += 1;
+		angle += 0.5;
 	}
 }
 // Corigir angulos
