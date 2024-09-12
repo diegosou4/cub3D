@@ -14,9 +14,9 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
+#define DIST_PROJ_PLANE 277 
 
-
-# define FOV 66
+# define FOV 60
 
 #define WIDTH 1280
 #define HEIGHT 720

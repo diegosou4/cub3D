@@ -40,7 +40,7 @@ void define_direction(t_game *game , char direction)
 	else if (direction == 'E')
 	{
 		game->player.direction = A_EAST;
-		game->player.angle = 300;
+		game->player.angle = 360 - FOV;;
 	}
 }
 
@@ -105,6 +105,7 @@ void draw_ray(t_game *game, double angle)
 {
 	float x;
 	float y;
+	float distance;
 
 	x = game->player.x + (TAM_P / 2);
 	y = game->player.y + (TAM_P / 2);
@@ -118,6 +119,7 @@ void draw_ray(t_game *game, double angle)
 		my_mlx_pixel_put(&game->canva, (int)x, (int)y, 0x008000);
 	}
 }
+
 void draw_allray(t_game *game)
 {
 	double angle;
@@ -125,13 +127,13 @@ void draw_allray(t_game *game)
 
 	angle = game->player.angle;
 	direction = game->player.direction;
-	if(direction < 60)
+	if(direction < FOV)
 	{
 		angle = 0;
 		while (angle != direction)
 		{
 			draw_ray(game, angle);
-			angle += 0.5;
+			angle += 1;
 		}
 		direction = 360;
 	}
@@ -139,7 +141,7 @@ void draw_allray(t_game *game)
 	while(angle != direction)
 	{
 		draw_ray(game, angle);
-		angle += 0.5;
+		angle += 1;
 	}
 }
 // Corigir angulos
