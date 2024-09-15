@@ -62,38 +62,20 @@ int key_da(t_game *game, int keycode)
 int key_l(t_game *game, int keycode)
 {
     	draw_map(game,1);
-        printf("Angle: %f\n",game->player.angle);
-        printf("Direction %f\n",game->player.direction);
 		game->player.direction += 1;
-        
 		if(game->player.direction > 360)
 			game->player.direction = 0;
 		test_player(game,0xcb1313);
-        if(game->player.direction < 60)
-            game->player.angle = 300 + game->player.direction;
-        else
-            game->player.angle =  game->player.direction - FOV;
-        printf("After Angle: %f\n",game->player.angle);
-        printf("After Direction %f\n",game->player.direction);
         draw_allray(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 }
 int key_r(t_game *game, int keycode)
 {
     	draw_map(game,1);
-        printf("Angle: %f\n",game->player.angle);
-        printf("Direction %f\n",game->player.direction);
         game->player.direction -= 1;
         if(game->player.direction < 0)
             game->player.direction = 360;
         test_player(game,0xcb1313);
-        if(game->player.direction < 60)
-            game->player.angle = 300 + game->player.direction;
-        else
-            game->player.angle =  game->player.direction - FOV;
-
-        printf("After Angle: %f\n",game->player.angle);
-        printf("After Direction %f\n",game->player.direction);
         draw_allray(game);
         mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 }

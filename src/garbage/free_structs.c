@@ -33,7 +33,7 @@ void free_texture(t_game *game)
     while(i != 4)
     {
         if(game->wall[i].texture.relative_path != NULL)
-        free(game->wall[i].texture.relative_path);
+            free(game->wall[i].texture.relative_path);
         i++;
     }
 }
@@ -52,8 +52,13 @@ void garabe_collector(t_game *game)
           free_flood_map(game);
     }
     else if(game->status_free == FINAL)
+    {
+        free_ff_map(game);
         free_map(game);
-    free_texture(game);
+    }
+    printf("Chego aqui");
+    // free_texture(game);
+    free_walls(game,4);
     free_game(game);
 }
 

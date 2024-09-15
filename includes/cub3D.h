@@ -46,12 +46,18 @@ typedef struct s_color
 }	t_color;
 
 
+typedef struct s_camera
+{
+	double x;
+	double y;
+	double z;
+} t_camera;
+
 typedef struct s_player
 {
 	int x;
 	int y;
 	double direction;
-	double angle;
 	float deltax;
 	float deltay;
 	int ry;

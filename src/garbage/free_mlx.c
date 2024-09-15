@@ -6,7 +6,11 @@ void free_walls(t_game *game, int texture)
     while(texture >= 0 && texture < 4)
     {
         if(game->wall[texture].texture.relative_path != NULL)
+        {
             mlx_destroy_image(game->mlx, game->wall[texture].texture.img);
+            free(game->wall[texture].texture.relative_path);
+        }
+            
         texture--;
     }
 }

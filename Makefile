@@ -47,6 +47,9 @@ fclean: clean
 	@echo "$(BOLD)$(RED)Deleting $(NAME)!$(RESET)"
 	@rm -rf $(NAME)
 
+valgrind: 
+	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all  ./cub3D map/example.cub
+	
 re: fclean all
 
 .PHONY	: re fclean clean all

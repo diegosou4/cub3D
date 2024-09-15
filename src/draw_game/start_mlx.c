@@ -23,25 +23,13 @@ void draw(int x,int y, int color, t_game *game)
 void define_direction(t_game *game , char direction)
 {
 	if (direction == 'N')
-	{
 		game->player.direction = A_NORTH;
-		game->player.angle = 270 - FOV;
-	}
 	else if (direction == 'S')
-	{
 		game->player.direction = A_SOUTH;
-		game->player.angle = 90 - FOV;;
-	}
 	else if (direction == 'W')
-	{
 		game->player.direction = A_WEST;
-		game->player.angle = 180 - FOV;;
-	}
 	else if (direction == 'E')
-	{
 		game->player.direction = A_EAST;
-		game->player.angle = 360 - FOV;;
-	}
 }
 
 void draw_map(t_game *game, int ftime)
@@ -101,7 +89,7 @@ void test_player(t_game *game, int color)
 
 
 
-void draw_ray(t_game *game, double angle)
+void  	draw_ray(t_game *game, double angle)
 {
 	float x;
 	float y;
@@ -122,26 +110,16 @@ void draw_ray(t_game *game, double angle)
 
 void draw_allray(t_game *game)
 {
+	int i; 
 	double angle;
-	double direction;
 
-	angle = game->player.angle;
-	direction = game->player.direction;
-	if(direction < FOV)
+	i = 0;
+
+	angle = game->player.direction - FOV / 2;
+	while( angle != game->player.direction + FOV / 2)
 	{
-		angle = 0;
-		while (angle != direction)
-		{
-			draw_ray(game, angle);
-			angle += 1;
-		}
-		direction = 360;
-	}
-	angle = game->player.angle;
-	while(angle != direction)
-	{
-		draw_ray(game, angle);
-		angle += 1;
+		draw_ray(game,angle);
+		angle++;
 	}
 }
 // Corigir angulos
@@ -152,6 +130,10 @@ int	key_event(int keycode, t_game *game)
 	player_mov(game, keycode);
 	if(keycode == ESC)
 	{
+		game->status_free = FINAL;
+		printf("Status game %i", game->status_free);
+
+		garabe_collector(game);
 		printf("ESC\n");
 		exit(0);
 	}
@@ -178,6 +160,8 @@ void start_window(t_game *game)
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	
 	draw_map(game,0);
+	draw_ray(game,game->player.direction);
+	// draw_allray(game);
 	draw_allray(game);
 	test_player(game,0xcb1313);	
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
