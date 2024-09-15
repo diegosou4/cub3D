@@ -17,7 +17,7 @@
  
 
 # define FOV 66
-
+#define RED 0xFF0000
 #define WIDTH 1280
 #define HEIGHT 720
 

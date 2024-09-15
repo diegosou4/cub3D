@@ -48,19 +48,22 @@ typedef struct s_color
 
 typedef struct s_camera
 {
-	double x;
-	double y;
-	double z;
+	double PlaneX;
+	double PlaneY;
 } t_camera;
+
 
 typedef struct s_player
 {
-	int x;
+	int x; // Posicao do player no **map_info
 	int y;
 	double direction;
 	float deltax;
 	float deltay;
-	int ry;
+	t_camera camera;
+	double dirX;
+	double dirY;
+	int ry; // Posicao do player no mapa em sy e sx
 	int rx;
 	int pa;
 }	t_player;
@@ -134,7 +137,7 @@ void start_window(t_game *game);
 void load_wall(t_game *game);
 t_img	load_img(t_game *game, int texture);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-void draw_ray(t_game *game, double angle);
+// void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
 void draw_allray(t_game *game);
