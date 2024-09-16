@@ -17,21 +17,21 @@ int player_mov(t_game *game, int keycode)
 int key_ws(t_game *game, int keycode)
 {
         if(keycode == KEY_S)
-             game->player.ry =  (game->player.y + TAM_P) / TAM_Y_P;
+             game->player.PosY =  (game->player.Py + TAM_P) / TAM_Y_P;
         else
-		    game->player.ry =  (game->player.y - TAM_P) / TAM_Y_P;
-    	if(game->map[game->player.ry][game->player.rx] == '1')
+		    game->player.PosY =  (game->player.Py - TAM_P) / TAM_Y_P;
+    	if(game->map[game->player.PosY][game->player.PosX] == '1')
 		{
-			game->player.ry =  game->player.y / TAM_Y_P;
+			game->player.PosY =  game->player.Py / TAM_Y_P;
 			return (0);
 		}
         if(keycode == KEY_S)
-            game->player.y += TAM_P;
+            game->player.Py += TAM_P;
         else
-            game->player.y -= TAM_P;
+            game->player.Py -= TAM_P;
         draw_map(game,1);
         test_player(game,0xcb1313);
-        // draw_allray(game);
+        draw_allray(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
         return(1);
 }
@@ -40,21 +40,21 @@ int key_ws(t_game *game, int keycode)
 int key_da(t_game *game, int keycode)
 {
         if(keycode == KEY_D)
-            game->player.rx =  (game->player.x + TAM_P) / TAM_X_P;
+            game->player.PosX = (game->player.Px + TAM_P) / TAM_X_P;
         else
-            game->player.rx =  (game->player.x - TAM_P) / TAM_X_P;
-    	if(game->map[game->player.ry][game->player.rx] == '1')
+            game->player.PosX = (game->player.Px - TAM_P) / TAM_X_P;
+    	if(game->map[game->player.PosY][game->player.PosX] == '1')
         {
-            game->player.rx =  game->player.x / TAM_X_P;
+            game->player.PosX = game->player.Px / TAM_X_P;
             return (0);
         }
         if (keycode == KEY_D)
-            game->player.x += TAM_P;
+            game->player.Px += TAM_P;
         else
-            game->player.x -= TAM_P;
+            game->player.Px -= TAM_P;
         draw_map(game,1);
         test_player(game,0xcb1313);
-        // draw_allray(game);
+        draw_allray(game);
         mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
         return(1);
 }
@@ -66,7 +66,7 @@ int key_l(t_game *game, int keycode)
 		if(game->player.direction > 360)
 			game->player.direction = 0;
 		test_player(game,0xcb1313);
-        // draw_allray(game);
+        draw_allray(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 }
 int key_r(t_game *game, int keycode)
@@ -76,6 +76,6 @@ int key_r(t_game *game, int keycode)
         if(game->player.direction < 0)
             game->player.direction = 360;
         test_player(game,0xcb1313);
-        // draw_allray(game);
+        draw_allray(game);
         mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 }

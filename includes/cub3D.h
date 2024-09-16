@@ -55,16 +55,16 @@ typedef struct s_camera
 
 typedef struct s_player
 {
-	int x; // Posicao do player no **map_info
-	int y;
+	int PosX; // Posicao do player no mapa em x e y
+	int PosY;
 	double direction;
 	float deltax;
 	float deltay;
 	t_camera camera;
 	double dirX;
 	double dirY;
-	int ry; // Posicao do player no mapa em sy e sx
-	int rx;
+	int Py; // Posicao em Pixel
+	int Px; 
 	int pa;
 }	t_player;
 

@@ -13,7 +13,7 @@ void draw(int x,int y, int color, t_game *game)
 		j = 0;
 		while(j < TAM_Y_P)
 		{
-			// my_mlx_pixel_put(&game->canva, x + i, y + j, color);
+			my_mlx_pixel_put(&game->canva, x + i, y + j, color);
 			j++;
 		}
 		i++;
@@ -59,10 +59,10 @@ void draw_map(t_game *game, int ftime)
 				if(ftime == 0)
 				{
 					define_direction(game,game->map[i][j]);
-					game->player.rx = j;
-					game->player.ry = i;
-					game->player.x = x;
-					game->player.y = y;
+					game->player.PosX = j;
+					game->player.PosY = i;
+					game->player.Px = x;
+					game->player.Py = y;
 				}
 				draw(x,y,0xfdfdfd,game);
 			}	
@@ -81,7 +81,7 @@ void test_player(t_game *game, int color)
 	{
 		for(int j = 0; j < TAM_P; j++)
 		{
-			// my_mlx_pixel_put(&game->canva, game->player.x + i, game->player.y + j, color);
+			my_mlx_pixel_put(&game->canva, game->player.Px + i, game->player.Py + j, color);
 		}
 	}
 }
@@ -89,33 +89,54 @@ void test_player(t_game *game, int color)
 
 
 
-void  	init_ray(t_game *game, double angle)
+void  	init_ray(t_game *game)
 {
 	float x;
 	float y;
 	float distance;
 	game->player.camera.PlaneX = 0;
 	game->player.camera.PlaneY = 0.66;
-	game->player.deltax = cos(angle * (M_PI / 180));
-	game->player.deltay = sin(angle * (M_PI / 180));
+	game->player.deltax = cos(game->player.direction * (M_PI / 180));
+	game->player.deltay = sin(game->player.direction * (M_PI / 180));
 	game->player.dirX = -1;
 	game->player.dirY = 0;
 }
 
-// void draw_allray(t_game *game)
-// {
-// 	int i; 
-// 	double angle;
+void draw_ray(t_game *game, double angle)
+{
+	float x;
+	float y;
+	double deltaX;
+	double deltaY;
+	x = game->player.Px  + (TAM_P / 2);
+	y = game->player.Py + (TAM_P / 2);
 
-// 	i = 0;
 
-// 	angle = game->player.direction - FOV / 2;
-// 	while( angle != game->player.direction + FOV / 2)
-// 	{
-// 		draw_ray(game,angle);
-// 		angle++;
-// 	}
-// }
+	deltaX = cos(angle * (M_PI / 180));
+	deltaY = sin(angle * (M_PI / 180));
+
+
+	while(game->map[(int)y / TAM_Y_P][(int)x / TAM_X_P] != '1')
+	{
+		x += deltaX;
+		y += deltaY;
+		my_mlx_pixel_put(&game->canva, x, y, BLUE);
+	}
+}
+void draw_allray(t_game *game)
+{
+	int i; 
+	double angle;
+
+	i = 0;
+
+	angle = game->player.direction - FOV / 2;
+	while( angle != game->player.direction + FOV / 2)
+	{
+		draw_ray(game,angle);
+		angle++;
+	}
+}
 
 void dda_algorithm(t_game *game, double rayDirX, double rayDirY)
 {
@@ -126,9 +147,6 @@ void dda_algorithm(t_game *game, double rayDirX, double rayDirY)
 
 	double deltaDistX = (rayDirX == 0) ? 1e30 : 1 + (rayDirY * rayDirY) / (rayDirX * rayDirX);
     double deltaDistY = (rayDirY == 0) ? 1e30 : 1 + (rayDirX * rayDirX) / (rayDirY * rayDirY);
-
-	printf("deltaDistX %f\n",deltaDistX);
-	printf("deltaDistY %f\n",deltaDistY);
 	double distToSizeX;
 	double distToSizeY;
 
@@ -155,9 +173,8 @@ void raycasting(t_game *game)
 		printf("rayDirX %f\n",rayDirX);
 		printf("rayDirY %f\n",rayDirY);
 
-		double mapSquerx =  TAM_X_P / game->player.rx;
-		double mapSquery =  TAM_Y_P / game->player.ry ;
-		printf("mapx %f mapy %f\n",mapSquerx,mapSquery);
+
+	
 		printf("\n\n");
 		dda_algorithm(game,rayDirX,rayDirY);
 		//mlx_pixel_put(&game->canva, game->win, rayDirX, rayDirY, RED);
@@ -182,7 +199,7 @@ int	key_event(int keycode, t_game *game)
 		printf("ESC\n");
 		exit(0);
 	}
-	if(game->map[game->player.ry][game->player.rx] == '1')
+	if(game->map[game->player.PosY][game->player.PosX] == '1')
 		printf("bateu\n");
 }
 
@@ -205,12 +222,13 @@ void start_window(t_game *game)
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	
 	draw_map(game,0);
-	init_ray(game,game->player.direction);
-	// draw_allray(game);
+	init_ray(game);
+		test_player(game,0xcb1313);	
+	draw_allray(game);
 	
 	// draw_allray(game);
-	raycasting(game);
-	test_player(game,0xcb1313);	
+	// raycasting(game);
+
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	mlx_hook(game->win, 2, 1L << 0, key_event, game);
 	mlx_loop(game->mlx);
