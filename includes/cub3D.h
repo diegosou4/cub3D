@@ -141,6 +141,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
 void draw_allray(t_game *game);
+void raycasting(t_game *game);
 // Moviment
 
 int player_mov(t_game *game, int keycode);

@@ -20,6 +20,8 @@
 
 #define BLUE 0x0000FF
 #define RED 0xFF0000
+#define GRAY_COLOR 0x808080
+#define SKY_COLOR 0x87CEEB
 #define WIDTH 1280
 #define HEIGHT 720
 

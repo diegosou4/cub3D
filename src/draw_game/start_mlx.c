@@ -13,7 +13,7 @@ void draw(int x,int y, int color, t_game *game)
 		j = 0;
 		while(j < TAM_Y_P)
 		{
-			my_mlx_pixel_put(&game->canva, x + i, y + j, color);
+			// my_mlx_pixel_put(&game->canva, x + i, y + j, color);
 			j++;
 		}
 		i++;
@@ -120,8 +120,10 @@ void draw_ray(t_game *game, double angle)
 	{
 		x += deltaX;
 		y += deltaY;
-		my_mlx_pixel_put(&game->canva, x, y, BLUE);
+		// my_mlx_pixel_put(&game->canva, x, y, BLUE);
 	}
+	game->player.deltay = y;
+	game->player.deltax = x;
 }
 void draw_allray(t_game *game)
 {
@@ -165,19 +167,24 @@ void raycasting(t_game *game)
 	double mult;
 
 	
-	while(x < 1)
+	while(x < WIDTH)
 	{
-		double cameraX = 2 * x / (double)WIDTH - 1;
+		double cameraX = 2 * (x / WIDTH) - 1;
 		double rayDirX = game->player.dirX +  game->player.camera.PlaneX * cameraX;
 		double rayDirY = game->player.deltay + game->player.camera.PlaneY * cameraX;
-		printf("rayDirX %f\n",rayDirX);
-		printf("rayDirY %f\n",rayDirY);
+		int mapX = (int)game->player.PosX;
+        int mapY = (int)game->player.PosY;
 
+		double deltaDistX = fabs(1 / rayDirX);
+        double deltaDistY = fabs(1 / rayDirY);
 
-	
-		printf("\n\n");
-		dda_algorithm(game,rayDirX,rayDirY);
-		//mlx_pixel_put(&game->canva, game->win, rayDirX, rayDirY, RED);
+		double sideDistX;
+        double sideDistY;
+		int stepX;
+        int stepY;
+
+        
+   
 		x++;
 	}
 
@@ -203,7 +210,33 @@ int	key_event(int keycode, t_game *game)
 		printf("bateu\n");
 }
 
-
+void draw_floor(t_game *game)
+{
+	int i;
+	int j;
+	i = 0;
+	while(i < WIDTH)
+	{
+		j = 0;
+		while(j < HEIGHT / 2)
+		{
+			my_mlx_pixel_put(&game->canva, i, j, SKY_COLOR);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while(i < WIDTH)
+	{
+		j = HEIGHT / 2;
+		while(j < HEIGHT)
+		{
+			my_mlx_pixel_put(&game->canva, i, j, GRAY_COLOR);
+			j++;
+		}
+		i++;
+	}
+}
 
 
 void start_window(t_game *game)
@@ -223,9 +256,9 @@ void start_window(t_game *game)
 	
 	draw_map(game,0);
 	init_ray(game);
-		test_player(game,0xcb1313);	
-	draw_allray(game);
-	
+	draw_floor(game);
+		// test_player(game,0xcb1313);	
+	// draw_allray(game);
 	// draw_allray(game);
 	// raycasting(game);
 
