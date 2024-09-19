@@ -8,14 +8,23 @@ void draw(int x,int y, int color, t_game *game)
 	int j;
 
 	i = 0;
+	j = 0;
+	my_mlx_pixel_put(&game->canva, x + i, y + j, GRAY_COLOR);
+	i++;
 	while(i < TAM_X_P)
 	{
 		j = 0;
-		while(j < TAM_Y_P)
+		if( j == 0)
 		{
-			// my_mlx_pixel_put(&game->canva, x + i, y + j, color);
+			my_mlx_pixel_put(&game->canva, x + i, y + j, GRAY_COLOR);
 			j++;
 		}
+		while(j < TAM_Y_P)
+		{
+			my_mlx_pixel_put(&game->canva, x + i, y + j, color);
+			j++;
+		}
+	
 		i++;
 	}
 }
@@ -120,7 +129,7 @@ void draw_ray(t_game *game, double angle)
 	{
 		x += deltaX;
 		y += deltaY;
-		// my_mlx_pixel_put(&game->canva, x, y, BLUE);
+		my_mlx_pixel_put(&game->canva, x, y, BLUE);
 	}
 	game->player.deltay = y;
 	game->player.deltax = x;
@@ -178,6 +187,9 @@ void raycasting(t_game *game)
 		double deltaDistX = fabs(1 / rayDirX);
         double deltaDistY = fabs(1 / rayDirY);
 
+		printf("%f RayDir x \n", rayDirX);
+		printf("%f RayDir Y \n", rayDirY);
+		
 		double sideDistX;
         double sideDistY;
 		int stepX;
@@ -256,11 +268,11 @@ void start_window(t_game *game)
 	
 	draw_map(game,0);
 	init_ray(game);
-	draw_floor(game);
-		// test_player(game,0xcb1313);	
+	//draw_floor(game);
+		test_player(game,0xcb1313);	
+	draw_allray(game);
 	// draw_allray(game);
-	// draw_allray(game);
-	// raycasting(game);
+	raycasting(game);
 
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	mlx_hook(game->win, 2, 1L << 0, key_event, game);

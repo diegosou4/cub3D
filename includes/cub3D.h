@@ -142,6 +142,7 @@ void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
 void draw_allray(t_game *game);
 void raycasting(t_game *game);
+void draw_ray(t_game *game, double angle);
 // Moviment
 
 int player_mov(t_game *game, int keycode);
