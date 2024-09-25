@@ -85,7 +85,7 @@ void draw_map(t_game *game, int ftime)
 
 void test_player(t_game *game, int color)
 {
-
+	draw_allray(game);
 	for(int i = 0; i < TAM_P; i++)
 	{
 		for(int j = 0; j < TAM_P; j++)
@@ -124,8 +124,8 @@ void draw_ray(t_game *game, double angle)
 	deltaX = cos(angle * (M_PI / 180));
 	deltaY = sin(angle * (M_PI / 180));
 
-
-	while(game->map[(int)y / TAM_Y_P][(int)x / TAM_X_P] != '1')
+ 
+	while(ft_strrchr("0NSWE",game->map[(int)y / TAM_Y_P][(int)x / TAM_X_P]) == 1)
 	{
 		x += deltaX;
 		y += deltaY;
@@ -270,8 +270,7 @@ void start_window(t_game *game)
 	init_ray(game);
 	//draw_floor(game);
 		test_player(game,0xcb1313);	
-	draw_allray(game);
-	// draw_allray(game);
+
 	raycasting(game);
 
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
