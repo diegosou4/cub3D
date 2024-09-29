@@ -22,6 +22,13 @@
 #define RED 0xFF0000
 #define GRAY_COLOR 0x808080
 #define SKY_COLOR 0x87CEEB
+#define  RBG_RED 0xFF0000
+#define RBG_GREEN 0x00FF00
+#define RBG_BLUE 0x0000FF
+#define RBG_WHITE 0xFFFFFF
+#define RBG_BLACK 0x000000
+#define RBG_YELLOW 0xFFFF00
+
 #define WIDTH 1280
 #define HEIGHT 720
 

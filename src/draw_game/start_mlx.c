@@ -9,6 +9,7 @@ void draw(int x,int y, int color, t_game *game)
 
 	i = 0;
 	j = 0;
+	return;	
 	my_mlx_pixel_put(&game->canva, x + i, y + j, GRAY_COLOR);
 	i++;
 	while(i < TAM_X_P)
@@ -32,13 +33,13 @@ void draw(int x,int y, int color, t_game *game)
 void define_direction(t_game *game , char direction)
 {
 	if (direction == 'N')
-		game->player.direction = A_NORTH;
+		game->player.dirY = -1;
 	else if (direction == 'S')
-		game->player.direction = A_SOUTH;
+		game->player.dirY = 1;
 	else if (direction == 'W')
-		game->player.direction = A_WEST;
+		game->player.dirX = -1;
 	else if (direction == 'E')
-		game->player.direction = A_EAST;
+		game->player.dirX = 1;
 }
 
 void draw_map(t_game *game, int ftime)
@@ -70,8 +71,8 @@ void draw_map(t_game *game, int ftime)
 					define_direction(game,game->map[i][j]);
 					game->player.PosX = j;
 					game->player.PosY = i;
-					game->player.Px = x;
-					game->player.Py = y;
+					game->player.Px = x + 8;
+					game->player.Py = y + 8;
 				}
 				draw(x,y,0xfdfdfd,game);
 			}	
@@ -82,146 +83,6 @@ void draw_map(t_game *game, int ftime)
 		i++;
 	}
 }
-
-void test_player(t_game *game, int color)
-{
-	draw_allray(game);
-	for(int i = 0; i < TAM_P; i++)
-	{
-		for(int j = 0; j < TAM_P; j++)
-		{
-			my_mlx_pixel_put(&game->canva, game->player.Px + i, game->player.Py + j, color);
-		}
-	}
-}
-
-
-
-
-void  	init_ray(t_game *game)
-{
-	float x;
-	float y;
-	float distance;
-	game->player.camera.PlaneX = 0;
-	game->player.camera.PlaneY = 0.66;
-	game->player.deltax = cos(game->player.direction * (M_PI / 180));
-	game->player.deltay = sin(game->player.direction * (M_PI / 180));
-	game->player.dirX = -1;
-	game->player.dirY = 0;
-}
-
-void draw_ray(t_game *game, double angle)
-{
-	float x;
-	float y;
-	double deltaX;
-	double deltaY;
-	x = game->player.Px  + (TAM_P / 2);
-	y = game->player.Py + (TAM_P / 2);
-
-
-	deltaX = cos(angle * (M_PI / 180));
-	deltaY = sin(angle * (M_PI / 180));
-
- 
-	while(ft_strrchr("0NSWE",game->map[(int)y / TAM_Y_P][(int)x / TAM_X_P]) == 1)
-	{
-		x += deltaX;
-		y += deltaY;
-		my_mlx_pixel_put(&game->canva, x, y, BLUE);
-	}
-	game->player.deltay = y;
-	game->player.deltax = x;
-}
-void draw_allray(t_game *game)
-{
-	int i; 
-	double angle;
-
-	i = 0;
-
-	angle = game->player.direction - FOV / 2;
-	while( angle != game->player.direction + FOV / 2)
-	{
-		draw_ray(game,angle);
-		angle++;
-	}
-}
-
-void dda_algorithm(t_game *game, double rayDirX, double rayDirY)
-{
-
-
-	double detalDistX;
-	double detalDistY;
-
-	double deltaDistX = (rayDirX == 0) ? 1e30 : 1 + (rayDirY * rayDirY) / (rayDirX * rayDirX);
-    double deltaDistY = (rayDirY == 0) ? 1e30 : 1 + (rayDirX * rayDirX) / (rayDirY * rayDirY);
-	double distToSizeX;
-	double distToSizeY;
-
-	
-	
-}
-
-void raycasting(t_game *game)
-{
-
-	int x;
-
-	double range;
-	x = 0;
-	
-	double mult;
-
-	
-	while(x < WIDTH)
-	{
-		double cameraX = 2 * (x / WIDTH) - 1;
-		double rayDirX = game->player.dirX +  game->player.camera.PlaneX * cameraX;
-		double rayDirY = game->player.deltay + game->player.camera.PlaneY * cameraX;
-		int mapX = (int)game->player.PosX;
-        int mapY = (int)game->player.PosY;
-
-		double deltaDistX = fabs(1 / rayDirX);
-        double deltaDistY = fabs(1 / rayDirY);
-
-		printf("%f RayDir x \n", rayDirX);
-		printf("%f RayDir Y \n", rayDirY);
-		
-		double sideDistX;
-        double sideDistY;
-		int stepX;
-        int stepY;
-
-        
-   
-		x++;
-	}
-
-	
-
-}
-// Corigir angulos
-
-int	key_event(int keycode, t_game *game)
-{
-
-	player_mov(game, keycode);
-	if(keycode == ESC)
-	{
-		game->status_free = FINAL;
-		printf("Status game %i", game->status_free);
-
-		garabe_collector(game);
-		printf("ESC\n");
-		exit(0);
-	}
-	if(game->map[game->player.PosY][game->player.PosX] == '1')
-		printf("bateu\n");
-}
-
 void draw_floor(t_game *game)
 {
 	int i;
@@ -250,6 +111,223 @@ void draw_floor(t_game *game)
 	}
 }
 
+void test_player(t_game *game, int color)
+{
+	draw_allray(game);
+	for(int i = 0; i < TAM_P; i++)
+	{
+		for(int j = 0; j < TAM_P; j++)
+		{
+			my_mlx_pixel_put(&game->canva, game->player.Px + i, game->player.Py + j, color);
+		}
+	}
+}
+
+
+
+
+void  	init_ray(t_game *game)
+{
+	float x;
+	float y;
+	float distance;
+	game->player.camera.PlaneX = 0;
+	game->player.camera.PlaneY = 0.66;
+	game->player.deltax = 0;
+	game->player.deltay = 0;
+	game->player.dirX = 0;
+	game->player.dirY = 0;
+}
+
+
+
+void draw_ray(t_game *game, double angle)
+{
+	double cameraX;
+
+	cameraX = 2 * angle / WIDTH - 1;
+	double rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
+	double rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
+	game->player.ray.rayDirX = rayDirX;
+	game->player.ray.rayDirY = rayDirY;
+	game->player.deltax = fabs(1 / rayDirX);
+	game->player.deltay = fabs(1 / rayDirY);
+
+	int mapX = (int)game->player.PosX;
+	int mapY = (int)game->player.PosY;
+
+	if(game->player.ray.rayDirX < 0)
+	{
+		game->player.ray.stepX = -1;
+		game->player.ray.sideDistX = (game->player.PosX - mapX) * game->player.deltax;
+	}
+	else
+	{
+		game->player.ray.stepX = 1;
+		game->player.ray.sideDistX = (mapX + 1.0 - game->player.PosX) * game->player.deltax;
+	}
+	if(game->player.ray.rayDirY < 0)
+	{
+		game->player.ray.stepY = -1;
+		game->player.ray.sideDistY = (game->player.PosY - mapY) * game->player.deltay;
+	}
+	else
+	{
+		game->player.ray.stepY = 1;
+		game->player.ray.sideDistY = (mapY + 1.0 - game->player.PosY) * game->player.deltay;
+	}
+	game->player.ray.side = 0;
+	while(42)
+	{
+		if(game->player.ray.sideDistX < game->player.ray.sideDistY)
+		{
+			game->player.ray.sideDistX += game->player.deltax;
+			mapX += game->player.ray.stepX;
+			game->player.ray.side = 0;
+		}
+		else
+		{
+			game->player.ray.sideDistY += game->player.deltay;
+			mapY += game->player.ray.stepY;
+			game->player.ray.side = 1;
+		}
+		if(game->map[mapY][mapX] == '1')
+			break;
+	}
+
+	game->player.ray.perpWallDist = 0;
+
+	if(game->player.ray.side == 0)
+		game->player.ray.perpWallDist = (mapX - game->player.PosX + (1 - game->player.ray.stepX) / 2) / game->player.ray.rayDirX;
+	else
+		game->player.ray.perpWallDist = (mapY - game->player.PosY + (1 - game->player.ray.stepY) / 2) / game->player.ray.rayDirY;
+	
+	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
+	
+	game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if(game->player.ray.drawStart < 0)
+		game->player.ray.drawStart = 0;
+	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if(game->player.ray.drawEnd >= HEIGHT)
+		game->player.ray.drawEnd = HEIGHT - 1;
+	int color;
+	
+	color = RBG_RED;
+    // if (game->player.ray.side == 1) 
+    // {
+    //     color = color / 2;
+    // }
+
+    for(int y = game->player.ray.drawStart; y < game->player.ray.drawEnd; y++)
+    {
+        	mlx_pixel_put(game->mlx, game->win, angle, y, color);
+    }
+	
+}
+void draw_allray(t_game *game)
+{
+	int x;
+	
+	x = 0;
+
+	while(x < WIDTH)
+	{
+		draw_ray(game, x);
+		x++;
+	}
+	
+	printf("Chegamos aqui\n");
+}
+
+// void dda_algorithm(t_game *game, double rayDirX, double rayDirY)
+// {
+
+
+// 	double detalDistX;
+// 	double detalDistY;
+
+// 	double deltaDistX = (rayDirX == 0) ? 1e30 : 1 + (rayDirY * rayDirY) / (rayDirX * rayDirX);
+//     double deltaDistY = (rayDirY == 0) ? 1e30 : 1 + (rayDirX * rayDirX) / (rayDirY * rayDirY);
+// 	double distToSizeX;
+// 	double distToSizeY;
+	
+// }
+
+// void raycasting(t_game *game)
+// {
+
+// 	int x;
+
+// 	double range;
+// 	x = 0;
+	
+// 	double mult;
+
+	
+// 	while(x < WIDTH)
+// 	{
+// 		double cameraX = 2 * (x / WIDTH) - 1;
+// 		double rayDirX = game->player.dirX +  game->player.camera.PlaneX * cameraX;
+// 		double rayDirY = game->player.deltay + game->player.camera.PlaneY * cameraX;
+// 		int mapX = (int)game->player.PosX;
+//         int mapY = (int)game->player.PosY;
+
+// 		double deltaDistX = fabs(1 / rayDirX);
+//         double deltaDistY = fabs(1 / rayDirY);
+
+// 		printf("%f RayDir x \n", rayDirX);
+// 		printf("%f RayDir Y \n", rayDirY);
+		
+// 		double sideDistX;
+//         double sideDistY;
+// 		int stepX;
+//         int stepY;
+
+        
+   
+// 		x++;
+// 	}
+
+	
+
+// }
+// Corigir angulos
+
+int	key_event(int keycode, t_game *game)
+{
+
+	player_mov(game, keycode);
+	if(keycode == ESC)
+	{
+		game->status_free = FINAL;
+		printf("Status game %i", game->status_free);
+
+		garabe_collector(game);
+		printf("ESC\n");
+		exit(0);
+	}
+	if(game->map[game->player.PosY][game->player.PosX] == '1')
+		printf("bateu\n");
+}
+
+
+void fix_camera(t_game  *game)
+{
+	void init_ray(t_game *game)
+{
+    if (game->player.dirX == 1 || game->player.dirX == -1) // Leste ou Oeste
+    {
+        game->player.camera.PlaneX = 0;
+        game->player.camera.PlaneY = (game->player.dirX == 1) ? 0.66 : -0.66;
+    }
+    else if (game->player.dirY == 1 || game->player.dirY == -1) // Norte ou Sul
+    {
+        game->player.camera.PlaneX = (game->player.dirY == 1) ? -0.66 : 0.66;
+        game->player.camera.PlaneY = 0;
+    }
+}
+
+}
 
 void start_window(t_game *game)
 {
@@ -265,16 +343,17 @@ void start_window(t_game *game)
 	load_wall(game);
 	
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
-	
-	draw_map(game,0);
 	init_ray(game);
-	//draw_floor(game);
-		test_player(game,0xcb1313);	
+	draw_map(game,0);
+	fix_camera(game);
+	
+	draw_allray(game);
 
-	raycasting(game);
+		// test_player(game,0xcb1313);	
 
-	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
-	mlx_hook(game->win, 2, 1L << 0, key_event, game);
+
+	// mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
+	// mlx_hook(game->win, 2, 1L << 0, key_event, game);
 	mlx_loop(game->mlx);
 	
 }

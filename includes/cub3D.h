@@ -52,14 +52,34 @@ typedef struct s_camera
 	double PlaneY;
 } t_camera;
 
+typedef struct s_ray
+{
+	double rayDirX;
+	double rayDirY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+	int stepY;
+	int hit;
+	int side;
+	int lineheight;
+	int drawStart;
+	int drawEnd;
+} t_ray;
+
+
 
 typedef struct s_player
 {
 	int PosX; // Posicao do player no mapa em x e y
 	int PosY;
+	t_ray ray;
 	double direction;
-	float deltax;
-	float deltay;
+	double deltax;
+	double deltay;
 	t_camera camera;
 	double dirX;
 	double dirY;
