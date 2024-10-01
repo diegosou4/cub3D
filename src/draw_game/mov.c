@@ -33,8 +33,8 @@ int key_s(t_game *game) {
 
 int key_d(t_game *game) {
     // Calcula novas posições para a movimentação à direita
-    float newPosX = game->player.PosX - game->player.dirY * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
-    float newPosY = game->player.PosY - game->player.dirX * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+    float newPosX = game->player.PosX + game->player.dirY * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+    float newPosY = game->player.PosY + game->player.dirX * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
 
     // Verifica se a nova posição não colide com uma parede
     if (game->map[(int)newPosY][(int)newPosX] != '1') {
@@ -48,7 +48,7 @@ int key_d(t_game *game) {
 int key_a(t_game *game) {
     // Calcula novas posições para a movimentação à esquerda
     float newPosX = game->player.PosX - game->player.dirY * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
-    float newPosY = game->player.PosY + game->player.dirX * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+    float newPosY = game->player.PosY - game->player.dirX * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
 
     // Verifica se a nova posição não colide com uma parede
     if (game->map[(int)newPosY][(int)newPosX] != '1') {

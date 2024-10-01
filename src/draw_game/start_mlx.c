@@ -239,10 +239,10 @@ void draw_ray(t_game *game, double angle)
 	int color;
 	
 	color = RBG_RED;
-    // if (game->player.ray.side == 1) 
-    // {
-    //     color = color / 2;
-    // }
+    if (game->player.ray.side == 1) 
+    {
+        color = RBG_BLUE;
+    }
 
     for(int y = game->player.ray.drawStart; y < game->player.ray.drawEnd; y++)
     {
@@ -259,8 +259,7 @@ void draw_allray(t_game *game)
 		int mapX = (int)game->player.PosX;
 	int mapY = (int)game->player.PosY;
 
-	printf("Posicao do player em x %f\n", game->player.PosX);
-	printf("Posicao do player em y %f\n", game->player.PosY);
+
 	
 	// aqui no caso 
 	while(x < WIDTH)
@@ -268,8 +267,6 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
-	
-	printf("Chegamos aqui\n");
 }
 
 // void dda_algorithm(t_game *game, double rayDirX, double rayDirY)
@@ -328,9 +325,9 @@ void draw_allray(t_game *game)
 
 int	key_event(int keycode, t_game *game)
 {
-
+	
 	(void)player_mov(game, keycode);
-	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
+		mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 	draw_allray(game);
 
 	if(keycode == ESC)
