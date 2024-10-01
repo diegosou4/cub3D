@@ -259,8 +259,8 @@ void draw_allray(t_game *game)
 		int mapX = (int)game->player.PosX;
 	int mapY = (int)game->player.PosY;
 
-	printf("Posicao do player em x %d\n", game->player.PosX);
-	printf("Posicao do player em y %d\n", game->player.PosY);
+	printf("Posicao do player em x %f\n", game->player.PosX);
+	printf("Posicao do player em y %f\n", game->player.PosY);
 	
 	// aqui no caso 
 	while(x < WIDTH)
@@ -342,7 +342,7 @@ int	key_event(int keycode, t_game *game)
 		printf("ESC\n");
 		exit(0);
 	}
-	if(game->map[game->player.PosY][game->player.PosX] == '1')
+	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
 		printf("bateu\n");
 }
 

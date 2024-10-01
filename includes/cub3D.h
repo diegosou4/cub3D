@@ -83,8 +83,8 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	int PosX; // Posicao do player no mapa em x e y
-	int PosY;
+	double PosX; // Posicao do player no mapa em x e y
+	double PosY;
 	t_ray ray;
 	t_time time;
 	double direction;

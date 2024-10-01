@@ -33,7 +33,7 @@ int key_s(t_game *game) {
 
 int key_d(t_game *game) {
     // Calcula novas posições para a movimentação à direita
-    float newPosX = game->player.PosX + game->player.dirY * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+    float newPosX = game->player.PosX - game->player.dirY * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
     float newPosY = game->player.PosY - game->player.dirX * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
 
     // Verifica se a nova posição não colide com uma parede
@@ -60,6 +60,28 @@ int key_a(t_game *game) {
 }
 
 
+int arrow_right(t_game *game)
+{
+    double oldDirX = game->player.dirX;
+    game->player.dirX = game->player.dirX * cos(-ROT_SPEED) - game->player.dirY * sin(-ROT_SPEED);
+    game->player.dirY = oldDirX * sin(-ROT_SPEED) + game->player.dirY * cos(-ROT_SPEED);
+    double oldPlaneX = game->player.camera.PlaneX;
+    game->player.camera.PlaneX = game->player.camera.PlaneX * cos(-ROT_SPEED) - game->player.camera.PlaneY * sin(-ROT_SPEED);
+    game->player.camera.PlaneY = oldPlaneX * sin(-ROT_SPEED) + game->player.camera.PlaneY * cos(-ROT_SPEED);
+    return 1;
+}
+
+int arrow_left(t_game *game)
+{
+    double oldDirX = game->player.dirX;
+    game->player.dirX = game->player.dirX * cos(ROT_SPEED) - game->player.dirY * sin(ROT_SPEED);
+    game->player.dirY = oldDirX * sin(ROT_SPEED) + game->player.dirY * cos(ROT_SPEED);
+    double oldPlaneX = game->player.camera.PlaneX;
+    game->player.camera.PlaneX = game->player.camera.PlaneX * cos(ROT_SPEED) - game->player.camera.PlaneY * sin(ROT_SPEED);
+    game->player.camera.PlaneY = oldPlaneX * sin(ROT_SPEED) + game->player.camera.PlaneY * cos(ROT_SPEED);
+    return 1;
+}
+
 int player_mov(t_game *game, int keycode)
 {
     if(keycode == KEY_W)
@@ -70,6 +92,10 @@ int player_mov(t_game *game, int keycode)
         return(key_d(game));
     else if(keycode == KEY_A)
         return(key_a(game));
+    else if(keycode == L_AR)
+        return(arrow_left(game));
+    else if(keycode == R_AR)
+        return(arrow_right(game));
 }
 
 
