@@ -33,13 +33,26 @@ void draw(int x,int y, int color, t_game *game)
 void define_direction(t_game *game , char direction)
 {
 	if (direction == 'N')
+	{
+		game->player.camera.PlaneX = 0.66;
 		game->player.dirY = -1;
+	}
 	else if (direction == 'S')
+	{
+		game->player.camera.PlaneX = -0.66;
 		game->player.dirY = 1;
+	}
 	else if (direction == 'W')
+	{
+		game->player.camera.PlaneY = -0.66;
 		game->player.dirX = -1;
+	}
 	else if (direction == 'E')
+	{
+		game->player.camera.PlaneY = 0.66;
 		game->player.dirX = 1;
+	}
+		
 }
 
 void draw_map(t_game *game, int ftime)
@@ -137,8 +150,19 @@ void  	init_ray(t_game *game)
 	game->player.deltay = 0;
 	game->player.dirX = 0;
 	game->player.dirY = 0;
+	game->player.time.time = 0;
+	game->player.time.oldtime = 0;
+	game->player.time.frametime = 0;
 }
 
+
+/// Esse e o Ray casting meu amiigo
+// COmeca na funcao de baixo que  
+// e um while dentro da horizontal
+// o Angle na realidade e o x dentro da tela
+// Ta errado o significado aqui
+// Prestar atencao nisso
+//
 
 
 void draw_ray(t_game *game, double angle)
@@ -155,7 +179,9 @@ void draw_ray(t_game *game, double angle)
 
 	int mapX = (int)game->player.PosX;
 	int mapY = (int)game->player.PosY;
-
+	// A partit da qui sao varias matematicas chatas
+	//que eu ainda nao entendi 100% devemos olhar com mais calma
+	// apenas segui o site que eu estava lendo
 	if(game->player.ray.rayDirX < 0)
 	{
 		game->player.ray.stepX = -1;
@@ -230,6 +256,13 @@ void draw_allray(t_game *game)
 	
 	x = 0;
 
+		int mapX = (int)game->player.PosX;
+	int mapY = (int)game->player.PosY;
+
+	printf("Posicao do player em x %d\n", game->player.PosX);
+	printf("Posicao do player em y %d\n", game->player.PosY);
+	
+	// aqui no caso 
 	while(x < WIDTH)
 	{
 		draw_ray(game, x);
@@ -296,7 +329,10 @@ void draw_allray(t_game *game)
 int	key_event(int keycode, t_game *game)
 {
 
-	player_mov(game, keycode);
+	(void)player_mov(game, keycode);
+	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
+	draw_allray(game);
+
 	if(keycode == ESC)
 	{
 		game->status_free = FINAL;
@@ -311,23 +347,6 @@ int	key_event(int keycode, t_game *game)
 }
 
 
-void fix_camera(t_game  *game)
-{
-	void init_ray(t_game *game)
-{
-    if (game->player.dirX == 1 || game->player.dirX == -1) // Leste ou Oeste
-    {
-        game->player.camera.PlaneX = 0;
-        game->player.camera.PlaneY = (game->player.dirX == 1) ? 0.66 : -0.66;
-    }
-    else if (game->player.dirY == 1 || game->player.dirY == -1) // Norte ou Sul
-    {
-        game->player.camera.PlaneX = (game->player.dirY == 1) ? -0.66 : 0.66;
-        game->player.camera.PlaneY = 0;
-    }
-}
-
-}
 
 void start_window(t_game *game)
 {
@@ -345,7 +364,6 @@ void start_window(t_game *game)
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
 	init_ray(game);
 	draw_map(game,0);
-	fix_camera(game);
 	
 	draw_allray(game);
 
@@ -353,7 +371,7 @@ void start_window(t_game *game)
 
 
 	// mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);	
-	// mlx_hook(game->win, 2, 1L << 0, key_event, game);
+	mlx_hook(game->win, 2, 1L << 0, key_event, game);
 	mlx_loop(game->mlx);
 	
 }

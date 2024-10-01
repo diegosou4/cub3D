@@ -2,86 +2,78 @@
 #include "../../includes/cub3D.h"
 
 
+
+int key_w(t_game *game) {
+    // Calcula novas posições
+    float newPosX = game->player.PosX + game->player.dirX * MOVE_SPEED;
+    float newPosY = game->player.PosY + game->player.dirY * MOVE_SPEED;
+
+    // Verifica se a nova posição não colide com uma parede
+    if (game->map[(int)newPosY][(int)newPosX] != '1') {
+        game->player.PosX = newPosX;
+        game->player.PosY = newPosY;
+    }
+
+    return 1;
+}
+
+int key_s(t_game *game) {
+    // Calcula novas posições para a movimentação para trás
+    float newPosX = game->player.PosX - game->player.dirX * MOVE_SPEED;
+    float newPosY = game->player.PosY - game->player.dirY * MOVE_SPEED;
+
+    // Verifica se a nova posição não colide com uma parede
+    if (game->map[(int)newPosY][(int)newPosX] != '1') {
+        game->player.PosX = newPosX;
+        game->player.PosY = newPosY;
+    }
+
+    return 1;
+}
+
+int key_d(t_game *game) {
+    // Calcula novas posições para a movimentação à direita
+    float newPosX = game->player.PosX + game->player.dirY * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+    float newPosY = game->player.PosY - game->player.dirX * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+
+    // Verifica se a nova posição não colide com uma parede
+    if (game->map[(int)newPosY][(int)newPosX] != '1') {
+        game->player.PosX = newPosX;
+        game->player.PosY = newPosY;
+    }
+
+    return 1;
+}
+
+int key_a(t_game *game) {
+    // Calcula novas posições para a movimentação à esquerda
+    float newPosX = game->player.PosX - game->player.dirY * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+    float newPosY = game->player.PosY + game->player.dirX * MOVE_SPEED;  // Troca dirX e dirY para movimentação correta
+
+    // Verifica se a nova posição não colide com uma parede
+    if (game->map[(int)newPosY][(int)newPosX] != '1') {
+        game->player.PosX = newPosX;
+        game->player.PosY = newPosY;
+    }
+
+    return 1;
+}
+
+
 int player_mov(t_game *game, int keycode)
 {
-    if(keycode == KEY_W || keycode == KEY_S)
-        return(key_ws(game,keycode));
-    else if(keycode == KEY_D || keycode == KEY_A)
-        return(key_da(game,keycode));
-    else if(keycode == L_AR)
-        return(key_l(game,keycode));
-    else if(keycode == R_AR)
-        return(key_r(game,keycode));
-}
-
-int key_ws(t_game *game, int keycode)
-{
-        if(keycode == KEY_S)
-             game->player.PosY =  (game->player.Py + TAM_P) / TAM_Y_P;
-        else
-		    game->player.PosY =  (game->player.Py - TAM_P) / TAM_Y_P;
-    	if(game->map[game->player.PosY][game->player.PosX] == '1')
-		{
-			game->player.PosY =  game->player.Py / TAM_Y_P;
-			return (0);
-		}
-        if(keycode == KEY_S)
-            game->player.Py += TAM_P;
-        else
-            game->player.Py -= TAM_P;
-        draw_map(game,1);
-        test_player(game,0xcb1313);	
-	    draw_ray(game,game->player.direction);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-        return(1);
+    if(keycode == KEY_W)
+        return(key_w(game));
+    else if(keycode == KEY_S)
+        return(key_s(game));
+    else if(keycode == KEY_D)
+        return(key_d(game));
+    else if(keycode == KEY_A)
+        return(key_a(game));
 }
 
 
-int key_da(t_game *game, int keycode)
-{
 
-        if(keycode == KEY_D)
-            game->player.PosX = (game->player.Px + TAM_P) / TAM_X_P;
-        else
-            game->player.PosX = (game->player.Px - TAM_P) / TAM_X_P;
-    	if(game->map[game->player.PosY][game->player.PosX] == '1')
-        {
-            game->player.PosX = game->player.Px / TAM_X_P;
-            return (0);
-        }
-        if (keycode == KEY_D)
-            game->player.Px += TAM_P;
-        else
-            game->player.Px -= TAM_P;
 
-    	draw_map(game,1);
-        test_player(game,0xcb1313);	
-	    draw_ray(game,game->player.direction);
-        mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-        return(1);
-}
 
-int key_l(t_game *game, int keycode)
-{
-		game->player.direction += 1;
-		if(game->player.direction > 360)
-			game->player.direction = 0;
-		
-	    draw_map(game,1);
-        test_player(game,0xcb1313);	
-	    draw_ray(game,game->player.direction);
-		mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-}
-int key_r(t_game *game, int keycode)
-{
-    	
-        game->player.direction -= 1;
-        if(game->player.direction < 0)
-            game->player.direction = 360;
-            
-        
-	         draw_map(game,1);
-        test_player(game,0xcb1313);	
-	    draw_ray(game,game->player.direction);
-        mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
-}
+

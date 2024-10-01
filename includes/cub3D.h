@@ -52,6 +52,15 @@ typedef struct s_camera
 	double PlaneY;
 } t_camera;
 
+typedef struct s_time
+{
+	double oldtime;
+	double time;
+	double frametime;
+
+}	t_time;
+
+
 typedef struct s_ray
 {
 	double rayDirX;
@@ -77,6 +86,7 @@ typedef struct s_player
 	int PosX; // Posicao do player no mapa em x e y
 	int PosY;
 	t_ray ray;
+	t_time time;
 	double direction;
 	double deltax;
 	double deltay;
@@ -177,4 +187,5 @@ void free_map_info(t_game *game);
 void free_ff_map(t_game *game);
 void free_walls(t_game *game, int texture);
 void destroy_game(t_game *game);
+void define_direction(t_game *game , char direction);
 #endif
