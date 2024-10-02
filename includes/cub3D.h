@@ -187,5 +187,6 @@ void free_map_info(t_game *game);
 void free_ff_map(t_game *game);
 void free_walls(t_game *game, int texture);
 void destroy_game(t_game *game);
+void clear_screen(t_game *game);
 void define_direction(t_game *game , char direction);
 #endif
