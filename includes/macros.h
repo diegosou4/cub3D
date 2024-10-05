@@ -31,7 +31,7 @@
 #define RBG_YELLOW 0xFFFF00
 
 #define WIDTH 1280
-#define HEIGHT 720
+#define HEIGHT 640
 
 #define TAM_Y_P 32
 #define TAM_X_P 32

@@ -162,10 +162,12 @@ void check_texture(t_game *game);
 void check_map(t_game *game, int start);
 bool flood_fill(t_game *game, int c_col, int c_row);
 // Draw Game
-
+void draw(int x,int y, int color, t_game *game);
+void draw_minimap(t_game *game);
 void start_window(t_game *game);
 void load_wall(t_game *game);
 t_img	load_img(t_game *game, int texture);
+int	my_mlx_pixel_get(t_img *data, int x, int y);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 // void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);

@@ -9,18 +9,12 @@ void draw(int x,int y, int color, t_game *game)
 
 	i = 0;
 	j = 0;
-	return;	
-	my_mlx_pixel_put(&game->canva, x + i, y + j, GRAY_COLOR);
+
 	i++;
-	while(i < TAM_X_P)
+	while(i < 6)
 	{
 		j = 0;
-		if( j == 0)
-		{
-			my_mlx_pixel_put(&game->canva, x + i, y + j, GRAY_COLOR);
-			j++;
-		}
-		while(j < TAM_Y_P)
+		while(j < 6)
 		{
 			my_mlx_pixel_put(&game->canva, x + i, y + j, color);
 			j++;
@@ -126,12 +120,15 @@ void draw_floor(t_game *game)
 
 void test_player(t_game *game, int color)
 {
-	draw_allray(game);
-	for(int i = 0; i < TAM_P; i++)
+	int posx;
+	int posy;
+	
+
+	for(int i = 0; i < 32; i++)
 	{
-		for(int j = 0; j < TAM_P; j++)
+		for(int j = 0; j < 32; j++)
 		{
-			my_mlx_pixel_put(&game->canva, game->player.Px + i, game->player.Py + j, color);
+			my_mlx_pixel_put(&game->canva, game->player.PosX + i, game->player.PosY + j, color);
 		}
 	}
 }
@@ -238,10 +235,10 @@ void draw_ray(t_game *game, double angle)
 		game->player.ray.drawEnd = HEIGHT - 1;
 	int color;
 	
-	color = RBG_RED;
+	color = 0;
     if (game->player.ray.side == 1) 
     {
-        color = RBG_BLUE;
+        color = 1;
     }
 	if(game->player.ray.drawStart > 0)
 	{
@@ -253,9 +250,22 @@ void draw_ray(t_game *game, double angle)
 		}
 	}
 
-    for(int y = game->player.ray.drawStart; y < game->player.ray.drawEnd; y++)
-    {
-        	my_mlx_pixel_put(&game->canva, angle, y, color);
+	double	step;
+	double	texture_pos;
+	int		texture_y;
+
+	step = 1.0 * game->wall[0].texture.img_height / game->player.ray.lineheight;
+	texture_pos = (game->player.ray.drawStart - HEIGHT / 2 + game->player.ray.lineheight / 2) * step;
+	texture_y = (int)texture_pos & (game->wall[0].texture.img_height - 1);
+	int cor;
+	int y = game->player.ray.drawStart;
+	while(y < game->player.ray.drawEnd)
+	{
+		 cor = my_mlx_pixel_get(&game->wall[0].texture, (int)angle, texture_y);
+			texture_y = (int)texture_pos & (game->wall[1].texture.img_height - 1);
+        	my_mlx_pixel_put(&game->canva, angle, y,cor );
+			texture_pos += step;	
+			y++;
     }
 	if(game->player.ray.drawEnd < HEIGHT)
 	{
@@ -277,7 +287,7 @@ void draw_allray(t_game *game)
 	int mapY = (int)game->player.PosY;
 
 	
-	clear_screen(game);
+	//clear_screen(game);
 
 	// aqui no caso 
 	while(x < WIDTH)
@@ -303,6 +313,7 @@ void clear_screen(t_game *game)
 		}
 		i++;
 	}
+
 }
 	
 
@@ -347,7 +358,7 @@ void start_window(t_game *game)
 	
 	draw_allray(game);
 	
-
+	draw_minimap(game);
 
 
 		
