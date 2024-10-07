@@ -74,9 +74,9 @@ typedef struct s_ray
 	int stepY;
 	int hit;
 	int side;
-	int lineheight;
-	int drawStart;
-	int drawEnd;
+	double lineheight;
+	double drawStart;
+	double drawEnd;
 } t_ray;
 
 
