@@ -52,14 +52,44 @@ typedef struct s_camera
 	double PlaneY;
 } t_camera;
 
+typedef struct s_time
+{
+	double oldtime;
+	double time;
+	double frametime;
+
+}	t_time;
+
+
+typedef struct s_ray
+{
+	double rayDirX;
+	double rayDirY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+	int stepY;
+	int hit;
+	int side;
+	double lineheight;
+	double drawStart;
+	double drawEnd;
+} t_ray;
+
+
 
 typedef struct s_player
 {
-	int PosX; // Posicao do player no mapa em x e y
-	int PosY;
+	double PosX; // Posicao do player no mapa em x e y
+	double PosY;
+	t_ray ray;
+	t_time time;
 	double direction;
-	float deltax;
-	float deltay;
+	double deltax;
+	double deltay;
 	t_camera camera;
 	double dirX;
 	double dirY;
@@ -132,10 +162,12 @@ void check_texture(t_game *game);
 void check_map(t_game *game, int start);
 bool flood_fill(t_game *game, int c_col, int c_row);
 // Draw Game
-
+void draw(int x,int y, int color, t_game *game);
+void draw_minimap(t_game *game);
 void start_window(t_game *game);
 void load_wall(t_game *game);
 t_img	load_img(t_game *game, int texture);
+int	my_mlx_pixel_get(t_img *data, int x, int y);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 // void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
@@ -143,6 +175,8 @@ void test_player(t_game *game, int color);
 void draw_allray(t_game *game);
 void raycasting(t_game *game);
 void draw_ray(t_game *game, double angle);
+void define_direction(t_game *game , char direction);
+void draw(int x,int y, int color, t_game *game);
 // Moviment
 
 int player_mov(t_game *game, int keycode);
@@ -150,6 +184,9 @@ int key_da(t_game *game, int keycode);
 int key_ws(t_game *game, int keycode);
 int key_l(t_game *game, int keycode);
 int key_r(t_game *game, int keycode);
+
+void  	init_ray(t_game *game);
+void draw_floor(t_game *game);
 // Garabe Collector
 void garabe_collector(t_game *game);
 void print_free(t_game *game, char *errostr);
@@ -157,4 +194,6 @@ void free_map_info(t_game *game);
 void free_ff_map(t_game *game);
 void free_walls(t_game *game, int texture);
 void destroy_game(t_game *game);
+void clear_screen(t_game *game);
+void define_direction(t_game *game , char direction);
 #endif
