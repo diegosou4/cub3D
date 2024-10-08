@@ -49,6 +49,13 @@ void fill_game(t_game *game)
         game->wall[i].texture.img_height = 64;
 		i++;
 	}
+/* 	game->ceiling.filled = false;
+	game->ceiling.texture.img_width = 64;
+    game->ceiling.texture.img_height = 64; 
+	game->floor.filled = false;
+	game->floor.texture.img_width = 64;
+    game->floor.texture.img_height = 64;*/
+
 }
 
 int	check_ext(char *pathname, char *format, char *type)

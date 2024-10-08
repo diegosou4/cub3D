@@ -14,8 +14,8 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.1
+# define ROT_SPEED 0.1
 
 
 # define FOV 66
@@ -30,6 +30,8 @@
 #define RBG_WHITE 0xFFFFFF
 #define RBG_BLACK 0x000000
 #define RBG_YELLOW 0xFFFF00
+#define BACK_YELLOW 0xA5A51C
+#define DIRT_YELLOW 0xB4B452
 
 #define WIDTH 1980
 #define HEIGHT 720

@@ -40,6 +40,18 @@ typedef struct s_wall
 	bool filled;
 }	t_wall;
 
+typedef struct s_ceiling
+{
+	t_img texture;
+	bool filled;
+}	t_ceiling;
+
+typedef struct s_floor
+{
+	t_img texture;
+	bool filled;
+}	t_floor;
+
 
 typedef struct s_color
 {
@@ -110,6 +122,8 @@ typedef struct s_game
 	t_img		canva;
 	t_player player;
 	t_wall wall[4];
+	t_floor	floor;
+	t_ceiling	ceiling;
 	t_color color[2];
 	char **map_info;
 	char **map;
@@ -173,9 +187,13 @@ void draw(int x,int y, int color, t_game *game);
 void draw_minimap(t_game *game);
 void start_window(t_game *game);
 void load_wall(t_game *game);
+void load_floor(t_game *game);
+void load_ceiling(t_game *game);
+void draw_skyfall(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky);
 t_img	load_img(t_game *game, int texture);
 int	my_mlx_pixel_get(t_img *data, int x, int y);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void draw_flooring_sky(t_game *game);
 // void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
@@ -183,6 +201,7 @@ void draw_allray(t_game *game);
 void raycasting(t_game *game);
 void draw_ray(t_game *game, double angle);
 void draw(int x,int y, int color, t_game *game);
+void draw_floor_texture(t_game *game, double angle, int drawEnd, double rayDirX, double rayDirY);
 // Moviment
 
 int player_mov(t_game *game, int keycode);

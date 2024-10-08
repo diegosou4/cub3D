@@ -23,7 +23,7 @@ SRC_LIBFT = $(addprefix ./src/libft/, $(LIBFT))
 SRC_GARBAGE = $(addprefix ./src/garbage/, $(GARBAGE))
 SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT) $(SRC_GARBAGE) $(SRC_DRAW)
 
-CFLAGS = -g -I./ #-Wall -Wextra -Werror
+CFLAGS = -g -o3 -I./ #-Wall -Wextra -Werror
 CC = cc
 LIB = minilibx-linux/libmlx_Linux.a
 LIBFLAGS = -lXext -lX11 -lm

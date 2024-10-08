@@ -107,6 +107,7 @@ int mouse_monitor(t_game *game)
 				arrow_left(game);
 			draw_allray(game);
 			prev_x_mouse = game->x_mouse;
+			//mlx_mouse_move(game->mlx, game->win, WIDTH / 2, HEIGHT / 2);
 		}
 		else
 			return (0);

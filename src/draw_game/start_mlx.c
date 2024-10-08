@@ -82,7 +82,7 @@ void hit_wall(t_game *game, int mapX, int mapY)
 void draw_skyfloor(t_game *game,double angle,double x, int color)
 {
 	int y = 0;
-	if(color == SKY_COLOR)
+	if(color == BACK_YELLOW)
 	{
 		if(x > 0)
 		{
@@ -94,7 +94,7 @@ void draw_skyfloor(t_game *game,double angle,double x, int color)
 		}
 		return;	
 	}
-	if(color == GRAY_COLOR)
+	if(color == DIRT_YELLOW)
 	{
 		if(x < HEIGHT)
 		{
@@ -107,6 +107,36 @@ void draw_skyfloor(t_game *game,double angle,double x, int color)
 	}
 }
 
+void draw_skyfall(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky)
+{
+    int y;
+    double texture_y;
+    double step;
+    double texture_pos;
+    
+    // Determine the starting point and step for texture sampling
+    if (is_sky)
+    {
+        y = 0;
+        step = 1.0 * texture->img_height / (drawEnd - y);
+        texture_pos = 0;
+    }
+    else
+    {
+        y = drawEnd;
+        step = 1.0 * texture->img_height / (HEIGHT - drawEnd);
+        texture_pos = 0;
+    }
+    
+    while ((is_sky && y < drawEnd) || (!is_sky && y < HEIGHT))
+    {
+        texture_y = (int)texture_pos & (texture->img_height - 1);
+		texture_pos += step;
+        int color = my_mlx_pixel_get(texture, (int)angle % texture->img_width, (int)texture_y);
+        my_mlx_pixel_put(&game->canva, (int)angle, y, color);
+        y++;
+    }
+}
 
 
 void draw_ray(t_game *game, double angle)
@@ -133,9 +163,9 @@ void draw_ray(t_game *game, double angle)
 	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
 	if(game->player.ray.drawEnd >= HEIGHT)
 		game->player.ray.drawEnd = HEIGHT - 1;
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,SKY_COLOR);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,BACK_YELLOW);
    	draw_texture(game, angle);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,GRAY_COLOR);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,DIRT_YELLOW);
 }
 void draw_allray(t_game *game)
 {
@@ -194,7 +224,7 @@ void printf_debug(t_game *game)
 void start_window(t_game *game)
 {
 
-    game->mlx = mlx_init();
+	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
 	game->canva.addr = mlx_get_data_addr(game->canva.img,
@@ -251,4 +281,32 @@ void load_wall(t_game *game)
 		i++;
 	}
 	printf("Paredes carregadas com sucesso\n");
+}
+
+t_img	aux_load(t_game *game)
+{
+	t_img img;
+
+	img.img = mlx_xpm_file_to_image(game->mlx, img.relative_path,
+			&img.img_width, &img.img_height);
+	if (img.img == NULL)
+	{
+		free_walls(game, 1);
+		destroy_game(game);
+		garabe_collector(game);
+		exit(0);
+	}
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+			&img.endian);
+	return (img);
+}
+
+void load_floor(t_game *game)
+{
+	game->floor.texture = aux_load(game);
+}
+
+void load_ceiling(t_game *game)
+{
+	game->ceiling.texture = aux_load(game);
 }
