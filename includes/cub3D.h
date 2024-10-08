@@ -28,7 +28,11 @@ typedef struct s_img
 	int			img_height;
 }				t_img;
 
-
+typedef struct s_minimap
+{
+	int			*x_vals;
+	int			*y_vals;
+}	t_minimap;
 
 typedef struct s_wall
 {
@@ -111,6 +115,8 @@ typedef struct s_game
 	char **ff_map;
 	char *line;
 	int status_free;
+	int x_mouse;
+	int	y_mouse;
 }   t_game;
 
 
@@ -184,6 +190,8 @@ int key_da(t_game *game, int keycode);
 int key_ws(t_game *game, int keycode);
 int key_l(t_game *game, int keycode);
 int key_r(t_game *game, int keycode);
+int mouse_track(int x, int y, t_game *game);
+int mouse_monitor(t_game *game);
 
 void  	init_ray(t_game *game);
 void draw_floor(t_game *game);

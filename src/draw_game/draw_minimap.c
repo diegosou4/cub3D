@@ -2,6 +2,33 @@
 
 #include "../../includes/cub3D.h"
 
+void draw_floor(t_game *game)
+{
+	int i;
+	int j;
+	i = 0;
+	while(i < WIDTH)
+	{
+		j = 0;
+		while(j < HEIGHT / 2)
+		{
+			my_mlx_pixel_put(&game->canva, i, j, SKY_COLOR);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while(i < WIDTH)
+	{
+		j = HEIGHT / 2;
+		while(j < HEIGHT)
+		{
+			my_mlx_pixel_put(&game->canva, i, j, GRAY_COLOR);
+			j++;
+		}
+		i++;
+	}
+}
 
 void draw(int x,int y, int color, t_game *game)
 {
@@ -45,5 +72,5 @@ void draw_minimap(t_game *game)
     }
     i++;
   }
-    test_player(game, RBG_RED);
+    //test_player(game, RBG_RED);
 }

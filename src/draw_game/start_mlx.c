@@ -254,8 +254,9 @@ void start_window(t_game *game)
 	
 
 	// draw_minimap(game);
-		
-	mlx_hook(game->win, 2, 1L << 0, key_event, game);
+	mlx_hook(game->win, 6, (1L << 6), mouse_track, game);   //verifica a posição do rato na janela
+	mlx_hook(game->win, 2, (1L << 0), key_event, game);
+	mlx_loop_hook(game->mlx, mouse_monitor, game);			//consoante a mudança de posição ela executa um movimento
 	mlx_loop(game->mlx);
 	
 }
