@@ -36,6 +36,8 @@ void calculate_ray(t_game *game, int mapX, int mapY)
 	}
 }
 
+// aqui e onde calculamos a distancia do raio
+// ate a parede
 void calculate_distance(t_game *game, int mapX, int mapY)
 {
 	game->player.ray.perpWallDist = 0;
@@ -47,6 +49,11 @@ void calculate_distance(t_game *game, int mapX, int mapY)
 	if(game->player.ray.perpWallDist == 0)
 		game->player.ray.perpWallDist = 0.1;	
 }
+
+
+// Aqui e onde a magica acontece
+// percorre o mapa ate encontrar uma parede
+// define se o raio cruzou uma parede horizontal ou vertical
 
 void hit_wall(t_game *game, int mapX, int mapY)
 {
@@ -116,14 +123,8 @@ void draw_ray(t_game *game, double angle)
 
 	int mapX = (int)game->player.PosX;
 	int mapY = (int)game->player.PosY;
-	// A partit da qui sao varias matematicas chatas
-	//que eu ainda nao entendi 100% devemos olhar com mais calma
-	// apenas segui o site que eu estava lendo
 	calculate_ray(game, mapX, mapY);
-	
 	hit_wall(game, mapX, mapY);
-
-	
 	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
 	
 	game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
@@ -132,20 +133,8 @@ void draw_ray(t_game *game, double angle)
 	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
 	if(game->player.ray.drawEnd >= HEIGHT)
 		game->player.ray.drawEnd = HEIGHT - 1;
-	int color;
-	
-	color = 0;
-
-
-	color = RBG_RED;
-    if (game->player.ray.side == 1) 
-    {
-        color = RBG_BLUE;
-    }
-	
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,SKY_COLOR);;
-   draw_texture(game, angle);
-	
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,SKY_COLOR);
+   	draw_texture(game, angle);
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,GRAY_COLOR);
 }
 void draw_allray(t_game *game)
