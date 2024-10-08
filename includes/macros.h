@@ -14,7 +14,7 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.1
+# define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
 
 # define FOV 66
