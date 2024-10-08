@@ -17,6 +17,7 @@
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.1
 
+
 # define FOV 66
 
 #define BLUE 0x0000FF

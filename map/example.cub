@@ -1,8 +1,8 @@
 
-NO assets/xpm/black_wall.xpm
-SO assets/xpm/maestro.xpm
-WE assets/xpm/normal_wall.xpm
-EA assets/xpm/wall_white.xpm
+NO assets/xpm/ClawMarks.xpm
+SO assets/xpm/exit1.xpm
+WE assets/xpm/Monster-Wall.xpm
+EA assets/xpm/RunRed.xpm
 
 
 F 230,100,0
