@@ -51,12 +51,38 @@ void fill_game(t_game *game)
 	}
 }
 
+int	check_ext(char *pathname, char *format, char *type)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	i = ft_strlen(pathname);
+	if (i <= 4)
+	{
+		printf("Invalid Format %s\n", type);
+		return (0);
+	}
+	if (pathname[i - 1] == format[3])
+		j = 1;
+	if (pathname[i - 2] == format[2])
+		j += 1;
+	if (pathname[i - 3] == format[1])
+		j += 1;
+	if (pathname[i - 4] == format[0])
+		j += 1;
+	if (j == 0)
+		printf("Invalid Format %s\n", type);
+	return (j);
+}
+
 void init_parse(char *path)
 {
     int fd;
 	t_game *game;
 
-    if(!check_ext(path,".cub","map") == 4)
+    if(!(check_ext(path,".cub","map") == 4))
         return;
     game = ft_calloc(sizeof(t_game) , 1);
 	game->line = open_file(path);
@@ -102,28 +128,3 @@ char	*open_read(int fd)
 	return (str);
 }
 
-int	check_ext(char *pathname, char *format, char *type)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	i = ft_strlen(pathname);
-	if (i <= 4)
-	{
-		printf("Invalid Format %s\n", type);
-		return (0);
-	}
-	if (pathname[i - 1] == format[3])
-		j = 1;
-	if (pathname[i - 2] == format[2])
-		j += 1;
-	if (pathname[i - 3] == format[1])
-		j += 1;
-	if (pathname[i - 4] == format[0])
-		j += 1;
-	if (j == 0)
-		printf("Invalid Format %s\n", type);
-	return (j);
-}

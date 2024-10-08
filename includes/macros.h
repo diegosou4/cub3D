@@ -15,7 +15,7 @@
 # define L_AR 65361
 # define R_AR 65363
 # define MOVE_SPEED 0.1
-# define ROT_SPEED 0.1
+# define ROT_SPEED 0.05
 
 
 # define FOV 66
@@ -31,8 +31,8 @@
 #define RBG_BLACK 0x000000
 #define RBG_YELLOW 0xFFFF00
 
-#define WIDTH 1280
-#define HEIGHT 640
+#define WIDTH 1980
+#define HEIGHT 720
 
 #define TAM_Y_P 32
 #define TAM_X_P 32
@@ -50,6 +50,16 @@ enum	direction
 	SOUTH,
 	EAST,
 	WEST
+};
+
+enum	dir_type
+{
+	MOV_N,
+	MOV_S,
+	MOV_E,
+	MOV_O,
+	RIGHT_SPN,
+	LEFT_SPN,
 };
 
 enum 	rbgtexture

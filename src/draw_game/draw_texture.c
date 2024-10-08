@@ -3,7 +3,6 @@
 
 
 
-
 void draw_floor(t_game *game)
 {
 	int i;
