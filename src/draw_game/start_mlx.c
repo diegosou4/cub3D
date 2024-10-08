@@ -101,46 +101,11 @@ void draw_skyfloor(t_game *game,double angle,double x, int color)
 }
 
 
-void draw_texture(t_game *game, int mapX, int mapY)
-{
-	int texture_x;
-	double wallX;
-	printf("game map %c\n", game->map[mapY][mapX]) - 1;
-	if(game->map[mapY][mapX] == 'W')
-		texture_x = -1;
-	
-	printf("Texture %i\n", texture_x);
-	if(game->player.ray.side == 0)
-		wallX = game->player.PosY + game->player.ray.perpWallDist * game->player.ray.rayDirY;
-	else
-		wallX = game->player.PosX + game->player.ray.perpWallDist * game->player.ray.rayDirX;
-	
-	printf("WallX %f\n", wallX);
-	wallX = fmod(wallX, 1.0);
 
-	int texX = (int)(wallX * 64);
-	if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
-		texX = 64 - texX - 1;
-	if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
-		texX = 64 - texX - 1;
-
-	double step = 1.0 * 64 / game->player.ray.lineheight;
-	double texture_pos = (game->player.ray.drawStart - HEIGHT / 2 + game->player.ray.lineheight / 2) * step;
-	int y = game->player.ray.drawStart;
-	while(y < game->player.ray.drawEnd)
-	{
-		int texture_y = (int)texture_pos & 63;
-		texture_pos += step;
-		int color = my_mlx_pixel_get(&game->wall[texture_x].texture, texX, texture_y);
-		my_mlx_pixel_put(&game->canva, mapX, y, color);
-		y++;
-	}
-
-}
 void draw_ray(t_game *game, double angle)
 {
 	double cameraX;
-
+	game->player.ray.currentRayX = angle;
 	cameraX = 2 * angle / WIDTH - 1;
 	double rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
 	double rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
@@ -178,11 +143,8 @@ void draw_ray(t_game *game, double angle)
         color = RBG_BLUE;
     }
 	
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,SKY_COLOR);
-    for(int y = game->player.ray.drawStart; y < game->player.ray.drawEnd; y++)
-    {
-        	my_mlx_pixel_put(&game->canva, angle, y, color);
-    }
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,SKY_COLOR);;
+   draw_texture(game, angle);
 	
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,GRAY_COLOR);
 }
@@ -229,7 +191,15 @@ int	key_event(int keycode, t_game *game)
 	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
 		printf("bateu\n");
 }
-
+void printf_debug(t_game *game)
+{
+	printf("Posicao X %f\n", game->player.PosX);
+	printf("Posicao Y %f\n", game->player.PosY);
+	printf("Dir X %f\n", game->player.dirX);
+	printf("Dir Y %f\n", game->player.dirY);
+	printf("Plane X %f\n", game->player.camera.PlaneX);
+	printf("Plane Y %f\n", game->player.camera.PlaneY);
+}
 
 
 void start_window(t_game *game)
@@ -248,7 +218,8 @@ void start_window(t_game *game)
 
 	init_ray(game);
 	draw_map(game,0);
-	
+
+	// printf_debug(game);
 	draw_allray(game);
 	
 	

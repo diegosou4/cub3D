@@ -18,6 +18,20 @@ void  	init_ray(t_game *game)
 	game->player.time.time = 0;
 	game->player.time.oldtime = 0;
 	game->player.time.frametime = 0;
+    game->player.ray.rayDirX = 0;
+    game->player.ray.rayDirY = 0;
+    game->player.ray.sideDistX = 0;
+    game->player.ray.sideDistY = 0;
+    game->player.ray.deltaDistX = 0;
+    game->player.ray.deltaDistY = 0;
+    game->player.ray.perpWallDist = 0;
+    game->player.ray.stepX = 0;
+    game->player.ray.stepY = 0;
+    game->player.ray.hit = 0;
+    game->player.ray.side = 0;
+    game->player.ray.lineheight = 0;
+    game->player.ray.drawStart = 0;
+    game->player.ray.drawEnd = 0;
 }
 
 

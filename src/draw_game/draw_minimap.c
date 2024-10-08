@@ -45,5 +45,5 @@ void draw_minimap(t_game *game)
     }
     i++;
   }
-    test_player(game, RBG_RED);
+    //test_player(game, RBG_RED);
 }

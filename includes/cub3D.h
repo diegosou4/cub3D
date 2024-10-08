@@ -70,6 +70,7 @@ typedef struct s_ray
 	double deltaDistX;
 	double deltaDistY;
 	double perpWallDist;
+	double currentRayX;
 	int stepX;
 	int stepY;
 	int hit;
@@ -175,7 +176,6 @@ void test_player(t_game *game, int color);
 void draw_allray(t_game *game);
 void raycasting(t_game *game);
 void draw_ray(t_game *game, double angle);
-void define_direction(t_game *game , char direction);
 void draw(int x,int y, int color, t_game *game);
 // Moviment
 
@@ -186,6 +186,7 @@ int key_l(t_game *game, int keycode);
 int key_r(t_game *game, int keycode);
 
 void  	init_ray(t_game *game);
+void draw_texture(t_game *game, double angle);
 void draw_floor(t_game *game);
 // Garabe Collector
 void garabe_collector(t_game *game);
