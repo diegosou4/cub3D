@@ -1,6 +1,8 @@
 
 #include "../../includes/cub3D.h"
 
+
+
 void draw_floor(t_game *game)
 {
 	int i;
@@ -74,10 +76,10 @@ void draw_texture(t_game *game, double angle)
     rayx = 64 - rayx - 1;
   if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
     draw_walls(game, &game->wall[SOUTH].texture, rayx);
-  if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
+  else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
     draw_walls(game, &game->wall[EAST].texture, rayx);
-  if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
+  else if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
     draw_walls(game, &game->wall[WEST].texture, rayx);
-  if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
+  else if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
     draw_walls(game, &game->wall[NORTH].texture, rayx);
 }
