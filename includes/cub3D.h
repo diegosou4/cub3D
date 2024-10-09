@@ -111,6 +111,7 @@ typedef struct s_game
 	t_player player;
 	t_wall wall[4];
 	t_color color[2];
+	int		mov;
 	char **map_info;
 	char **map;
 	char **ff_map;
@@ -191,7 +192,8 @@ int key_ws(t_game *game, int keycode);
 int key_l(t_game *game, int keycode);
 int key_r(t_game *game, int keycode);
 int mouse_track(int x, int y, t_game *game);
-int mouse_monitor(t_game *game);
+int mouse_monitor(t_game *game, int keycode);
+int player_mov2(int keycode, t_game *game);
 
 void  	init_ray(t_game *game);
 void draw_texture(t_game *game, double angle);

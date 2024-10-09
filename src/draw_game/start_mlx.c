@@ -159,27 +159,63 @@ void draw_allray(t_game *game)
 	
 }
 
-	
+void	define_mov2(t_game *game, int keycode)
+{
+	int	mov;
+
+	mov = game->mov;
+	if (keycode == KEY_A)
+		mov = MOV_O;
+	else if (keycode == KEY_D)
+		mov = MOV_E;
+	else if (keycode == KEY_W)
+		mov = MOV_N;
+	else if (keycode == KEY_S)
+		mov = MOV_S;
+	game->mov = mov;
+}
+
+int	key_drop(int keycode, t_game *game)
+{
+	dprintf(2, "KEY DROP ANTES ->%i\n", keycode);
+	dprintf(2, "Mov Antes ->%i\n", game->mov);
+	if (keycode == KEY_W && game->mov == MOV_N)
+		game->mov = IDL;
+	if (keycode == KEY_S && game->mov == MOV_S)
+		game->mov = IDL;
+	if (keycode == KEY_A && game->mov == MOV_O)
+		game->mov = IDL;
+	if (keycode == KEY_D && game->mov == MOV_E)
+		game->mov = IDL;
+	dprintf(2, "KEY DROP DEPOIS ->%i\n", keycode);
+	dprintf(2, "Mov Depois ->%i\n", game->mov);
+	return (0);
+}
+
 
 int	key_event(int keycode, t_game *game)
 {
-	
-	(void)player_mov(game, keycode);
-	
-	draw_allray(game);
+	define_mov2(game, keycode);
+	//(void)player_mov2(game, keycode);
+	//(void)player_mov2(game, keycode);
+/* 	if (game && game->mov != 0)
+		(void)player_mov2(keycode, game);
+	draw_allray(game); */
 	// draw_minimap(game);
 	if(keycode == ESC)
 	{
 		game->status_free = FINAL;
 		printf("Status game %i", game->status_free);
-
+		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
 		printf("ESC\n");
 		exit(0);
 	}
 	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
 		printf("bateu\n");
+	return (0);
 }
+
 void printf_debug(t_game *game)
 {
 	printf("Posicao X %f\n", game->player.PosX);
@@ -193,7 +229,6 @@ void printf_debug(t_game *game)
 
 void start_window(t_game *game)
 {
-
     game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
@@ -203,7 +238,6 @@ void start_window(t_game *game)
 			&game->canva.endian);
 
 	load_wall(game);
-	
 
 	init_ray(game);
 	draw_map(game,0);
@@ -213,12 +247,13 @@ void start_window(t_game *game)
 	
 	
 
-	// draw_minimap(game);
-	mlx_hook(game->win, 6, (1L << 6), mouse_track, game);   //verifica a posição do rato na janela
+	// draw_minimap(game);   //verifica a posição do rato na janela
 	mlx_hook(game->win, 2, (1L << 0), key_event, game);
-	mlx_loop_hook(game->mlx, mouse_monitor, game);			//consoante a mudança de posição ela executa um movimento
+	mlx_hook(game->win, 3, (1L << 1), key_drop, game);
+	mlx_hook(game->win, 6, (1L << 6), mouse_track, game);
+	mlx_do_key_autorepeatoff(game->mlx);
+	mlx_loop_hook(game->mlx, mouse_monitor, game);	//consoante a mudança de posição ela executa um movimento
 	mlx_loop(game->mlx);
-	
 }
 
 t_img	load_img(t_game *game, int texture)

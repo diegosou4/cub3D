@@ -2,7 +2,7 @@
 
 #include "../../includes/cub3D.h"
 
-void draw_floor(t_game *game)
+/* void draw_floor(t_game *game)
 {
 	int i;
 	int j;
@@ -28,7 +28,7 @@ void draw_floor(t_game *game)
 		}
 		i++;
 	}
-}
+} */
 
 void draw(int x,int y, int color, t_game *game)
 {
