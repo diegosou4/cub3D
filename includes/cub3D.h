@@ -119,6 +119,12 @@ typedef struct s_game
 	int status_free;
 	int x_mouse;
 	int	y_mouse;
+	int	x_mov;
+	int	y_mov;
+	int	N;
+	int	E;
+	int	O;
+	int	S;
 }   t_game;
 
 

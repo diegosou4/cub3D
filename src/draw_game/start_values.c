@@ -32,6 +32,10 @@ void  	init_ray(t_game *game)
     game->player.ray.lineheight = 0;
     game->player.ray.drawStart = 0;
     game->player.ray.drawEnd = 0;
+	game->N = 0;
+	game->S = 0;
+	game->E = 0;
+	game->O = 0;
 }
 
 

@@ -156,39 +156,60 @@ void draw_allray(t_game *game)
 		x++;
 	}
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
-	
 }
 
 void	define_mov2(t_game *game, int keycode)
 {
 	int	mov;
 
-	mov = game->mov;
+	mov = IDL;
 	if (keycode == KEY_A)
-		mov = MOV_O;
+	{
+		game->x_mov -= 1;
+		game->O = 1;
+	}	
 	else if (keycode == KEY_D)
-		mov = MOV_E;
+	{
+		game->x_mov += 1;
+		game->E = 1;
+	}	
 	else if (keycode == KEY_W)
-		mov = MOV_N;
+	{
+		game->y_mov -= 1;
+		game->N = 1;
+	}
 	else if (keycode == KEY_S)
-		mov = MOV_S;
+	{
+		game->y_mov += 1;
+		game->S = 1;
+	}	
 	game->mov = mov;
 }
 
 int	key_drop(int keycode, t_game *game)
 {
-	dprintf(2, "KEY DROP ANTES ->%i\n", keycode);
-	dprintf(2, "Mov Antes ->%i\n", game->mov);
-	if (keycode == KEY_W && game->mov == MOV_N)
-		game->mov = IDL;
-	if (keycode == KEY_S && game->mov == MOV_S)
-		game->mov = IDL;
-	if (keycode == KEY_A && game->mov == MOV_O)
-		game->mov = IDL;
-	if (keycode == KEY_D && game->mov == MOV_E)
-		game->mov = IDL;
-	dprintf(2, "KEY DROP DEPOIS ->%i\n", keycode);
-	dprintf(2, "Mov Depois ->%i\n", game->mov);
+	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
+	{
+		game->y_mov += 1;
+		game->N = 0;
+	}	
+	if (keycode == KEY_S && (game->y_mov == 0 || game->y_mov == 1))
+	{
+		game->y_mov -= 1;
+		game->S = 0;
+	}
+	if (keycode == KEY_A && (game->x_mov == 0 || game->x_mov == -1))
+	{
+		game->x_mov += 1;
+		game->O = 0;
+	}
+	if (keycode == KEY_D && (game->x_mov == 0 || game->x_mov == 1)) 
+	{
+		game->x_mov -= 1;
+		game->E = 0;
+	}	
+	dprintf(2, "x_mov ->%i\n", game->x_mov);
+	dprintf(2, "y_mov ->%i\n", game->y_mov);
 	return (0);
 }
 

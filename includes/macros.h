@@ -52,6 +52,11 @@ enum	direction
 	WEST
 };
 
+//	Frente + 1y
+//	Tras   - 1y
+//	Direita + 1x
+//	Esquerda - 1x
+
 enum	dir_type
 {
 	IDL,

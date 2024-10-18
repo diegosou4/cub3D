@@ -90,6 +90,31 @@ int arrow_right(t_game *game)
 	return (1);
 }
 
+/* int	key_pressing(t_game *game)
+{
+	if(game->y_mov == 1 && game->x_mov == 1)
+	{
+		key_w(game);
+		key_d(game);
+		return (0);
+	}
+	if(game->y_mov == 1 && game->x_mov == -1)
+	{
+		key_w(game);
+		key_a(game);
+		return (0);
+	}
+	if(game->y_mov == 1)
+		key_w(game);
+	if(game->y_mov == -1)
+		key_s(game);
+	if(game->x_mov == 1)
+		key_d(game);
+	if(game->x_mov == -1)
+		key_a(game);
+	return (0);
+} */
+
 int mouse_monitor(t_game *game, int keycode)
 {
 	static int	prev_x_mouse = WIDTH / 2;
@@ -111,10 +136,9 @@ int mouse_monitor(t_game *game, int keycode)
 			}
 			//player_mov(game, arrow);
 			prev_x_mouse = WIDTH / 2;
-			
 		}
-		if (game->mov != 0)
-			player_mov2(keycode, game);
+		player_mov2(keycode, game);
+		//key_pressing(game);
 		draw_allray(game);
 		mlx_mouse_move(game->mlx, game->win, WIDTH / 2, HEIGHT / 2);
 	}
@@ -138,18 +162,29 @@ int player_mov(t_game *game, int keycode)
 
 int player_mov2(int keycode, t_game *game)
 {
-	if (game->mov == MOV_N)
+	int	x_mov;
+	int	y_mov;
+
+	y_mov = game->y_mov;
+	x_mov = game->x_mov;
+	dprintf(2, "xmov %d\n", x_mov);
+	dprintf(2, "ymov %d\n", y_mov);
+	dprintf(2, "xmovGme %d\n", game->x_mov);
+	dprintf(2, "ymovGme %d\n", game->y_mov);
+	if (game->N && game->y_mov == -1)
 		key_w(game);
-	if (game->mov == MOV_S)
+	if (game->S && game->y_mov == 1)
 		key_s(game);
-	if (game->mov == MOV_E)
+	if (game->E && game->x_mov == 1)
 		key_d(game);
-	if (game->mov == MOV_O)
+	if (game->O && game->x_mov == -1)
 		key_a(game);
 /* 	if(keycode == L_AR)
 		return(arrow_left(game));
 	else if(keycode == R_AR)
 		return(arrow_right(game)); */
+	game->x_mov = x_mov;
+	game->y_mov = y_mov;
 	return (0);
 }
 
