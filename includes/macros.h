@@ -18,6 +18,7 @@
 # define ROT_SPEED 0.05
 
 
+
 # define FOV 66
 
 #define BLUE 0x0000FF
@@ -30,6 +31,8 @@
 #define RBG_WHITE 0xFFFFFF
 #define RBG_BLACK 0x000000
 #define RBG_YELLOW 0xFFFF00
+#define BACK_YELLOW 0xA5A51C
+#define DIRT_YELLOW 0xB4B452
 
 #define WIDTH 1280
 #define HEIGHT 720

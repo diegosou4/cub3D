@@ -22,6 +22,10 @@ void case_text(t_game *game, char *line, char **split)
         game->wall[3].texture.relative_path = ft_strdup(split[1]);
         game->wall[3].filled = true;
     }
+  /*   game->floor.texture.relative_path = ft_strdup("/assets/xpm/Monster_Wall.xpm");
+    game->floor.filled = true;
+    game->ceiling.texture.relative_path = ft_strdup("/assets/xpm/RunRed.xpm");
+    game->ceiling.filled = true; */
 }
 
 bool all_num(char **split2)
