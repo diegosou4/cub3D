@@ -99,14 +99,12 @@ void init_parse(char *path)
 		free(game);
 		return;
 	}
+	game->mov = IDL;
 	fill_game(game);
 	check_line(game);
 	start_window(game);
 	garabe_collector(game);
 }
-
-
-
 
 char	*open_read(int fd)
 {

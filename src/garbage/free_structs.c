@@ -48,6 +48,7 @@ void free_map(t_game *game)
 }
 void garabe_collector(t_game *game)
 {
+    mlx_do_key_autorepeaton(game->mlx);
     if(game->status_free == PARSE)
         free_map_info(game);
     else if(game->status_free == FLOOD)

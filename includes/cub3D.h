@@ -125,6 +125,7 @@ typedef struct s_game
 	t_floor	floor;
 	t_ceiling	ceiling;
 	t_color color[2];
+	int		mov;
 	char **map_info;
 	char **map;
 	char **ff_map;
@@ -132,6 +133,12 @@ typedef struct s_game
 	int status_free;
 	int x_mouse;
 	int	y_mouse;
+	int	x_mov;
+	int	y_mov;
+	int	N;
+	int	E;
+	int	O;
+	int	S;
 }   t_game;
 
 
@@ -210,7 +217,8 @@ int key_ws(t_game *game, int keycode);
 int key_l(t_game *game, int keycode);
 int key_r(t_game *game, int keycode);
 int mouse_track(int x, int y, t_game *game);
-int mouse_monitor(t_game *game);
+int mouse_monitor(t_game *game, int keycode);
+int player_mov2(int keycode, t_game *game);
 
 void  	init_ray(t_game *game);
 void draw_texture(t_game *game, double angle);

@@ -14,8 +14,9 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.1
-# define ROT_SPEED 0.1
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.05
+
 
 
 # define FOV 66
@@ -33,7 +34,7 @@
 #define BACK_YELLOW 0xA5A51C
 #define DIRT_YELLOW 0xB4B452
 
-#define WIDTH 1980
+#define WIDTH 1280
 #define HEIGHT 720
 
 #define TAM_Y_P 32
@@ -54,8 +55,14 @@ enum	direction
 	WEST
 };
 
+//	Frente + 1y
+//	Tras   - 1y
+//	Direita + 1x
+//	Esquerda - 1x
+
 enum	dir_type
 {
+	IDL,
 	MOV_N,
 	MOV_S,
 	MOV_E,
