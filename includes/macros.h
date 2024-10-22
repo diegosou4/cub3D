@@ -14,8 +14,8 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.02
 
 
 
@@ -33,13 +33,14 @@
 #define RBG_YELLOW 0xFFFF00
 #define BACK_YELLOW 0xA5A51C
 #define DIRT_YELLOW 0xB4B452
+#define DARK_YELLOW 0x686511
 
 #define WIDTH 1280
 #define HEIGHT 720
 
-#define TAM_Y_P 32
-#define TAM_X_P 32
-#define TAM_P  8
+#define TAM_Y_P 128
+#define TAM_X_P 128
+#define TAM_P  32
 
 
 #define A_NORTH 270

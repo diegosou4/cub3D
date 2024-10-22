@@ -82,7 +82,7 @@ void hit_wall(t_game *game, int mapX, int mapY)
 void draw_skyfloor(t_game *game,double angle,double x, int color)
 {
 	int y = 0;
-	if(color == BACK_YELLOW)
+	if(color == RBG_BLACK)
 	{
 		if(x > 0)
 		{
@@ -94,7 +94,7 @@ void draw_skyfloor(t_game *game,double angle,double x, int color)
 		}
 		return;	
 	}
-	if(color == DIRT_YELLOW)
+	if(color == DARK_YELLOW)
 	{
 		if(x < HEIGHT)
 		{
@@ -163,9 +163,9 @@ void draw_ray(t_game *game, double angle)
 	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
 	if(game->player.ray.drawEnd >= HEIGHT)
 		game->player.ray.drawEnd = HEIGHT - 1;
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,BACK_YELLOW);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,RBG_BLACK);
    	draw_texture(game, angle);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,DIRT_YELLOW);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,DARK_YELLOW);
 }
 void draw_allray(t_game *game)
 {
@@ -238,8 +238,8 @@ int	key_drop(int keycode, t_game *game)
 		game->x_mov -= 1;
 		game->E = 0;
 	}	
-	dprintf(2, "x_mov ->%i\n", game->x_mov);
-	dprintf(2, "y_mov ->%i\n", game->y_mov);
+/* 	dprintf(2, "x_mov ->%i\n", game->x_mov);
+	dprintf(2, "y_mov ->%i\n", game->y_mov); */
 	return (0);
 }
 
@@ -293,7 +293,7 @@ void start_window(t_game *game)
 	init_ray(game);
 	draw_map(game,0);
 
-	// printf_debug(game);
+	printf_debug(game);
 	draw_allray(game);
 	
 	

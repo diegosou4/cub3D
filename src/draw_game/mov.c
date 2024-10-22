@@ -168,10 +168,10 @@ int player_mov2(int keycode, t_game *game)
 
 	y_mov = game->y_mov;
 	x_mov = game->x_mov;
-	dprintf(2, "xmov %d\n", x_mov);
+/* 	dprintf(2, "xmov %d\n", x_mov);
 	dprintf(2, "ymov %d\n", y_mov);
 	dprintf(2, "xmovGme %d\n", game->x_mov);
-	dprintf(2, "ymovGme %d\n", game->y_mov);
+	dprintf(2, "ymovGme %d\n", game->y_mov); */
 	if (game->N && game->y_mov == -1)
 		key_w(game);
 	if (game->S && game->y_mov == 1)

@@ -44,11 +44,11 @@ void draw_walls(t_game *game, t_img *texture, double angle)
   y = game->player.ray.drawStart;
   while(y < game->player.ray.drawEnd)
     {
-    texY = (int)texPos & (texture->img_height - 1);
+    	texY = (int)texPos & (texture->img_height - 1);
         texPos += step;
-    color = my_mlx_pixel_get(texture, (int)angle, texY);
-        my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
-    y++;
+    	color = my_mlx_pixel_get(texture, (int)angle, texY);
+    	my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
+    	y++;
   }
 
 }
@@ -60,26 +60,27 @@ void draw_texture(t_game *game, double angle)
 {
 
 	double wall_x;
-  double rayx;
+	double rayx;
 
 	if(game->player.ray.side == 0)
 		wall_x = game->player.PosY + game->player.ray.perpWallDist * game->player.ray.rayDirY;
 	else
 		wall_x = game->player.PosX + game->player.ray.perpWallDist * game->player.ray.rayDirX;
-
+	
 	wall_x -= floor(wall_x);
-  rayx = (int)(wall_x * 64);;
-  
-  if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
-    rayx = 64 - rayx - 1;
-  if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
-    rayx = 64 - rayx - 1;
-  if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
-    draw_walls(game, &game->wall[SOUTH].texture, rayx);
-  else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
-    draw_walls(game, &game->wall[EAST].texture, rayx);
-  else if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
-    draw_walls(game, &game->wall[WEST].texture, rayx);
-  else if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
-    draw_walls(game, &game->wall[NORTH].texture, rayx);
+	rayx = (int)(wall_x * 256);
+
+	if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
+		rayx = 256 - rayx - 1;
+	if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
+		rayx = 256 - rayx - 1;	
+	
+	if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
+		draw_walls(game, &game->wall[SOUTH].texture, rayx);	
+	else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
+		draw_walls(game, &game->wall[EAST].texture, rayx);		
+	else if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
+		draw_walls(game, &game->wall[WEST].texture, rayx);
+	else if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
+		draw_walls(game, &game->wall[NORTH].texture, rayx);
 }
