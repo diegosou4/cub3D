@@ -36,6 +36,8 @@ void  	init_ray(t_game *game)
 	game->S = 0;
 	game->E = 0;
 	game->O = 0;
+	game->rot_Left = 0;
+	game->rot_Right = 0;
 }
 
 

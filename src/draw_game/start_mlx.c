@@ -82,7 +82,7 @@ void hit_wall(t_game *game, int mapX, int mapY)
 void draw_skyfloor(t_game *game,double angle,double x, int color)
 {
 	int y = 0;
-	if(color == RBG_BLACK)
+	if(color == DIRT_YELLOW)
 	{
 		if(x > 0)
 		{
@@ -138,45 +138,160 @@ void draw_skyfall(t_game *game, double angle, double drawEnd, t_img *texture, in
     }
 }
 
+void draw_floor_texture(t_game *game, double angle, int drawEnd)
+{
+    double rayDirX0 = game->player.dirX - game->player.camera.PlaneX;
+    double rayDirY0 = game->player.dirY - game->player.camera.PlaneY;
+    double rayDirX1 = game->player.dirX + game->player.camera.PlaneX;
+    double rayDirY1 = game->player.dirY + game->player.camera.PlaneY;
+
+    double posZ = 0.5 * HEIGHT;
+
+    for (int y = drawEnd; y < HEIGHT; y++)
+    {
+        double p = y - HEIGHT / 2;
+        double rowDistance = posZ / p;
+
+        double floorStepX = rowDistance * (rayDirX1 - rayDirX0) / WIDTH;
+        double floorStepY = rowDistance * (rayDirY1 - rayDirY0) / WIDTH;
+
+        double floorX = game->player.PosX + rowDistance * rayDirX0;
+        double floorY = game->player.PosY + rowDistance * rayDirY0;
+
+        for (int x = 0; x < WIDTH; x++)
+        {
+            int cellX = (int)floorX;
+            int cellY = (int)floorY;
+
+            int tx = (int)(64 * (floorX - cellX)) & (64 - 1);
+            int ty = (int)(64 * (floorY - cellY)) & (64 - 1);
+
+            floorX += floorStepX;
+            floorY += floorStepY;
+
+            // Directly access pixel data from the texture
+            char *color_pixel = game->floor.texture.addr + (ty * game->floor.texture.line_length + tx * (game->floor.texture.bits_per_pixel / 8));
+            unsigned int color = *(unsigned int *)color_pixel;
+
+            // Put the pixel on the screen
+            char *dst_pixel = game->canva.addr + (y * game->canva.line_length + x * (game->canva.bits_per_pixel / 8));
+            *(unsigned int *)dst_pixel = color;
+        }
+    }
+}
+
+
+
+
+void draw_ceiling_texture(t_game *game, double angle, int drawStart)
+{
+    double rayDirX0 = game->player.dirX - game->player.camera.PlaneX;
+    double rayDirY0 = game->player.dirY - game->player.camera.PlaneY;
+    double rayDirX1 = game->player.dirX + game->player.camera.PlaneX;
+    double rayDirY1 = game->player.dirY + game->player.camera.PlaneY;
+
+    double posZ = 0.5 * HEIGHT;
+
+    for (int y = 0; y < drawStart; y++)
+    {
+        double p = HEIGHT / 2 - y;
+        double rowDistance = posZ / p;
+
+        double floorStepX = rowDistance * (rayDirX1 - rayDirX0) / WIDTH;
+        double floorStepY = rowDistance * (rayDirY1 - rayDirY0) / WIDTH;
+
+        double floorX = game->player.PosX + rowDistance * rayDirX0;
+        double floorY = game->player.PosY + rowDistance * rayDirY0;
+
+        for (int x = 0; x < WIDTH; x++)
+        {
+            int cellX = (int)floorX;
+            int cellY = (int)floorY;
+
+            int tx = (int)(64 * (floorX - cellX)) & (64 - 1);
+            int ty = (int)(64 * (floorY - cellY)) & (64 - 1);
+
+            floorX += floorStepX;
+            floorY += floorStepY;
+
+            // Directly access pixel data from the texture
+            char *color_pixel = game->ceiling.texture.addr + (ty * game->ceiling.texture.line_length + tx * (game->ceiling.texture.bits_per_pixel / 8));
+            unsigned int color = *(unsigned int *)color_pixel;
+
+            // Put the pixel on the screen
+            char *dst_pixel = game->canva.addr + (y * game->canva.line_length + x * (game->canva.bits_per_pixel / 8));
+            *(unsigned int *)dst_pixel = color;
+        }
+    }
+}
+
+
+void draw_floor_ceiling(t_game *game, double angle)
+{
+    int y;
+    for (y = game->player.ray.drawEnd + 1; y < HEIGHT; y++)
+    {
+        double currentDist = HEIGHT / (2.0 * y - HEIGHT);  // Current distance from the player to the floor/ceiling
+
+        double weight = currentDist / game->player.ray.perpWallDist;  // Weight factor for averaging
+
+        double floorX = weight * game->player.ray.rayDirX + (1.0 - weight) * game->player.PosX;
+        double floorY = weight * game->player.ray.rayDirY + (1.0 - weight) * game->player.PosY;
+
+        int texX, texY;
+		int cellX = (int)(floorX);
+        int cellY = (int)(floorY);
+
+        texX = (int)(64 * (floorX - cellX)) & (64 - 1);
+       	texY = (int)(64 * (floorY - cellY)) & (64 - 1);
+
+        int floorColor = my_mlx_pixel_get(&game->floor.texture, texX, texY);
+        int ceilingColor = my_mlx_pixel_get(&game->ceiling.texture, texX, texY);
+
+        my_mlx_pixel_put(&game->canva, angle, y, floorColor);
+        my_mlx_pixel_put(&game->canva, angle, HEIGHT - y - 1, ceilingColor);
+    }
+}
+
 
 void draw_ray(t_game *game, double angle)
 {
-	double cameraX;
-	game->player.ray.currentRayX = angle;
-	cameraX = 2 * angle / WIDTH - 1;
-	double rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
-	double rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
-	game->player.ray.rayDirX = rayDirX;
-	game->player.ray.rayDirY = rayDirY;
-	game->player.deltax = fabs(1 / rayDirX);
-	game->player.deltay = fabs(1 / rayDirY);
+    double cameraX;
+    game->player.ray.currentRayX = angle;
+    cameraX = 2 * angle / WIDTH - 1;
+    double rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
+    double rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
+    game->player.ray.rayDirX = rayDirX;
+    game->player.ray.rayDirY = rayDirY;
+    game->player.deltax = fabs(1 / rayDirX);
+    game->player.deltay = fabs(1 / rayDirY);
 
-	int mapX = (int)game->player.PosX;
-	int mapY = (int)game->player.PosY;
-	calculate_ray(game, mapX, mapY);
-	hit_wall(game, mapX, mapY);
-	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
-	
-	game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
-	if(game->player.ray.drawStart < 0)
-		game->player.ray.drawStart = 0;
-	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
-	if(game->player.ray.drawEnd >= HEIGHT)
-		game->player.ray.drawEnd = HEIGHT - 1;
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,RBG_BLACK);
-   	draw_texture(game, angle);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,DARK_YELLOW);
+    int mapX = (int)game->player.PosX;
+    int mapY = (int)game->player.PosY;
+    calculate_ray(game, mapX, mapY);
+    hit_wall(game, mapX, mapY);
+    game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
+    
+    game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
+    if(game->player.ray.drawStart < 0)
+        game->player.ray.drawStart = 0;
+    game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
+    if(game->player.ray.drawEnd >= HEIGHT)
+        game->player.ray.drawEnd = HEIGHT - 1;
+
+    draw_floor_ceiling(game, angle);
+    draw_texture(game, angle);
 }
+
+
+
+
+
 void draw_allray(t_game *game)
 {
 	int x;
 	
 	x = 0;
-
-	int mapX = (int)game->player.PosX;
-	int mapY = (int)game->player.PosY;
-
-	
 	//clear_screen(game);
 
 	// aqui no caso 
@@ -212,7 +327,11 @@ void	define_mov2(t_game *game, int keycode)
 	{
 		game->y_mov += 1;
 		game->S = 1;
-	}	
+	}
+	else if (keycode == L_AR)
+		game->rot_Left = 1;
+	else if (keycode == R_AR)
+		game->rot_Right = 1;
 	game->mov = mov;
 }
 
@@ -237,7 +356,11 @@ int	key_drop(int keycode, t_game *game)
 	{
 		game->x_mov -= 1;
 		game->E = 0;
-	}	
+	}
+	if (keycode == L_AR)
+		game->rot_Left = 0;
+	if (keycode == R_AR)
+		game->rot_Right = 0;
 /* 	dprintf(2, "x_mov ->%i\n", game->x_mov);
 	dprintf(2, "y_mov ->%i\n", game->y_mov); */
 	return (0);
@@ -246,13 +369,13 @@ int	key_drop(int keycode, t_game *game)
 
 int	key_event(int keycode, t_game *game)
 {
-	define_mov2(game, keycode);
+	mouse_monitor(game, keycode);
+ 	define_mov2(game, keycode);
+	/*(void)player_mov2(keycode, game);
 	//(void)player_mov2(game, keycode);
-	//(void)player_mov2(game, keycode);
-/* 	if (game && game->mov != 0)
-		(void)player_mov2(keycode, game);
-	draw_allray(game); */
-	// draw_minimap(game);
+ 	if (game && game->mov != 0)
+		(void)player_mov2(keycode, game);*/
+	draw_allray(game); 
 	if(keycode == ESC)
 	{
 		game->status_free = FINAL;
@@ -287,13 +410,13 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-
+	game->floor.texture = aux_load("assets/xpm/normal_wall.xpm", game);
+	game->ceiling.texture = aux_load("assets/xpm/gray_wall.xpm", game);
 	load_wall(game);
-
 	init_ray(game);
 	draw_map(game,0);
 
-	printf_debug(game);
+	//printf_debug(game);
 	draw_allray(game);
 	
 	
@@ -339,30 +462,28 @@ void load_wall(t_game *game)
 	printf("Paredes carregadas com sucesso\n");
 }
 
-t_img	aux_load(t_game *game)
-{
-	t_img img;
 
+t_img	aux_load(char *path, t_game *game)
+{
+	t_img	img;
+
+	if (game->mlx)
+		img.relative_path = path;
 	img.img = mlx_xpm_file_to_image(game->mlx, img.relative_path,
 			&img.img_width, &img.img_height);
-	if (img.img == NULL)
+	if (!img.img)
 	{
-		free_walls(game, 1);
 		destroy_game(game);
 		garabe_collector(game);
 		exit(0);
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
+	if (!img.addr)
+	{
+		destroy_game(game);
+		garabe_collector(game);
+		exit(0);
+	}
 	return (img);
-}
-
-void load_floor(t_game *game)
-{
-	game->floor.texture = aux_load(game);
-}
-
-void load_ceiling(t_game *game)
-{
-	game->ceiling.texture = aux_load(game);
 }
