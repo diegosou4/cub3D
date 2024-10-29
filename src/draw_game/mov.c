@@ -121,7 +121,7 @@ int mouse_monitor(t_game *game, int keycode)
 	double		deltaX;
 
 	deltaX = game->x_mouse - prev_x_mouse;
-	dprintf(2, "print %d\n", keycode);
+	
 	if ((game->x_mouse > 0 && game->x_mouse < WIDTH) || keycode == R_AR || keycode == L_AR)
 	{
 		deltaX = game->x_mouse - prev_x_mouse;
@@ -170,10 +170,10 @@ int player_mov2(int keycode, t_game *game)
 
 	y_mov = game->y_mov;
 	x_mov = game->x_mov;
-/* 	dprintf(2, "xmov %d\n", x_mov);
-	dprintf(2, "ymov %d\n", y_mov);
-	dprintf(2, "xmovGme %d\n", game->x_mov);
-	dprintf(2, "ymovGme %d\n", game->y_mov); */
+	// dprintf(2, "xmov %d\n", x_mov);
+	// dprintf(2, "ymov %d\n", y_mov);
+	// dprintf(2, "xmovGme %d\n", game->x_mov);
+	// dprintf(2, "ymovGme %d\n", game->y_mov);
 	if (game->N && game->y_mov == -1)
 		key_w(game);
 	if (game->S && game->y_mov == 1)
@@ -182,10 +182,10 @@ int player_mov2(int keycode, t_game *game)
 		key_d(game);
 	if (game->O && game->x_mov == -1)
 		key_a(game);
- 	if(game->rot_Left)
-		arrow_left(game);
-	if(game->rot_Right)
-		arrow_right(game);
+/* 	if(keycode == L_AR)
+		return(arrow_left(game));
+	else if(keycode == R_AR)
+		return(arrow_right(game)); */
 	game->x_mov = x_mov;
 	game->y_mov = y_mov;
 	return (0);

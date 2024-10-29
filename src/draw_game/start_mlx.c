@@ -278,8 +278,9 @@ void draw_ray(t_game *game, double angle)
     game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
     if(game->player.ray.drawEnd >= HEIGHT)
         game->player.ray.drawEnd = HEIGHT - 1;
-
-    draw_floor_ceiling(game, angle);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,DIRT_YELLOW);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,DARK_YELLOW);
+    // draw_floor_ceiling(game, angle);
     draw_texture(game, angle);
 }
 
@@ -410,8 +411,8 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->floor.texture = aux_load("assets/xpm/normal_wall.xpm", game);
-	game->ceiling.texture = aux_load("assets/xpm/gray_wall.xpm", game);
+	game->floor.texture = aux_load("assets/xpm/pool.xpm", game);
+	game->ceiling.texture = aux_load("assets/xpm/trippy.xpm", game);
 	load_wall(game);
 	init_ray(game);
 	draw_map(game,0);
