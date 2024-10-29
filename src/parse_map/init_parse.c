@@ -45,10 +45,16 @@ void fill_game(t_game *game)
 	while(i != 4)
 	{
 		game->wall[i].filled = false;
-		game->wall[i].texture.img_width = 64;
-        game->wall[i].texture.img_height = 64;
+		game->wall[i].texture.img_width = 256;
+        game->wall[i].texture.img_height = 256;
 		i++;
 	}
+	game->ceiling.filled = true;
+	game->floor.filled = true;
+	game->ceiling.texture.img_width = 256;
+	game->ceiling.texture.img_height = 256;
+	game->floor.texture.img_width = 256;
+	game->floor.texture.img_height = 256;
 /* 	game->ceiling.filled = false;
 	game->ceiling.texture.img_width = 64;
     game->ceiling.texture.img_height = 64; 

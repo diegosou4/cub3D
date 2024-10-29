@@ -19,7 +19,6 @@ void draw(int x,int y, int color, t_game *game)
 			my_mlx_pixel_put(&game->canva, x + i, y + j, color);
 			j++;
 		}
-	
 		i++;
 	}
 }
@@ -44,5 +43,5 @@ void draw_minimap(t_game *game)
     }
     i++;
   }
-    //test_player(game, RBG_RED);
+  //test_player(game, RBG_RED);
 }

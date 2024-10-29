@@ -121,9 +121,9 @@ typedef struct s_game
 	void		*win;
 	t_img		canva;
 	t_player player;
-	t_wall wall[4];
-	t_floor	floor;
-	t_ceiling	ceiling;
+	t_wall	wall[4];
+	t_wall	floor;
+	t_wall	ceiling;
 	t_color color[2];
 	int		mov;
 	char **map_info;
@@ -139,6 +139,8 @@ typedef struct s_game
 	int	E;
 	int	O;
 	int	S;
+	int rot_Left;
+	int rot_Right;
 }   t_game;
 
 
@@ -208,7 +210,7 @@ void draw_allray(t_game *game);
 void raycasting(t_game *game);
 void draw_ray(t_game *game, double angle);
 void draw(int x,int y, int color, t_game *game);
-void draw_floor_texture(t_game *game, double angle, int drawEnd, double rayDirX, double rayDirY);
+void draw_floor_texture(t_game *game, double angle, int drawEnd);
 // Moviment
 
 int player_mov(t_game *game, int keycode);
@@ -219,10 +221,11 @@ int key_r(t_game *game, int keycode);
 int mouse_track(int x, int y, t_game *game);
 int mouse_monitor(t_game *game, int keycode);
 int player_mov2(int keycode, t_game *game);
+t_img	aux_load(char *path, t_game *game);
 
 void  	init_ray(t_game *game);
 void draw_texture(t_game *game, double angle);
-void draw_floor(t_game *game);
+void draw_floor(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky);
 // Garabe Collector
 void garabe_collector(t_game *game);
 void print_free(t_game *game, char *errostr);
