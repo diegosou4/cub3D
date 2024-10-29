@@ -37,7 +37,7 @@
 
 #define WIDTH 1280
 #define HEIGHT 720
-
+#define TAM_TEXT 256
 #define TAM_Y_P 128
 #define TAM_X_P 128
 #define TAM_P  32

@@ -42,6 +42,7 @@ void draw_walls(t_game *game, t_img *texture, double angle)
   int texY;
   int color;
   int y;
+ 
 
   step = 1.0 * texture->img_height / game->player.ray.lineheight;
   texPos = (game->player.ray.drawStart - HEIGHT / 2 + game->player.ray.lineheight / 2) * step;
@@ -51,7 +52,7 @@ void draw_walls(t_game *game, t_img *texture, double angle)
 		//dprintf(2, "texPOs -> %f\n\n", texPos);
     	texY = (int)texPos & (texture->img_height - 1);
         texPos += step;
-    	color = my_mlx_pixel_get(texture, (int)angle, texY);
+    	color = my_mlx_pixel_get(texture, TAM_TEXT - (int)angle, texY);
     	my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
     	y++;
   }
