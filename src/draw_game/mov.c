@@ -127,11 +127,11 @@ int mouse_monitor(t_game *game, int keycode)
 		deltaX = game->x_mouse - prev_x_mouse;
 		if (deltaX != 0 || keycode == R_AR || keycode == L_AR)
 		{
-			if (deltaX > 0 || keycode == R_AR)
+			if (deltaX > 0 || game->rot_Right == 1)
 			{
 				arrow_right(game);
 			}
-			else
+			else if ( deltaX < 0 || game->rot_Left == 1)
 			{
 				arrow_left(game);
 			}
@@ -182,10 +182,10 @@ int player_mov2(int keycode, t_game *game)
 		key_d(game);
 	if (game->O && game->x_mov == -1)
 		key_a(game);
-/* 	if(keycode == L_AR)
-		return(arrow_left(game));
-	else if(keycode == R_AR)
-		return(arrow_right(game)); */
+	if(game->rot_Left == 1)
+		arrow_left(game);
+	if(game->rot_Right == 1)
+		arrow_right(game);
 	game->x_mov = x_mov;
 	game->y_mov = y_mov;
 	return (0);

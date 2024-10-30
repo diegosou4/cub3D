@@ -278,29 +278,50 @@ void draw_ray(t_game *game, double angle)
     game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
     if(game->player.ray.drawEnd >= HEIGHT)
         game->player.ray.drawEnd = HEIGHT - 1;
+	
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,DIRT_YELLOW);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,DARK_YELLOW);
-    // draw_floor_ceiling(game, angle);
     draw_texture(game, angle);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,DARK_YELLOW);
 }
 
 
+void	paintcanva2(t_game *varg, int color, int sx, int sy)
+{
+	int	x;
+	int	y;
 
+	y = 0;
+	while (y < 30)
+	{
+		x = 0;
+		while (x < 30)
+		{
+			my_mlx_pixel_put(&varg->canva, sx + x, sy + y, color);
+			x++;
+		}
+		y++;
+	}
+}
 
 
 void draw_allray(t_game *game)
 {
-	int x;
-	
-	x = 0;
-	//clear_screen(game);
+	int	x;
+	int y;
 
-	// aqui no caso 
+	x = 0;
 	while(x < WIDTH)
 	{
 		draw_ray(game, x);
 		x++;
 	}
+	for (y = 30; y < 30 + 80; y++)
+    {
+        for (x = 30; x < 30 + 80; x++)
+        {
+           paintcanva2(game, RBG_RED, x, y);
+        }
+    }
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 
@@ -358,24 +379,19 @@ int	key_drop(int keycode, t_game *game)
 		game->x_mov -= 1;
 		game->E = 0;
 	}
-	if (keycode == L_AR)
+	if (game->rot_Left == 1 && keycode == L_AR)
 		game->rot_Left = 0;
-	if (keycode == R_AR)
+	if (game->rot_Right == 1 && keycode == R_AR)
 		game->rot_Right = 0;
-/* 	dprintf(2, "x_mov ->%i\n", game->x_mov);
-	dprintf(2, "y_mov ->%i\n", game->y_mov); */
 	return (0);
 }
 
 
 int	key_event(int keycode, t_game *game)
 {
+	printf_debug(game);
 	mouse_monitor(game, keycode);
  	define_mov2(game, keycode);
-	/*(void)player_mov2(keycode, game);
-	//(void)player_mov2(game, keycode);
- 	if (game && game->mov != 0)
-		(void)player_mov2(keycode, game);*/
 	draw_allray(game); 
 	if(keycode == ESC)
 	{
@@ -393,12 +409,14 @@ int	key_event(int keycode, t_game *game)
 
 void printf_debug(t_game *game)
 {
+	printf("\n");
 	printf("Posicao X %f\n", game->player.PosX);
 	printf("Posicao Y %f\n", game->player.PosY);
 	printf("Dir X %f\n", game->player.dirX);
 	printf("Dir Y %f\n", game->player.dirY);
 	printf("Plane X %f\n", game->player.camera.PlaneX);
 	printf("Plane Y %f\n", game->player.camera.PlaneY);
+	printf("\n");
 }
 
 
@@ -411,18 +429,18 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->floor.texture = aux_load("assets/xpm/pool.xpm", game);
-	game->ceiling.texture = aux_load("assets/xpm/trippy.xpm", game);
+	game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
+	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game);
 	load_wall(game);
 	init_ray(game);
 	draw_map(game,0);
 
-	//printf_debug(game);
+	printf_debug(game);
 	draw_allray(game);
 	
 	
 
-	// draw_minimap(game);   //verifica a posição do rato na janela
+	//draw_minimap(game);   //verifica a posição do rato na janela
 	mlx_hook(game->win, 2, (1L << 0), key_event, game);
 	mlx_hook(game->win, 3, (1L << 1), key_drop, game);
 	mlx_hook(game->win, 6, (1L << 6), mouse_track, game);
