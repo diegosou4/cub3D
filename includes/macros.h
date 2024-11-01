@@ -14,8 +14,8 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.04
 
 
 
@@ -34,6 +34,8 @@
 #define BACK_YELLOW 0xA5A51C
 #define DIRT_YELLOW 0x4a420a
 #define DARK_YELLOW 0x514a14
+#define FLOOR_MAP 0xaeac5c
+
 
 #define WIDTH 1280
 #define HEIGHT 720
@@ -45,6 +47,13 @@
 #define MINIMAP_HEIGHT 100
 #define MINIMAP_OFFSET_X 10
 #define MINIMAP_OFFSET_Y 10
+//
+#define MINIMAP_MARGIN 20
+#define MINIMAP_SIZE 150 // Size of the minimap square
+#define MINIMAP_SCALE 0.6 // Scale factor for the map
+#define PLAYER_MARKER_SIZE 6 // Size of the player marker
+
+
 
 #define A_NORTH 270
 #define A_SOUTH 90

@@ -303,6 +303,16 @@ void	paintcanva2(t_game *varg, int color, int sx, int sy)
 	}
 }
 
+/* void clear_screen0(t_game *game, double angle) 
+{
+	int width = game.;
+    int height = mlx->height;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            my_mlx_pixel_put(mlx, x, y, 0x000000); // Clear to black
+        }
+    }
+} */
 
 void draw_allray(t_game *game)
 {
@@ -315,13 +325,7 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
-	for (y = 30; y < 30 + 80; y++)
-    {
-        for (x = 30; x < 30 + 80; x++)
-        {
-           paintcanva2(game, RBG_RED, x, y);
-        }
-    }
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 
@@ -429,6 +433,7 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
+	game->player.textura = aux_load("assets/xpm/player.xpm", game);
 	game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
 	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game);
 	load_wall(game);

@@ -97,7 +97,7 @@ void draw_circle(t_img *img, int cx, int cy, int radius, int color) {
 }
 
 
-void draw_minimap(t_game *game, int minimap_x, int minimap_y, int minimap_width, int minimap_height)
+/* void draw_minimap(t_game *game, int minimap_x, int minimap_y, int minimap_width, int minimap_height)
 {
     int i, j;
     float scale_x = (float)minimap_width / (WIDTH * TAM_X_P);
@@ -124,7 +124,7 @@ void draw_minimap(t_game *game, int minimap_x, int minimap_y, int minimap_width,
     int player_minimap_x = minimap_x + (int)(game->player.PosX * TAM_X_P * scale_x);
     int player_minimap_y = minimap_y + (int)(game->player.PosY * TAM_Y_P * scale_y);
     draw_circle(&game->canva, player_minimap_x, player_minimap_y, 3, RBG_RED); // Draw player position
-}
+} */
 
 void draw_map(t_game *game, int ftime)
 {
@@ -161,5 +161,4 @@ void draw_map(t_game *game, int ftime)
 		y += TAM_Y_P;
 		i++;
 	}
-	//draw_minimap(game, MINIMAP_OFFSET_X, MINIMAP_OFFSET_Y, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 }

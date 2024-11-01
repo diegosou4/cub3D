@@ -96,7 +96,12 @@ typedef struct s_ray
 	double drawEnd;
 } t_ray;
 
-
+typedef struct s_map
+{
+	char **data;
+	int width;
+	int height;
+}	t_map;
 
 typedef struct s_player
 {
@@ -107,6 +112,7 @@ typedef struct s_player
 	double direction;
 	double deltax;
 	double deltay;
+	t_img	textura;
 	t_camera camera;
 	double dirX;
 	double dirY;
@@ -203,11 +209,13 @@ t_img	load_img(t_game *game, int texture);
 int	my_mlx_pixel_get(t_img *data, int x, int y);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void draw_flooring_sky(t_game *game);
-void draw_minimap(t_game *game, int minimap_x, int minimap_y, int minimap_width, int minimap_height);
+void draw_minimap(t_game *game);
 void draw_mini_map(t_game *game);
+void draw_mapray(t_game *game);
 // void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
+void paintimage(t_game *game, t_img *img, int sx, int sy);
 void draw_allray(t_game *game);
 void raycasting(t_game *game);
 void draw_ray(t_game *game, double angle);
@@ -224,6 +232,7 @@ int mouse_track(int x, int y, t_game *game);
 int mouse_monitor(t_game *game, int keycode);
 int player_mov2(int keycode, t_game *game);
 t_img	aux_load(char *path, t_game *game);
+void clear_screen0(t_game *game, double angle);
 
 void  	init_ray(t_game *game);
 void draw_texture(t_game *game, double angle);

@@ -9,7 +9,7 @@ void draw(int x,int y, int color, t_game *game)
 
 	i = 0;
 	j = 0;
- return;	
+	
 	i++;
 	while(i < 6)
 	{
