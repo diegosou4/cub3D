@@ -47,8 +47,8 @@ t_img	load_img(t_game *game, char *path)
 	if (img.img == NULL)
 	{
 		free_walls(game);
-		destroy_game(game);
 		garabe_collector(game);
+		destroy_game(game);
 		exit(0);
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
@@ -69,5 +69,5 @@ void load_wall(t_game *game)
 		game->wall[i].texture = load_img(game, game->wall[i].texture.relative_path);
 		i++;
 	}
-	printf("game current img %d\n",game->current_img);	
+	
 }

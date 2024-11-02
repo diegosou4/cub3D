@@ -96,7 +96,8 @@ enum option
 {
 	PARSE,
 	FINAL,
-	FLOOD
+	FLOOD,
+	MLX
 };
 
 #endif

@@ -16,9 +16,9 @@ void destroy_game(t_game *game)
 {
 
     // Precisamos resolver esse problema
-    // mlx_clear_window(game->mlx, game->win);
-	// mlx_destroy_image(game->mlx, game->canva.img);
-	// mlx_destroy_window(game->mlx,game->win);
-	// mlx_destroy_display(game->mlx);
-	// free(game->mlx);
+    mlx_clear_window(game->mlx, game->win);
+	mlx_destroy_image(game->mlx, game->canva.img);
+	mlx_destroy_window(game->mlx,game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
 }

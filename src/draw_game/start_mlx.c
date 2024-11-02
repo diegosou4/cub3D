@@ -372,9 +372,8 @@ int	key_event(int keycode, t_game *game)
  	define_mov2(game, keycode);
 	draw_allray(game); 
 	if(keycode == ESC)
-	{
-		game->status_free = FINAL;
-		mlx_do_key_autorepeaton(game->mlx);
+	{		
+        mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
 		destroy_game(game);
 		exit(0);
@@ -399,6 +398,7 @@ void printf_debug(t_game *game)
 
 void start_window(t_game *game)
 {
+	game->status_free = MLX;
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
