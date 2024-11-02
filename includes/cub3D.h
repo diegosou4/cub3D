@@ -112,7 +112,8 @@ typedef struct s_player
 	double direction;
 	double deltax;
 	double deltay;
-	t_img	textura;
+	t_img	texture;
+	t_img	light;
 	int		sprite_num;
 	int		curr_frame;
 	t_camera camera;
@@ -134,6 +135,8 @@ typedef struct s_game
 	t_wall	ceiling;
 	t_color color[2];
 	int		mov;
+	int		frameCtd;
+	bool	light_on;
 	char **map_info;
 	char **map;
 	char **ff_map;
@@ -214,6 +217,7 @@ void draw_flooring_sky(t_game *game);
 void draw_minimap(t_game *game);
 void draw_mini_map(t_game *game);
 void draw_mapray(t_game *game);
+void draw_flashlight(t_game *game);
 // void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);
