@@ -78,7 +78,8 @@ void hit_wall(t_game *game, int mapX, int mapY)
 	calculate_distance(game, mapX, mapY);
 }
 
-void draw_skyfloor(t_game *game,double angle,double x, int color)
+
+void draw_skyfloo1r(t_game *game,double angle,double x, int color)
 {
 	int y = 0;
 	if(color == TETO && game->light_on)
@@ -300,10 +301,10 @@ void draw_ray(t_game *game, double angle)
     game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
     if(game->player.ray.drawEnd >= HEIGHT)
         game->player.ray.drawEnd = HEIGHT - 1;
-	
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,TETO);
+
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,0);
     draw_texture(game, angle);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,FLOOR);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
 }
 
 
@@ -347,6 +348,7 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
+	// draw_minimap(game);
 	draw_minimap(game);
 	draw_flashlight(game);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
@@ -420,7 +422,7 @@ int	key_drop(int keycode, t_game *game)
 
 int	key_event(int keycode, t_game *game)
 {
-	printf_debug(game);
+	
 	mouse_monitor(game, keycode);
  	define_mov2(game, keycode);
 	draw_allray(game); 
@@ -431,7 +433,7 @@ int	key_event(int keycode, t_game *game)
 		printf("Status game %i", game->status_free);
 		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
-		printf("ESC\n");
+		destroy_game(game);
 		exit(0);
 	}
 	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
@@ -454,8 +456,8 @@ void printf_debug(t_game *game)
 
 void start_window(t_game *game)
 {
+	game->status_free = MLX;
 	const char *playCommand = "paplay assets/A1-It_s-just-a-burning-memory.wav > /dev/null 2>&1 &";
-
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
@@ -471,7 +473,7 @@ void start_window(t_game *game)
 	init_ray(game);
 	draw_map(game,0);
 
-	printf_debug(game);
+	// printf_debug(game);
 	draw_allray(game);
 	system(playCommand);
 	

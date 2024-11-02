@@ -36,10 +36,6 @@ void free_texture(t_game *game)
             free(game->wall[i].texture.relative_path);
         i++;
     }
-/*     if(game->ceiling.texture.relative_path != NULL)
-        free(game->ceiling.texture.relative_path);
-    if(game->floor.texture.relative_path != NULL)
-        free(game->floor.texture.relative_path); */
 }
 void free_map(t_game *game)
 {
@@ -58,14 +54,13 @@ void garabe_collector(t_game *game)
     }
     else if(game->status_free == FINAL)
     {
-        mlx_do_key_autorepeaton(game->mlx);
         free_ff_map(game);
         free_map(game);
     }
-    printf("Chego aqui");
-    // free_texture(game);
-    free_walls(game,4);
-    free_game(game);
+    free_texture(game);
+    free_walls(game);
+    if(game->status_free != MLX)
+        free_game(game);
 }
 
 void print_free(t_game *game, char *errostr)
