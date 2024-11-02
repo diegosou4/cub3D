@@ -23,7 +23,6 @@ void draw_floor(t_game *game, double angle, double drawEnd, t_img *texture, int 
         step = 1.0 * texture->img_height / (HEIGHT - drawEnd);
         texture_pos = 0;
     }
-    
     while ((is_sky && y < drawEnd) || (!is_sky && y < HEIGHT))
     {
         texture_y = (int)texture_pos & (texture->img_height - 1);
@@ -52,7 +51,7 @@ void draw_walls(t_game *game, t_img *texture, double angle)
 		//dprintf(2, "texPOs -> %f\n\n", texPos);
     	texY = (int)texPos & (texture->img_height - 1);
         texPos += step;
-    	color = my_mlx_pixel_get(texture, TAM_TEXT - (int)angle, texY);
+    	color = my_mlx_pixel_get(texture, game->wall[0].texture.img_height - (int)angle, texY);
     	my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
     	y++;
   }
@@ -73,12 +72,12 @@ void draw_texture(t_game *game, double angle)
 		wall_x = game->player.PosX + game->player.ray.perpWallDist * game->player.ray.rayDirX;
 	
 	wall_x -= floor(wall_x);
-	rayx = (int)(wall_x * 256);
+	rayx = (int)(wall_x * game->wall[0].texture.img_width);
 
 	if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
-		rayx = 256 - rayx - 1;
+		rayx = game->wall[0].texture.img_width - rayx - 1;
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
-		rayx = 256 - rayx - 1;	
+		rayx = game->wall[0].texture.img_width - rayx - 1;	
 	
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
 		draw_walls(game, &game->wall[SOUTH].texture, rayx);	
