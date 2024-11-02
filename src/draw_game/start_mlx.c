@@ -433,9 +433,9 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->player.textura = aux_load("assets/xpm/player.xpm", game);
-	game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
-	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game);
+	game->player.textura = aux_load("assets/xpm/AnimatedPlayer.xpm", game);
+	/* game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
+	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game); */
 	load_wall(game);
 	init_ray(game);
 	draw_map(game,0);
@@ -453,4 +453,3 @@ void start_window(t_game *game)
 	mlx_loop_hook(game->mlx, mouse_monitor, game);	//consoante a mudança de posição ela executa um movimento
 	mlx_loop(game->mlx);
 }
-
