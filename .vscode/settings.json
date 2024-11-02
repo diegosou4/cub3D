@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"*.jsx": "javascriptreact",
-		"mlx_int.h": "c"
+		"mlx_int.h": "c",
+		"cub3d.h": "c"
 	}
 }
