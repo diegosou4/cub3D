@@ -374,10 +374,9 @@ int	key_event(int keycode, t_game *game)
 	if(keycode == ESC)
 	{
 		game->status_free = FINAL;
-		printf("Status game %i", game->status_free);
 		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
-		printf("ESC\n");
+		destroy_game(game);
 		exit(0);
 	}
 	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')

@@ -37,16 +37,16 @@ void draw_skyfloor(t_game *game,double angle,double x, int pos)
 	}
 }
 
-t_img	load_img(t_game *game, int texture)
+t_img	load_img(t_game *game, char *path)
 {
 	t_img	img;
 
-	img.relative_path = game->wall[texture].texture.relative_path;
+	img.relative_path = path;
 	img.img = mlx_xpm_file_to_image(game->mlx, img.relative_path,
 			&img.img_width, &img.img_height);
 	if (img.img == NULL)
 	{
-		free_walls(game, texture - 1);
+		free_walls(game);
 		destroy_game(game);
 		garabe_collector(game);
 		exit(0);
@@ -61,10 +61,13 @@ void load_wall(t_game *game)
 	int i;
 
 	i = 0;
+	game->current_img = 0;
 	while (i != 4)
 	{
-		game->wall[i].texture = load_img(game, i);
+
+		game->current_img = i;
+		game->wall[i].texture = load_img(game, game->wall[i].texture.relative_path);
 		i++;
 	}
-	printf("Paredes carregadas com sucesso\n");
+	printf("game current img %d\n",game->current_img);	
 }
