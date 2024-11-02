@@ -433,7 +433,7 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->player.textura = aux_load("assets/xpm/AnimatedPlayer.xpm", game);
+	game->player.textura = aux_load("assets/xpm/player.xpm", game);
 
 	load_wall(game);
 	init_ray(game);
