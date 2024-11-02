@@ -79,33 +79,7 @@ void hit_wall(t_game *game, int mapX, int mapY)
 
 }
 
-void draw_skyfloor(t_game *game,double angle,double x, int color)
-{
-	int y = 0;
-	if(color == SKY_COLOR)
-	{
-		if(x > 0)
-		{
-			while(y < x)
-			{
-				my_mlx_pixel_put(&game->canva, angle, y, give_color(game, 0));
-				y++;
-			}
-		}
-		return;	
-	}
-	if(color == FLOOR_COLOR)
-	{
-		if(x < HEIGHT)
-		{
-			while(x < HEIGHT)
-			{
-				my_mlx_pixel_put(&game->canva, angle, x, give_color(game, 1));
-				x++;
-			}
-		}
-	}
-}
+
 
 void draw_skyfall(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky)
 {
@@ -279,9 +253,9 @@ void draw_ray(t_game *game, double angle)
     if(game->player.ray.drawEnd >= HEIGHT)
         game->player.ray.drawEnd = HEIGHT - 1;
 	
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,SKY_COLOR);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,0);
     draw_texture(game, angle);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,FLOOR_COLOR);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
 }
 
 
@@ -325,7 +299,7 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
-	draw_minimap(game);
+	// draw_minimap(game);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 
@@ -433,7 +407,6 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->player.textura = aux_load("assets/xpm/player.xpm", game);
 
 	load_wall(game);
 	init_ray(game);
