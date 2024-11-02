@@ -214,6 +214,7 @@ void draw_flooring_sky(t_game *game);
 void draw_minimap(t_game *game);
 void draw_mini_map(t_game *game);
 void draw_mapray(t_game *game);
+int give_color(t_game *game, int pos);
 // void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
 void test_player(t_game *game, int color);

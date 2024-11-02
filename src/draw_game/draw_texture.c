@@ -48,7 +48,6 @@ void draw_walls(t_game *game, t_img *texture, double angle)
   y = game->player.ray.drawStart;
   while(y < game->player.ray.drawEnd)
     {
-		//dprintf(2, "texPOs -> %f\n\n", texPos);
     	texY = (int)texPos & (texture->img_height - 1);
         texPos += step;
     	color = my_mlx_pixel_get(texture, game->wall[0].texture.img_height - (int)angle, texY);

@@ -82,25 +82,25 @@ void hit_wall(t_game *game, int mapX, int mapY)
 void draw_skyfloor(t_game *game,double angle,double x, int color)
 {
 	int y = 0;
-	if(color == DIRT_YELLOW)
+	if(color == SKY_COLOR)
 	{
 		if(x > 0)
 		{
 			while(y < x)
 			{
-				my_mlx_pixel_put(&game->canva, angle, y, color);
+				my_mlx_pixel_put(&game->canva, angle, y, give_color(game, 0));
 				y++;
 			}
 		}
 		return;	
 	}
-	if(color == DARK_YELLOW)
+	if(color == FLOOR_COLOR)
 	{
 		if(x < HEIGHT)
 		{
 			while(x < HEIGHT)
 			{
-				my_mlx_pixel_put(&game->canva, angle, x, color);
+				my_mlx_pixel_put(&game->canva, angle, x, give_color(game, 1));
 				x++;
 			}
 		}
@@ -279,9 +279,9 @@ void draw_ray(t_game *game, double angle)
     if(game->player.ray.drawEnd >= HEIGHT)
         game->player.ray.drawEnd = HEIGHT - 1;
 	
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,DIRT_YELLOW);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,SKY_COLOR);
     draw_texture(game, angle);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,DARK_YELLOW);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,FLOOR_COLOR);
 }
 
 
@@ -393,7 +393,7 @@ int	key_drop(int keycode, t_game *game)
 
 int	key_event(int keycode, t_game *game)
 {
-	printf_debug(game);
+	
 	mouse_monitor(game, keycode);
  	define_mov2(game, keycode);
 	draw_allray(game); 
@@ -434,13 +434,12 @@ void start_window(t_game *game)
 			&game->canva.line_length,
 			&game->canva.endian);
 	game->player.textura = aux_load("assets/xpm/AnimatedPlayer.xpm", game);
-	/* game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
-	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game); */
+
 	load_wall(game);
 	init_ray(game);
 	draw_map(game,0);
 
-	printf_debug(game);
+	// printf_debug(game);
 	draw_allray(game);
 	
 	

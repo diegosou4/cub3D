@@ -24,7 +24,8 @@
 #define BLUE 0x0000FF
 #define RED 0xFF0000
 #define GRAY_COLOR 0x808080
-#define SKY_COLOR 0x87CEEB
+#define SKY_COLOR 1
+#define FLOOR_COLOR 2
 #define RBG_RED 0xFF0000
 #define RBG_GREEN 0x00FF00
 #define RBG_BLUE 0x0000FF
