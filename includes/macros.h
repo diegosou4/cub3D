@@ -14,7 +14,7 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.06
+# define MOVE_SPEED 0.04
 # define ROT_SPEED 0.04
 
 
@@ -33,8 +33,8 @@
 #define RBG_BLACK 0x000000
 #define RBG_YELLOW 0xFFFF00
 #define BACK_YELLOW 0xA5A51C
-#define DIRT_YELLOW 0x4a420a
-#define DARK_YELLOW 0x514a14
+#define TETO 0x9b9552
+#define FLOOR 0xbdb76b
 #define FLOOR_MAP 0xaeac5c
 
 

@@ -38,6 +38,8 @@ void  	init_ray(t_game *game)
 	game->O = 0;
 	game->rot_Left = 0;
 	game->rot_Right = 0;
+	game->frameCtd = 0;
+	game->light_on = 0;
 }
 
 

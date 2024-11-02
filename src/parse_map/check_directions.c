@@ -139,7 +139,7 @@ void check_direction(t_game *game)
     game->map = ft_dstrdup(game->map_info + i);
     free_map_info(game);
     check_map(game, i);
-    printf("Map is valid ta na hora de carregar as texturas\n");
+    printf("Map is valid ta na hora de carregar as textures\n");
 }
 
 

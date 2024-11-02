@@ -33,7 +33,27 @@ void	paint_player(t_game *vars, t_img *img, int x, int y)
 static void	__render(t_game *this, int sx, int sy)
 {
 	update_player_sprite(this);
-	paint_player(this, &this->player.textura, sx, sy);
+	paint_player(this, &this->player.texture, sx, sy);
+}
+
+
+void draw_flashlight(t_game *game) 
+{
+	int x, y;
+	double frequency = 0.05; 
+	double amplitude = 10.0;
+	double vertical_offset = sin(game->frameCtd * frequency) * amplitude;
+
+	y = 0;
+	while (y < game->player.light.img_height && game->light_on) {
+		x = 0;
+		while (x < game->player.light.img_width) {
+			my_mlx_pixel_put(&game->canva, WIDTH / 2 + x, (HEIGHT / 2 + 150 + (int)vertical_offset) + y, my_mlx_pixel_get(&game->player.light, x, y));
+			x++;
+		}
+		y++;
+	}
+	game->frameCtd++;
 }
 
 void draw_minimap(t_game *game) {
@@ -76,7 +96,7 @@ void draw_minimap(t_game *game) {
 			} 
 		}
 		//__render(game,  player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
-		paintimage(game, &game->player.textura, player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
+		paintimage(game, &game->player.texture, player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
 	}
 }
 
@@ -92,8 +112,8 @@ void draw_minimap(t_game *game) {
 		map_height++;
 	}
 	int minimap_radius = MINIMAP_SIZE / 2;
-	int player_minimap_x = MINIMAP_SIZE / 2 - game->player.textura.img_width / 2;
-	int player_minimap_y = MINIMAP_SIZE / 2 - game->player.textura.img_height / 2;
+	int player_minimap_x = MINIMAP_SIZE / 2 - game->player.texture.img_width / 2;
+	int player_minimap_y = MINIMAP_SIZE / 2 - game->player.texture.img_height / 2;
 
 	// Calculate start and end points for the minimap view based on player's position
 	double start_map_x = game->player.PosX - minimap_radius / (MINIMAP_SCALE * TAM_X_P);
@@ -121,5 +141,5 @@ void draw_minimap(t_game *game) {
 				my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0x000000); // Black for out of bounds
 		}
 	}
-	paintimage(game, &game->player.textura, player_minimap_x + MINIMAP_MARGIN, player_minimap_y + MINIMAP_MARGIN);
+	paintimage(game, &game->player.texture, player_minimap_x + MINIMAP_MARGIN, player_minimap_y + MINIMAP_MARGIN);
 } */

@@ -76,10 +76,59 @@ void hit_wall(t_game *game, int mapX, int mapY)
 			break;
 	}
 	calculate_distance(game, mapX, mapY);
-
 }
 
 
+void draw_skyfloo1r(t_game *game,double angle,double x, int color)
+{
+	int y = 0;
+	if(color == TETO && game->light_on)
+	{
+		if(x > 0)
+		{
+			while(y < x)
+			{
+				my_mlx_pixel_put(&game->canva, angle, y, color);
+				y++;
+			}
+		}
+		return;	
+	}
+	else if (color == TETO && !game->light_on)
+	{
+		if(x > 0)
+		{
+			while(y < x)
+			{
+				my_mlx_pixel_put(&game->canva, angle, y, RBG_BLACK);
+				y++;
+			}
+		}
+		return;	
+	}
+	if(color == FLOOR && game->light_on)
+	{
+		if(x < HEIGHT)
+		{
+			while(x < HEIGHT)
+			{
+				my_mlx_pixel_put(&game->canva, angle, x, color);
+				x++;
+			}
+		}
+	}
+	else if (color == FLOOR && !game->light_on)
+	{
+		if(x < HEIGHT)
+		{
+			while(x < HEIGHT)
+			{
+				my_mlx_pixel_put(&game->canva, angle, x, 0x424242);
+				x++;
+			}
+		}
+	}
+}
 
 void draw_skyfall(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky)
 {
@@ -252,7 +301,7 @@ void draw_ray(t_game *game, double angle)
     game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
     if(game->player.ray.drawEnd >= HEIGHT)
         game->player.ray.drawEnd = HEIGHT - 1;
-	
+
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,0);
     draw_texture(game, angle);
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
@@ -300,6 +349,8 @@ void draw_allray(t_game *game)
 		x++;
 	}
 	// draw_minimap(game);
+	draw_minimap(game);
+	draw_flashlight(game);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 
@@ -332,6 +383,8 @@ void	define_mov2(t_game *game, int keycode)
 		game->rot_Left = 1;
 	else if (keycode == R_AR)
 		game->rot_Right = 1;
+	if (game->S || game->E || game->N || game->O)
+		game->light_on = 1;
 	game->mov = mov;
 }
 
@@ -361,6 +414,8 @@ int	key_drop(int keycode, t_game *game)
 		game->rot_Left = 0;
 	if (game->rot_Right == 1 && keycode == R_AR)
 		game->rot_Right = 0;
+	if (!game->S && !game->E && !game->N && !game->O)
+		game->light_on = 0;
 	return (0);
 }
 
@@ -372,8 +427,11 @@ int	key_event(int keycode, t_game *game)
  	define_mov2(game, keycode);
 	draw_allray(game); 
 	if(keycode == ESC)
-	{		
-        mlx_do_key_autorepeaton(game->mlx);
+	{
+		system("pkill aplay > /dev/null 2>&1");
+		game->status_free = FINAL;
+		printf("Status game %i", game->status_free);
+		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
 		destroy_game(game);
 		exit(0);
@@ -399,6 +457,7 @@ void printf_debug(t_game *game)
 void start_window(t_game *game)
 {
 	game->status_free = MLX;
+	const char *playCommand = "paplay assets/A1-It_s-just-a-burning-memory.wav > /dev/null 2>&1 &";
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
@@ -406,14 +465,17 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-
+	game->player.texture = aux_load("assets/xpm/player.xpm", game);
+	game->player.light = aux_load("assets/xpm/Light.xpm", game);
+	/* game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
+	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game); */
 	load_wall(game);
 	init_ray(game);
 	draw_map(game,0);
 
 	// printf_debug(game);
 	draw_allray(game);
-	
+	system(playCommand);
 	
 
 	//draw_minimap(game);   //verifica a posição do rato na janela
