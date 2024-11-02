@@ -14,7 +14,7 @@
 # define KEY_W 119
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.02
+# define MOVE_SPEED 0.06
 # define ROT_SPEED 0.04
 
 
@@ -48,10 +48,11 @@
 #define MINIMAP_OFFSET_X 10
 #define MINIMAP_OFFSET_Y 10
 //
-#define MINIMAP_MARGIN 20
-#define MINIMAP_SIZE 150 // Size of the minimap square
-#define MINIMAP_SCALE 0.6 // Scale factor for the map
-#define PLAYER_MARKER_SIZE 6 // Size of the player marker
+#define MINIMAP_SIZE 150 // Tamanho do minimap quadrado
+#define MINIMAP_SCALE 0.9 // Fator de escala pro mapa
+#define PLAYER_MARKER_SIZE 6 // Tamanho do player sprite
+#define MINIMAP_MARGIN 20 // margem da janela da window
+#define TILE_SIZE 8 // tamanho de cada quadricula
 
 
 

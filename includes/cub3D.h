@@ -113,6 +113,8 @@ typedef struct s_player
 	double deltax;
 	double deltay;
 	t_img	textura;
+	int		sprite_num;
+	int		curr_frame;
 	t_camera camera;
 	double dirX;
 	double dirY;

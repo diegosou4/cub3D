@@ -433,9 +433,9 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->player.textura = aux_load("assets/xpm/player.xpm", game);
-	game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
-	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game);
+	game->player.textura = aux_load("assets/xpm/AnimatedPlayer.xpm", game);
+	/* game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
+	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game); */
 	load_wall(game);
 	init_ray(game);
 	draw_map(game,0);
@@ -491,6 +491,8 @@ t_img	aux_load(char *path, t_game *game)
 {
 	t_img	img;
 
+	game->player.sprite_num = 2;
+	game->player.curr_frame = 0;
 	if (game->mlx)
 		img.relative_path = path;
 	img.img = mlx_xpm_file_to_image(game->mlx, img.relative_path,
