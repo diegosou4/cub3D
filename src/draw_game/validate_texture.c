@@ -69,5 +69,5 @@ void load_wall(t_game *game)
 		game->wall[i].texture = load_img(game, game->wall[i].texture.relative_path);
 		i++;
 	}
-	
+
 }

@@ -131,6 +131,7 @@ typedef struct s_game
 	t_img		canva;
 	t_player player;
 	t_wall	wall[4];
+	t_wall	d_wall[4];
 	t_wall	floor;
 	t_wall	ceiling;
 	t_color color[2];
@@ -226,7 +227,7 @@ void paintimage(t_game *game, t_img *img, int sx, int sy);
 void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
 void draw(int x,int y, int color, t_game *game);
-void draw_floor_texture(t_game *game, double angle, int drawEnd);
+void draw_textureD(t_game *game, double angle);
 // Moviment
 
 int player_mov(t_game *game, int keycode);

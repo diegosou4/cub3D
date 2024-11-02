@@ -12,10 +12,11 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_W 119
+# define KEY_F 102 
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.04
-# define ROT_SPEED 0.04
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.03
 
 
 
@@ -50,11 +51,11 @@
 #define MINIMAP_OFFSET_Y 10
 //
 #define MINIMAP_SIZE 150 // Tamanho do minimap quadrado
-#define MINIMAP_SCALE 0.9 // Fator de escala pro mapa
+#define MINIMAP_SCALE 1.5 // Fator de escala pro mapa
 #define PLAYER_MARKER_SIZE 6 // Tamanho do player sprite
 #define MINIMAP_MARGIN 20 // margem da janela da window
-#define TILE_SIZE 8 // tamanho de cada quadricula
-
+#define TILE_SIZE 9 // tamanho de cada quadricula
+#define MAX_RENDER_DISTANCE 5.0
 
 
 #define A_NORTH 270
