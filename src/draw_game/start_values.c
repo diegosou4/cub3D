@@ -4,7 +4,7 @@
 #include "../../includes/cub3D.h"
 
 
-void  	init_ray(t_game *game)
+void  	init_values(t_game *game)
 {
 	float x;
 	float y;
@@ -32,6 +32,8 @@ void  	init_ray(t_game *game)
 	game->player.ray.lineheight = 0;
 	game->player.ray.drawStart = 0;
 	game->player.ray.drawEnd = 0;
+	game->player.light.status = 0;
+	game->player.texture.status = 0;
 	game->N = 0;
 	game->S = 0;
 	game->E = 0;
