@@ -26,6 +26,7 @@ typedef struct s_img
 	int			img_width;
 	int			tamsprite;
 	int			img_height;
+	int         status;
 }				t_img;
 
 typedef struct s_minimap
@@ -204,22 +205,16 @@ int valid_line(char *line);
 void check_texture(t_game *game);
 void check_map(t_game *game, int start);
 bool flood_fill(t_game *game, int c_col, int c_row);
-void printf_debug(t_game *game);
 // Draw Game
 void draw(int x,int y, int color, t_game *game);
 void start_window(t_game *game);
 void load_wall(t_game *game);
-void load_ceiling(t_game *game);
-void draw_skyfall(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky);
 t_img	load_img(t_game *game, char *path);
 int	my_mlx_pixel_get(t_img *data, int x, int y);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int hex_color(t_game *game, int pos);
 void draw_skyfloor(t_game *game,double angle,double x, int pos);
-void draw_flooring_sky(t_game *game);
 void draw_minimap(t_game *game);
-void draw_mini_map(t_game *game);
-void draw_mapray(t_game *game);
 void draw_flashlight(t_game *game);
 // void draw_ray(t_game *game, double angle);
 void draw_map(t_game *game, int ftime);
@@ -227,19 +222,21 @@ void paintimage(t_game *game, t_img *img, int sx, int sy);
 void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
 void draw(int x,int y, int color, t_game *game);
-void draw_floor_texture(t_game *game, double angle, int drawEnd);
+void ingame(t_game *game);
 // Moviment
-
+void	define_mov2(t_game *game, int keycode);
+int	key_event(int keycode, t_game *game);
 int player_mov(t_game *game, int keycode);
-
+int	key_drop(int keycode, t_game *game);
 int mouse_track(int x, int y, t_game *game);
 int mouse_monitor(t_game *game, int keycode);
 int player_mov2(int keycode, t_game *game);
-void  	init_ray(t_game *game);
+void  	init_values(t_game *game);
 void draw_texture(t_game *game, double angle);
 void draw_floor(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky);
 // Garabe Collector
 void garabe_collector(t_game *game);
+void free_game(t_game *game);
 void print_free(t_game *game, char *errostr);
 void free_map_info(t_game *game);
 void free_ff_map(t_game *game);
