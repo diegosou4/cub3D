@@ -17,6 +17,8 @@ void init_values2(t_game *game)
 	game->light_on = 0;
 	game->current_img = -1;
 	game->status_free = PARSE;
+	game->x_mouse = WIDTH / 2;
+	game->y_mouse = HEIGHT / 2;
 }
 
 void  	init_values(t_game *game)

@@ -69,5 +69,4 @@ void load_wall(t_game *game)
 		game->current_img = i;
 		i++;
 	}
-	printf("chegamos aqui\n");
 }

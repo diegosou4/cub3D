@@ -79,7 +79,6 @@ void hit_wall(t_game *game, int mapX, int mapY)
 }
 
 
-
 void draw_ray(t_game *game, double angle)
 {
     double cameraX;
@@ -173,7 +172,7 @@ void start_window(t_game *game)
 			&game->canva.endian);
 	game->status_free = MLX;
 	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
-	game->player.light = load_img( game,"assets/xpm/Light.xpm");
+	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm");
 
 	load_wall(game);
 	ingame(game);

@@ -57,9 +57,10 @@ void ingame(t_game *game)
 {
     const char *playCommand = "paplay assets/music/Bessie_Coleman.wav > /dev/null 2>&1 &";
 	start_map(game,0);
-
+	
 	// printf_debug(game);
 	draw_allray(game);
+
 	system(playCommand);
 	//draw_minimap(game);   //verifica a posição do rato na janela
 	mlx_hook(game->win, 2, (1L << 0), key_event, game);
