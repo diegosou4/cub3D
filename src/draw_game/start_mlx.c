@@ -326,17 +326,6 @@ void	paintcanva2(t_game *varg, int color, int sx, int sy)
 	}
 }
 
-/* void clear_screen0(t_game *game, double angle) 
-{
-	int width = game.;
-    int height = mlx->height;
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            my_mlx_pixel_put(mlx, x, y, 0x000000); // Clear to black
-        }
-    }
-} */
-
 void draw_allray(t_game *game)
 {
 	int	x;
@@ -348,7 +337,6 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
-	// draw_minimap(game);
 	draw_minimap(game);
 	draw_flashlight(game);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
@@ -433,7 +421,7 @@ int	key_event(int keycode, t_game *game)
 		printf("Status game %i", game->status_free);
 		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
-		destroy_game(game);
+		// destroy_game(game);
 		exit(0);
 	}
 	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
@@ -457,7 +445,7 @@ void printf_debug(t_game *game)
 void start_window(t_game *game)
 {
 	game->status_free = MLX;
-	const char *playCommand = "paplay assets/A1-It_s-just-a-burning-memory.wav > /dev/null 2>&1 &";
+	const char *playCommand = "paplay assets/music/Bessie_Coleman.wav > /dev/null 2>&1 &";
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
@@ -465,10 +453,9 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->player.texture = aux_load("assets/xpm/player.xpm", game);
-	game->player.light = aux_load("assets/xpm/Light.xpm", game);
-	/* game->floor.texture = aux_load("assets/xpm/floor.xpm", game);
-	game->ceiling.texture = aux_load("assets/xpm/floor.xpm", game); */
+	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm");
+	game->player.light = load_img( game,"assets/xpm/Light.xpm");
+
 	load_wall(game);
 	init_ray(game);
 	draw_map(game,0);

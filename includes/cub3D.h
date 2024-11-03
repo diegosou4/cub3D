@@ -130,13 +130,14 @@ typedef struct s_game
 	void		*win;
 	t_img		canva;
 	t_player player;
-	t_wall	wall[4];
+	t_wall	wall[12];
 	t_wall	floor;
 	t_wall	ceiling;
 	t_color color[2];
 	int		mov;
 	int		frameCtd;
 	bool	light_on;
+	bool split_parse;
 	char **map_info;
 	char **map;
 	char **ff_map;

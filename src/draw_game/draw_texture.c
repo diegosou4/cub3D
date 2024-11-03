@@ -65,20 +65,22 @@ void draw_texture(t_game *game, double angle)
 	double wall_x;
 	double rayx;
     int pos;
-    
+
+
 	if(game->player.ray.side == 0)
 		wall_x = game->player.PosY + game->player.ray.perpWallDist * game->player.ray.rayDirY;
 	else
 		wall_x = game->player.PosX + game->player.ray.perpWallDist * game->player.ray.rayDirX;
 	wall_x -= floor(wall_x);
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
-        pos = SOUTH;
+        pos = 3;
 	else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
-		pos = EAST;
+		pos = 9;
 	else if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
-		pos = WEST;
+		pos = 6;
 	else if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
-		pos = NORTH;
+		pos = 0;
+    
     rayx = (int)(wall_x * game->wall[pos].texture.img_width);
 	if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
 		rayx = game->wall[pos].texture.img_width - rayx - 1;

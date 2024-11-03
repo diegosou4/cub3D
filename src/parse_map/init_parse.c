@@ -15,7 +15,6 @@ void check_line(t_game *game)
 	game->player.Px = -1;
 	game->player.Py = -1;
 	game->player.direction = -1;
-
 	check_direction(game);
 }
 

@@ -46,6 +46,7 @@ t_img	load_img(t_game *game, char *path)
 			&img.img_width, &img.img_height);
 	if (img.img == NULL)
 	{
+		printf("Nao conseguiu ler nem a imagem %s\n", img.relative_path);
 		free_walls(game);
 		garabe_collector(game);
 		destroy_game(game);
@@ -62,12 +63,12 @@ void load_wall(t_game *game)
 
 	i = 0;
 	game->current_img = 0;
-	while (i != 4)
+	while (i != 12)
 	{
-
 		game->current_img = i;
 		game->wall[i].texture = load_img(game, game->wall[i].texture.relative_path);
+		printf("Morre aqui\n");
 		i++;
 	}
-	
+	printf("chegamos aqui\n");
 }

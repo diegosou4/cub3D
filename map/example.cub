@@ -1,12 +1,11 @@
+NO assets/xpm/d_first.xpm assets/xpm/maestro.xpm assets/xpm/social.xpm
+SO assets/xpm/d_second.xpm assets/xpm/monsterface.xpm assets/xpm/runhighxpm.xpm
+WE assets/xpm/d_third.xpm assets/xpm/monsterface.xpm assets/xpm/runhighxpm.xpm
+EA assets/xpm/d_last.xpm assets/xpm/monsterface.xpm assets/xpm/runhighxpm.xpm
 
-NO assets/xpm/trollmonster.xpm
-SO assets/xpm/monsterface.xpm
-WE assets/xpm/runhighxpm.xpm
-EA assets/xpm/monaxpm.xpm
 
-
-F 230,100,0
-C 225,30,0
+F 104,196,207
+C 104,96,107
 
 
 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111

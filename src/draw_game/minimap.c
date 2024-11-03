@@ -85,12 +85,12 @@ void draw_minimap(t_game *game) {
 				if (map_x_int < row_length) {
 					// Draw walls and empty spaces
 					if (game->map[map_y_int][map_x_int] == '1') {
-						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0xFFFFFF); // Wall in white color
+						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_BLACK); // Wall in white color
 					} else if (game->map[map_y_int][map_x_int] == '0') {
-						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0x000000); // Empty space in black color
+						// my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0x000000); // Empty space in black color
 					} else if (game->map[map_y_int][map_x_int] == 'S' || game->map[map_y_int][map_x_int] == 'N' || game->map[map_y_int][map_x_int] == 'E' \
 							|| game->map[map_y_int][map_x_int] == 'O') {
-						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_YELLOW); // Starting position in green color
+						// my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_YELLOW); // Starting position in green color
 					}
 				}
 			} 
