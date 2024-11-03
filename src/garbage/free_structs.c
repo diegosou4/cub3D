@@ -57,10 +57,11 @@ void garabe_collector(t_game *game)
         free_ff_map(game);
         free_map(game);
     }
+
     free_texture(game);
-    // free_walls(game);
-    if(game->status_free != MLX)
-        free_game(game);
+    free_walls(game);
+    // if(game->status_free != MLX)
+    //     free_game(game);
 }
 
 void print_free(t_game *game, char *errostr)

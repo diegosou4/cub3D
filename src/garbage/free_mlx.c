@@ -1,5 +1,13 @@
 #include "../../includes/cub3D.h"
 
+void clear_texture(t_game *game, int *status, t_img *texture)
+{
+    if(*status == 1)
+    {
+        mlx_destroy_image(game->mlx, texture->img);
+        *status = 0;
+    }
+}
 
 void free_walls(t_game *game)
 {
@@ -10,7 +18,9 @@ void free_walls(t_game *game)
         mlx_destroy_image(game->mlx, game->wall[game->current_img].texture.img);
         game->current_img--;
     }
-}
+    clear_texture(game, &game->player.texture.status, &game->player.texture);
+    clear_texture(game, &game->player.light.status, &game->player.light);
+}  
 
 void destroy_game(t_game *game)
 {
@@ -20,5 +30,5 @@ void destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->canva.img);
 	mlx_destroy_window(game->mlx,game->win);
 	mlx_destroy_display(game->mlx);
-	free(game->mlx);
+	free_game(game);
 }
