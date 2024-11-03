@@ -217,7 +217,7 @@ void draw_skyfloor(t_game *game,double angle,double x, int pos);
 void draw_minimap(t_game *game);
 void draw_flashlight(t_game *game);
 // void draw_ray(t_game *game, double angle);
-void draw_map(t_game *game, int ftime);
+void start_map(t_game *game, int ftime);
 void paintimage(t_game *game, t_img *img, int sx, int sy);
 void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);

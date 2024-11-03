@@ -40,7 +40,7 @@ void fill_game(t_game *game)
 	int i;
 
 	i = 0;
-	game->current_img = -1;
+	
 	while(i != 4)
 	{
 		game->wall[i].filled = false;

@@ -56,7 +56,7 @@ int	key_event(int keycode, t_game *game)
 void ingame(t_game *game)
 {
     const char *playCommand = "paplay assets/music/Bessie_Coleman.wav > /dev/null 2>&1 &";
-	draw_map(game,0);
+	start_map(game,0);
 
 	// printf_debug(game);
 	draw_allray(game);
