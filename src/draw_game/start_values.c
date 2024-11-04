@@ -5,8 +5,6 @@
 
 void init_values2(t_game *game)
 {
-	game->player.light.status = 0;
-	game->player.texture.status = 0;
 	game->N = 0;
 	game->S = 0;
 	game->E = 0;

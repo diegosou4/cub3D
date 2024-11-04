@@ -18,8 +18,7 @@ void free_walls(t_game *game)
         mlx_destroy_image(game->mlx, game->wall[game->current_img].texture.img);
         game->current_img--;
     }
-    clear_texture(game, &game->player.texture.status, &game->player.texture);
-    clear_texture(game, &game->player.light.status, &game->player.light);
+
 }  
 
 void destroy_game(t_game *game)
