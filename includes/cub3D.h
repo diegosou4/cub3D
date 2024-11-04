@@ -234,6 +234,7 @@ int player_mov2(int keycode, t_game *game);
 void  	init_values(t_game *game);
 void draw_texture(t_game *game, double angle);
 void draw_floor(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky);
+void draw_skyfloor1(t_game *game,double angle,double x, int color);
 // Garabe Collector
 void garabe_collector(t_game *game);
 void free_game(t_game *game);

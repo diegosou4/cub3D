@@ -55,6 +55,43 @@ void calculate_distance(t_game *game, int mapX, int mapY)
 // percorre o mapa ate encontrar uma parede
 // define se o raio cruzou uma parede horizontal ou vertical
 
+void hit_wall_fade(t_game *game, int mapX, int mapY)
+{
+	game->player.ray.side = 0;
+	while (game->map[mapY][mapX] != '1')
+	{
+		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
+		{
+			game->player.ray.sideDistX += game->player.deltax;
+			mapX += game->player.ray.stepX;
+			game->player.ray.side = 0;
+		}
+		else
+		{
+			game->player.ray.sideDistY += game->player.deltay;
+			mapY += game->player.ray.stepY;
+			game->player.ray.side = 1;
+		}
+		calculate_distance(game, mapX, mapY);
+		if (game->light_on == 0)
+		{
+			if (game->player.ray.perpWallDist >= MAX_RENDER_DISTANCE)
+			{
+				game->player.ray.perpWallDist = MAX_RENDER_DISTANCE;
+				break;
+			}
+		}
+		else 
+		{
+			if (game->player.ray.perpWallDist >= MAX_RENDER_DISTANCE * 3)
+			{
+				game->player.ray.perpWallDist = MAX_RENDER_DISTANCE * 3;
+		   		break;
+			}
+		}
+	}
+}
+
 void hit_wall(t_game *game, int mapX, int mapY)
 {
 	game->player.ray.side = 0;
@@ -79,6 +116,58 @@ void hit_wall(t_game *game, int mapX, int mapY)
 }
 
 
+void draw_skyfloor1(t_game *game,double angle,double x, int color)
+{
+	int y = 0;
+	if(color == TETO && game->light_on)
+	{
+		if(x > 0)
+		{
+			while(y < x)
+			{
+				my_mlx_pixel_put(&game->canva, angle, y, color);
+				y++;
+			}
+		}
+		return;	
+	}
+	else if (color == TETO && !game->light_on)
+	{
+		if(x > 0)
+		{
+			while(y < x)
+			{
+				my_mlx_pixel_put(&game->canva, angle, y, RBG_BLACK);
+				y++;
+			}
+		}
+		return;	
+	}
+	if(color == FLOOR && game->light_on)
+	{
+		if(x < HEIGHT)
+		{
+			while(x < HEIGHT)
+			{
+				my_mlx_pixel_put(&game->canva, angle, x, color);
+				x++;
+			}
+		}
+	}
+	else if (color == FLOOR && !game->light_on)
+	{
+		if(x < HEIGHT)
+		{
+			while(x < HEIGHT)
+			{
+				my_mlx_pixel_put(&game->canva, angle, x, 0x424242);
+				x++;
+			}
+		}
+	}
+}
+
+
 void draw_ray(t_game *game, double angle)
 {
     double cameraX;
@@ -96,6 +185,7 @@ void draw_ray(t_game *game, double angle)
 	mapX= (int)game->player.PosX;
     mapY = (int)game->player.PosY;
     calculate_ray(game, mapX, mapY);
+	//hit_wall_fade(game, mapX, mapY);
     hit_wall(game, mapX, mapY);
     game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
     game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
@@ -104,8 +194,10 @@ void draw_ray(t_game *game, double angle)
     game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
     if(game->player.ray.drawEnd >= HEIGHT)
         game->player.ray.drawEnd = HEIGHT - 1;
+	draw_skyfloor1(game,angle,game->player.ray.drawEnd, TETO);
     draw_texture(game, angle);
-	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
+	//draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
+	draw_skyfloor1(game,angle,game->player.ray.drawEnd, FLOOR);
 }
 
 
@@ -155,8 +247,13 @@ void	define_mov2(t_game *game, int keycode)
 		game->rot_Left = 1;
 	else if (keycode == R_AR)
 		game->rot_Right = 1;
-	if (game->S || game->E || game->N || game->O)
-		game->light_on = 1;
+	else if (keycode == KEY_F)
+	{
+		if (game->light_on == 0)
+			game->light_on = 1;
+		else 
+			game->light_on = 0;
+	}
 	game->mov = mov;
 }
 
@@ -171,8 +268,11 @@ void start_window(t_game *game)
 			&game->canva.line_length,
 			&game->canva.endian);
 	game->status_free = MLX;
-	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
-	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm");
+/* 	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
+	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm"); */
+	game->player.texture = load_img( game,"assets/xpm/player.xpm"); // Leak
+	game->player.light = load_img( game,"assets/xpm/Light.xpm");
+
 
 	load_wall(game);
 	ingame(game);

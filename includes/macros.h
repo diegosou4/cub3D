@@ -12,6 +12,7 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_W 119
+# define KEY_F 102 
 # define L_AR 65361
 # define R_AR 65363
 # define MOVE_SPEED 0.04
@@ -33,9 +34,10 @@
 #define RBG_BLACK 0x000000
 #define RBG_YELLOW 0xFFFF00
 #define BACK_YELLOW 0xA5A51C
-#define TETO 0x9b9552
+#define TETO 0x780606
 #define FLOOR 0xbdb76b
 #define FLOOR_MAP 0xaeac5c
+#define BLOOD_RED 0x780606
 
 
 #define WIDTH 1280
@@ -54,7 +56,7 @@
 #define PLAYER_MARKER_SIZE 4 // Tamanho do player sprite
 #define MINIMAP_MARGIN 20 // margem da janela da window
 #define TILE_SIZE 10 // tamanho de cada quadricula
-
+#define MAX_RENDER_DISTANCE 3.0
 
 
 #define A_NORTH 270

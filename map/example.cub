@@ -1,7 +1,7 @@
-NO assets/xpm/d_first.xpm assets/xpm/monsterface.xpm assets/xpm/monsterface.xpm
-SO assets/xpm/d_second.xpm assets/xpm/monsterface.xpm assets/xpm/runhighxpm.xpm
-WE assets/xpm/d_third.xpm assets/xpm/monsterface.xpm assets/xpm/runhighxpm.xpm
-EA assets/xpm/d_last.xpm assets/xpm/monsterface.xpm assets/xpm/runhighxpm.xpm
+NO assets/xpm/d_first.xpm   assets/xpm/monsterface.xpm     assets/xpm/DirtyWall.xpm
+SO assets/xpm/d_second.xpm  assets/xpm/WallSignsDark.xpm    assets/xpm/WallSigns.xpm
+WE assets/xpm/d_third.xpm   assets/xpm/WallDark256.xpm assets/xpm/Wall256.xpm
+EA assets/xpm/d_last.xpm    assets/xpm/MonaLisaDark.xpm     assets/xpm/MonaLisa.xpm
 
 
 F 104,196,207
