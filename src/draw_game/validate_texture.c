@@ -71,12 +71,13 @@ void load_wall(t_game *game)
 		i++;
 	}
 	i = 0;
+	game->wall[12].texture = load_img(game,"/home/diegmore/Desktop/cub3D/assets/xpm/door.xpm");
+	game->current_img = 12;
 	while(i != 2)
 	{
 		game->player.sprites[i].texture = load_img(game, game->player.sprites[i].texture.relative_path);
+		game->current_img += 1;
 		i++;
 	}
 	
-	game->wall[11].texture = load_img(game,"/home/diegmore/Desktop/cub3D/assets/xpm/door.xpm");
-	game->current_img == 11;
 }

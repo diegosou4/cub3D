@@ -27,7 +27,7 @@ void draw_walls(t_game *game, t_img *texture, double angle, int pos)
 int return_pos(t_game *game)
 {
     if(game->hit_door == true)
-        return 11;
+        return 12;
     if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
         return 3;
     else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)

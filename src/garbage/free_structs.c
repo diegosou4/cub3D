@@ -30,10 +30,17 @@ void free_texture(t_game *game)
     int i;
 
     i = 0;
-    while(i != 11)
+    while(i != 12)
     {
         if(game->wall[i].texture.relative_path != NULL)
             free(game->wall[i].texture.relative_path);
+        i++;
+    }
+    i = 0;
+    while(i != 2)
+    {
+        if(game->player.sprites[i].texture.relative_path != NULL)
+            free(game->player.sprites[i].texture.relative_path);
         i++;
     }
 }
