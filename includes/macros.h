@@ -13,10 +13,11 @@
 # define KEY_D 100
 # define KEY_W 119
 # define KEY_F 102 
+# define KEY_F 102 
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.04
-# define ROT_SPEED 0.04
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.03
 
 
 

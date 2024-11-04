@@ -1,4 +1,3 @@
-
 #include "../../includes/cub3D.h"
 
 void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
@@ -34,7 +33,6 @@ void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
 		y++;
 	}
 }
-
 
 void draw_walls(t_game *game, t_img *texture, double angle, int pos)
 {

@@ -223,6 +223,7 @@ void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
 void draw(int x,int y, int color, t_game *game);
 void ingame(t_game *game);
+void draw_textureD(t_game *game, double angle);
 // Moviment
 void	define_mov2(t_game *game, int keycode);
 int	key_event(int keycode, t_game *game);

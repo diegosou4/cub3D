@@ -95,9 +95,9 @@ void hit_wall_fade(t_game *game, int mapX, int mapY)
 void hit_wall(t_game *game, int mapX, int mapY)
 {
 	game->player.ray.side = 0;
-	while(game->map[mapY][mapX] != '1')
+	while (game->map[mapY][mapX] != '1')
 	{
-		if(game->player.ray.sideDistX < game->player.ray.sideDistY)
+		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
 			game->player.ray.sideDistX += game->player.deltax;
 			mapX += game->player.ray.stepX;
@@ -196,7 +196,6 @@ void draw_ray(t_game *game, double angle)
         game->player.ray.drawEnd = HEIGHT - 1;
 	draw_skyfloor1(game,angle,game->player.ray.drawEnd, TETO);
     draw_texture(game, angle);
-	//draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
 	draw_skyfloor1(game,angle,game->player.ray.drawEnd, FLOOR);
 }
 
@@ -257,6 +256,74 @@ void	define_mov2(t_game *game, int keycode)
 	game->mov = mov;
 }
 
+int	key_drop(int keycode, t_game *game)
+{
+	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
+	{
+		//game->light_on = 0;
+		game->y_mov += 1;
+		game->N = 0;
+	}	
+	if (keycode == KEY_S && (game->y_mov == 0 || game->y_mov == 1))
+	{
+		//game->light_on = 0;
+		game->y_mov -= 1;
+		game->S = 0;
+	}
+	if (keycode == KEY_A && (game->x_mov == 0 || game->x_mov == -1))
+	{
+		//game->light_on = 0;
+		game->x_mov += 1;
+		game->O = 0;
+	}
+	if (keycode == KEY_D && (game->x_mov == 0 || game->x_mov == 1)) 
+	{
+		//game->light_on = 0;
+		game->x_mov -= 1;
+		game->E = 0;
+	}
+	if (game->rot_Left == 1 && keycode == L_AR)
+		game->rot_Left = 0;
+	if (game->rot_Right == 1 && keycode == R_AR)
+		game->rot_Right = 0;
+	return (0);
+}
+
+
+int	key_event(int keycode, t_game *game)
+{
+	mouse_monitor(game, keycode);
+	define_mov2(game, keycode);
+	draw_allray(game); 
+	if(keycode == ESC)
+	{
+		system("pkill paplay > /dev/null 2>&1");
+		game->status_free = FINAL;
+		printf("Status game %i", game->status_free);
+		mlx_do_key_autorepeaton(game->mlx);
+		garabe_collector(game);
+		destroy_game(game);
+		exit(0);
+	}
+	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
+		printf("bateu\n");
+	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == 'G')
+		dprintf(2, "Abrir Porta\n");
+	return (0);
+}
+
+void printf_debug(t_game *game)
+{
+	printf("\n");
+	printf("Posicao X %f\n", game->player.PosX);
+	printf("Posicao Y %f\n", game->player.PosY);
+	printf("Dir X %f\n", game->player.dirX);
+	printf("Dir Y %f\n", game->player.dirY);
+	printf("Plane X %f\n", game->player.camera.PlaneX);
+	printf("Plane Y %f\n", game->player.camera.PlaneY);
+	printf("\n");
+}
+
 void start_window(t_game *game)
 {
 
@@ -273,7 +340,30 @@ void start_window(t_game *game)
 	game->player.texture = load_img( game,"assets/xpm/player.xpm"); // Leak
 	game->player.light = load_img( game,"assets/xpm/Light.xpm");
 
-
 	load_wall(game);
 	ingame(game);
 }
+
+
+/* void hit_wall(t_game *game, int mapX, int mapY)
+{
+	game->player.ray.side = 0;
+	while(game->map[mapY][mapX] != '1')
+	{
+		if(game->player.ray.sideDistX < game->player.ray.sideDistY)
+		{
+			game->player.ray.sideDistX += game->player.deltax;
+			mapX += game->player.ray.stepX;
+			game->player.ray.side = 0;
+		}
+		else
+		{
+			game->player.ray.sideDistY += game->player.deltay;
+			mapY += game->player.ray.stepY;
+			game->player.ray.side = 1;
+		}
+		if(game->map[mapY][mapX] == '1')
+			break;
+	}
+	calculate_distance(game, mapX, mapY);
+} */
