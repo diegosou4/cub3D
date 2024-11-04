@@ -110,7 +110,7 @@ void draw_ray(t_game *game, double angle)
     if(game->player.ray.drawStart < 0)
         game->player.ray.drawStart = 0;
     game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
-    if(game->player.ray.drawEnd >= HEIGHT)
+    if(game->player.ray.drawEnd >= HEIGHT || game->player.ray.drawEnd < 0)
         game->player.ray.drawEnd = HEIGHT - 1;
     draw_texture(game, angle);
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
