@@ -80,11 +80,41 @@ void check_middle(t_game *game, int end)
             if(game->map[col][row] != '1' || end_map(game->map[col]) == 0)
                 print_free(game, "Invalid Map");
             if(flood_fill(game,col, row + 1) == false)
-                print_free(game, "Invalid Map");
+                print_free(game, "Invalid Map aqui");
         break;
         }
         col++;
     }
+   
+}
+void check_hole(t_game *game , int end)
+{
+    int i;
+    int j;
+    int sizecurrent;
+    int sizenext;
+    i = 0;
+    j = 1;
+    while(j != end)
+    {
+        sizecurrent = ft_strlen(game->map[i]);
+        sizenext = ft_strlen(game->map[j]);
+        if(sizecurrent > sizenext)
+        {
+            while(game->map[i][sizenext] != '\0')
+            {
+                if(game->map[i][sizenext] != '1')
+                {
+                    print_free(game, "Invalid Map");
+                }
+                sizenext++;
+            }
+
+        }
+        i++;
+        j++;
+    }
+
 }
 
 int count_x(t_game *game)
@@ -115,7 +145,9 @@ void check_map(t_game *game, int start)
     game->status_free = FINAL;
     end = sizemap(game);
     check_fl(game, 0, end);
+    check_hole(game,end);
     check_middle(game, end);
+    	
     if(count_x(game) == 1)
         print_free(game, "Invalid Map");
 }

@@ -58,7 +58,7 @@ void calculate_distance(t_game *game, int mapX, int mapY)
 void hit_wall(t_game *game, int mapX, int mapY)
 {
 	game->player.ray.side = 0;
-	while(game->map[mapY][mapX] != '1')
+	while(game->map[mapY][mapX] != '1' || game->map[mapY][mapX] != '2')
 	{
 		if(game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
@@ -73,7 +73,15 @@ void hit_wall(t_game *game, int mapX, int mapY)
 			game->player.ray.side = 1;
 		}
 		if(game->map[mapY][mapX] == '1')
+		{
+			game->hit_door = false;
 			break;
+		}else if(game->map[mapY][mapX] == '2')
+		{
+			game->hit_door = true;
+			break;
+		}
+			
 	}
 	calculate_distance(game, mapX, mapY);
 }
@@ -173,7 +181,7 @@ void start_window(t_game *game)
 	game->status_free = MLX;
 	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
 	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm");
-
+	
 	load_wall(game);
 	ingame(game);
 }

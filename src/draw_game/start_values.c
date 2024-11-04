@@ -19,6 +19,8 @@ void init_values2(t_game *game)
 	game->status_free = PARSE;
 	game->x_mouse = WIDTH / 2;
 	game->y_mouse = HEIGHT / 2;
+	game->curr_map = 0;
+	game->hit_door = false;
 }
 
 void  	init_values(t_game *game)

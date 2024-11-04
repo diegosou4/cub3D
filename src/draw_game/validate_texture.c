@@ -69,4 +69,7 @@ void load_wall(t_game *game)
 		game->current_img = i;
 		i++;
 	}
+	
+	game->wall[11].texture = load_img(game,"/home/diegmore/Desktop/cub3D/assets/xpm/door.xpm");
+	game->current_img == 11;
 }

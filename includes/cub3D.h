@@ -115,6 +115,7 @@ typedef struct s_player
 	double deltay;
 	t_img	texture;
 	t_img	light;
+	t_img door;
 	int		sprite_num;
 	int		curr_frame;
 	t_camera camera;
@@ -131,10 +132,11 @@ typedef struct s_game
 	void		*win;
 	t_img		canva;
 	t_player player;
-	t_wall	wall[12];
-	t_wall	floor;
+	t_wall	wall[13];
+	int curr_map;
 	t_wall	ceiling;
 	t_color color[2];
+	bool hit_door;
 	int		mov;
 	int		frameCtd;
 	bool	light_on;
