@@ -12,6 +12,7 @@ int hex_color(t_game *game, int pos)
 void draw_skyfloor(t_game *game,double angle,double x, int pos)
 {
 	int y = 0;
+	
 	if(pos == 0)
 	{
 		if(x > 0)
