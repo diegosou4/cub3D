@@ -54,13 +54,12 @@ void calculate_distance(t_game *game, int mapX, int mapY)
 // Aqui e onde a magica acontece
 // percorre o mapa ate encontrar uma parede
 // define se o raio cruzou uma parede horizontal ou vertical
-
 void hit_wall(t_game *game, int mapX, int mapY)
 {
 	game->player.ray.side = 0;
-	while(game->map[mapY][mapX] != '1')
+	while (game->map[mapY][mapX] != '1')
 	{
-		if(game->player.ray.sideDistX < game->player.ray.sideDistY)
+		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
 			game->player.ray.sideDistX += game->player.deltax;
 			mapX += game->player.ray.stepX;
@@ -72,14 +71,27 @@ void hit_wall(t_game *game, int mapX, int mapY)
 			mapY += game->player.ray.stepY;
 			game->player.ray.side = 1;
 		}
-		if(game->map[mapY][mapX] == '1')
-			break;
+		calculate_distance(game, mapX, mapY);
+		if (game->light_on == 0)
+		{
+			if (game->player.ray.perpWallDist >= MAX_RENDER_DISTANCE)
+			{
+				game->player.ray.perpWallDist = MAX_RENDER_DISTANCE;
+				break;
+			}
+		}
+		else 
+		{
+			if (game->player.ray.perpWallDist >= MAX_RENDER_DISTANCE * 1.5)
+			{
+				game->player.ray.perpWallDist = MAX_RENDER_DISTANCE * 1.5;
+		   		break;
+			}
+		}
 	}
-	calculate_distance(game, mapX, mapY);
 }
 
-
-void draw_ray(t_game *game, double angle)
+/*void draw_ray(t_game *game, double angle)
 {
     double cameraX;
 	int mapX;
@@ -107,8 +119,150 @@ void draw_ray(t_game *game, double angle)
     draw_texture(game, angle);
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
 }
+*/
 
+void draw_skyfloor1(t_game *game,double angle,double x, int color)
+{
+	int y = 0;
+	if(color == TETO && game->light_on)
+	{
+		if(x > 0)
+		{
+			while(y < x)
+			{
+				my_mlx_pixel_put(&game->canva, angle, y, color);
+				y++;
+			}
+		}
+		return;	
+	}
+	else if (color == TETO && !game->light_on)
+	{
+		if(x > 0)
+		{
+			while(y < x)
+			{
+				my_mlx_pixel_put(&game->canva, angle, y, RBG_BLACK);
+				y++;
+			}
+		}
+		return;	
+	}
+	if(color == FLOOR && game->light_on)
+	{
+		if(x < HEIGHT)
+		{
+			while(x < HEIGHT)
+			{
+				my_mlx_pixel_put(&game->canva, angle, x, color);
+				x++;
+			}
+		}
+	}
+	else if (color == FLOOR && !game->light_on)
+	{
+		if(x < HEIGHT)
+		{
+			while(x < HEIGHT)
+			{
+				my_mlx_pixel_put(&game->canva, angle, x, 0x424242);
+				x++;
+			}
+		}
+	}
+}
 
+void draw_skyfall(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky)
+{
+	int y;
+	double texture_y;
+	double step;
+	double texture_pos;
+	
+	// Determine the starting point and step for texture sampling
+	if (is_sky)
+	{
+		y = 0;
+		step = 1.0 * texture->img_height / (drawEnd - y);
+		texture_pos = 0;
+	}
+	else
+	{
+		y = drawEnd;
+		step = 1.0 * texture->img_height / (HEIGHT - drawEnd);
+		texture_pos = 0;
+	}
+	
+	while ((is_sky && y < drawEnd) || (!is_sky && y < HEIGHT))
+	{
+		texture_y = (int)texture_pos & (texture->img_height - 1);
+		texture_pos += step;
+		int color = my_mlx_pixel_get(texture, (int)angle % texture->img_width, (int)texture_y);
+		my_mlx_pixel_put(&game->canva, (int)angle, y, color);
+		y++;
+	}
+}
+
+void draw_ray(t_game *game, double angle)
+{
+	int mapX;
+	int mapY;
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+
+	game->player.ray.currentRayX = angle;
+	cameraX = 2 * angle / WIDTH - 1;
+	rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
+	rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
+	game->player.ray.rayDirX = rayDirX;
+	game->player.ray.rayDirY = rayDirY;
+	game->player.deltax = fabs(1 / rayDirX);
+	game->player.deltay = fabs(1 / rayDirY);
+	mapX = (int)game->player.PosX;
+	mapY = (int)game->player.PosY;
+	calculate_ray(game, mapX, mapY);
+	hit_wall(game, mapX, mapY);
+	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
+	game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if(game->player.ray.drawStart < 0)
+		game->player.ray.drawStart = 0;
+	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if(game->player.ray.drawEnd >= HEIGHT)
+		game->player.ray.drawEnd = HEIGHT - 1;
+	draw_skyfloor1(game,angle,game->player.ray.drawEnd, TETO);
+	draw_texture(game, angle);
+	draw_skyfloor1(game,angle,game->player.ray.drawEnd, FLOOR);
+}
+
+void	paintcanva2(t_game *varg, int color, int sx, int sy)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < 30)
+	{
+		x = 0;
+		while (x < 30)
+		{
+			my_mlx_pixel_put(&varg->canva, sx + x, sy + y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+/* void clear_screen0(t_game *game, double angle) 
+{
+	int width = game.;
+	int height = mlx->height;
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			my_mlx_pixel_put(mlx, x, y, 0x000000); // Clear to black
+		}
+	}
+} */
 
 void draw_allray(t_game *game)
 {
@@ -155,9 +309,84 @@ void	define_mov2(t_game *game, int keycode)
 		game->rot_Left = 1;
 	else if (keycode == R_AR)
 		game->rot_Right = 1;
-	if (game->S || game->E || game->N || game->O)
-		game->light_on = 1;
+	else if (keycode == KEY_F)
+	{
+		if (game->light_on == 0)
+			game->light_on = 1;
+		else 
+			game->light_on = 0;
+	}
+	/* if (game->S || game->E || game->N || game->O)
+		game->light_on = 1; */
 	game->mov = mov;
+}
+
+int	key_drop(int keycode, t_game *game)
+{
+	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
+	{
+		//game->light_on = 0;
+		game->y_mov += 1;
+		game->N = 0;
+	}	
+	if (keycode == KEY_S && (game->y_mov == 0 || game->y_mov == 1))
+	{
+		//game->light_on = 0;
+		game->y_mov -= 1;
+		game->S = 0;
+	}
+	if (keycode == KEY_A && (game->x_mov == 0 || game->x_mov == -1))
+	{
+		//game->light_on = 0;
+		game->x_mov += 1;
+		game->O = 0;
+	}
+	if (keycode == KEY_D && (game->x_mov == 0 || game->x_mov == 1)) 
+	{
+		//game->light_on = 0;
+		game->x_mov -= 1;
+		game->E = 0;
+	}
+	if (game->rot_Left == 1 && keycode == L_AR)
+		game->rot_Left = 0;
+	if (game->rot_Right == 1 && keycode == R_AR)
+		game->rot_Right = 0;
+	return (0);
+}
+
+
+int	key_event(int keycode, t_game *game)
+{
+	mouse_monitor(game, keycode);
+	define_mov2(game, keycode);
+	draw_allray(game); 
+	if(keycode == ESC)
+	{
+		system("pkill paplay > /dev/null 2>&1");
+		game->status_free = FINAL;
+		printf("Status game %i", game->status_free);
+		mlx_do_key_autorepeaton(game->mlx);
+		garabe_collector(game);
+		destroy_game(game);
+		exit(0);
+	}
+	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
+		printf("bateu\n");
+	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == 'G')
+		dprintf(2, "Abrir Porta\n");
+	return (0);
+}
+
+void printf_debug(t_game *game)
+{
+	printf("\n");
+	printf("Posicao X %f\n", game->player.PosX);
+	printf("Posicao Y %f\n", game->player.PosY);
+	printf("Dir X %f\n", game->player.dirX);
+	printf("Dir Y %f\n", game->player.dirY);
+	printf("Plane X %f\n", game->player.camera.PlaneX);
+	printf("Plane Y %f\n", game->player.camera.PlaneY);
+	printf("\n");
 }
 
 void start_window(t_game *game)
@@ -171,9 +400,48 @@ void start_window(t_game *game)
 			&game->canva.line_length,
 			&game->canva.endian);
 	game->status_free = MLX;
-	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
-	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm");
+	/*game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
+	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm");*/
 
-	load_wall(game);
+	//load_wall(game);
 	ingame(game);
+	game->player.texture = load_img(game, "assets/xpm/player.xpm");
+	game->player.light = load_img(game, "assets/xpm/Light.xpm");
+	load_wall(game);
+	init_ray(game);
+	draw_map(game,0);
+	// printf_debug(game);
+	draw_allray(game);
+	system(playCommand);
+	//draw_minimap(game);   //verifica a posição do rato na janela
+	mlx_hook(game->win, 2, (1L << 0), key_event, game);
+	mlx_hook(game->win, 3, (1L << 1), key_drop, game);
+	mlx_hook(game->win, 6, (1L << 6), mouse_track, game);
+	mlx_do_key_autorepeatoff(game->mlx);
+	mlx_loop_hook(game->mlx, mouse_monitor, game);
+	mlx_loop(game->mlx);
 }
+
+
+/* void hit_wall(t_game *game, int mapX, int mapY)
+{
+	game->player.ray.side = 0;
+	while(game->map[mapY][mapX] != '1')
+	{
+		if(game->player.ray.sideDistX < game->player.ray.sideDistY)
+		{
+			game->player.ray.sideDistX += game->player.deltax;
+			mapX += game->player.ray.stepX;
+			game->player.ray.side = 0;
+		}
+		else
+		{
+			game->player.ray.sideDistY += game->player.deltay;
+			mapY += game->player.ray.stepY;
+			game->player.ray.side = 1;
+		}
+		if(game->map[mapY][mapX] == '1')
+			break;
+	}
+	calculate_distance(game, mapX, mapY);
+} */

@@ -12,10 +12,11 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_W 119
+# define KEY_F 102 
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.04
-# define ROT_SPEED 0.04
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.03
 
 
 
@@ -54,6 +55,8 @@
 #define PLAYER_MARKER_SIZE 4 // Tamanho do player sprite
 #define MINIMAP_MARGIN 20 // margem da janela da window
 #define TILE_SIZE 10 // tamanho de cada quadricula
+
+#define MAX_RENDER_DISTANCE 5.0
 
 
 
