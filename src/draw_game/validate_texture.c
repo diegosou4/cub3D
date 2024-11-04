@@ -51,6 +51,7 @@ t_img	load_img(t_game *game, char *path)
 		destroy_game(game);
 		exit(0);
 	}
+	img.status = 1;
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
 	return (img);
@@ -62,12 +63,10 @@ void load_wall(t_game *game)
 
 	i = 0;
 	game->current_img = 0;
-	while (i != 4)
+	while (i != 12)
 	{
-
-		game->current_img = i;
 		game->wall[i].texture = load_img(game, game->wall[i].texture.relative_path);
+		game->current_img = i;
 		i++;
 	}
-
 }

@@ -45,17 +45,19 @@
 #define TAM_Y_P 32
 #define TAM_X_P 32
 #define TAM_P  32
-#define MINIMAP_WIDTH 100
-#define MINIMAP_HEIGHT 100
+#define MINIMAP_WIDTH 130
+#define MINIMAP_HEIGHT 130
 #define MINIMAP_OFFSET_X 10
 #define MINIMAP_OFFSET_Y 10
 //
-#define MINIMAP_SIZE 150 // Tamanho do minimap quadrado
-#define MINIMAP_SCALE 1.5 // Fator de escala pro mapa
-#define PLAYER_MARKER_SIZE 6 // Tamanho do player sprite
+#define MINIMAP_SIZE 200 // Tamanho do minimap quadrado
+#define MINIMAP_SCALE 0.9 // Fator de escala pro mapa
+#define PLAYER_MARKER_SIZE 4 // Tamanho do player sprite
 #define MINIMAP_MARGIN 20 // margem da janela da window
-#define TILE_SIZE 9 // tamanho de cada quadricula
+#define TILE_SIZE 10 // tamanho de cada quadricula
+
 #define MAX_RENDER_DISTANCE 5.0
+
 
 
 #define A_NORTH 270

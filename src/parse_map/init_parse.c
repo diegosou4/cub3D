@@ -15,7 +15,6 @@ void check_line(t_game *game)
 	game->player.Px = -1;
 	game->player.Py = -1;
 	game->player.direction = -1;
-
 	check_direction(game);
 }
 
@@ -41,7 +40,7 @@ void fill_game(t_game *game)
 	int i;
 
 	i = 0;
-	game->current_img = -1;
+	
 	while(i != 4)
 	{
 		game->wall[i].filled = false;
@@ -83,6 +82,7 @@ void init_parse(char *path)
     if(!(check_ext(path,".cub","map") == 4))
         return;
     game = ft_calloc(sizeof(t_game) , 1);
+	init_values(game);
 	game->line = open_file(path);
 	if(game->line == NULL)
 	{

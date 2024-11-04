@@ -2,30 +2,24 @@
 
 void case_text(t_game *game, char *line, char **split)
 {
+    int i = -1;
     if (line[0] == 'N' && line[1] == 'O')
-    {
-        game->wall[0].texture.relative_path = ft_strdup(split[1]);
-        game->wall[0].filled = true;
-    }
+       i = 0;
     else if (line[0] == 'S' && line[1] == 'O')
-    {
-        game->wall[1].texture.relative_path = ft_strdup(split[1]);
-        game->wall[1].filled = true;
-    }
+        i = 3;
     else if (line[0] == 'W' && line[1] == 'E')
-    {
-        game->wall[2].texture.relative_path = ft_strdup(split[1]);
-        game->wall[2].filled = true;
-    }
+        i = 6;
     else if (line[0] == 'E' && line[1] == 'A')
+        i = 9;
+    if (i != -1)
     {
-        game->wall[3].texture.relative_path = ft_strdup(split[1]);
-        game->wall[3].filled = true;
+        game->wall[i].texture.relative_path = ft_strdup(split[1]);
+        game->wall[i + 1].texture.relative_path = ft_strdup(split[2]);
+        game->wall[i + 2].texture.relative_path = ft_strdup(split[3]);
+        game->wall[i].filled = true;
+        game->wall[i + 1].filled = true;
+        game->wall[i + 2].filled = true;
     }
-  /*   game->floor.texture.relative_path = ft_strdup("/assets/xpm/Monster_Wall.xpm");
-    game->floor.filled = true;
-    game->ceiling.texture.relative_path = ft_strdup("/assets/xpm/RunRed.xpm");
-    game->ceiling.filled = true; */
 }
 
 bool all_num(char **split2)
@@ -101,12 +95,18 @@ void split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 {
     char **split;
     int len;
-
+       
     split = ft_split(line, ' ');
     len = len_darray(split);
- 
-    if (len == 2)
+    if(game->split_parse == true && len == 4)
     {
+        if(ft_strlen(split[0]) == charl)
+        {
+            l_func(game, line, split);
+        }
+    }
+    else if(len == 2 && game->split_parse == false)
+    {   
         if (ft_strlen(split[0]) == charl)
         {
             l_func(game, line, split);
@@ -127,10 +127,14 @@ void check_direction(t_game *game)
     
     i = 0;
     game->status_free = PARSE;
+    game->split_parse = true;
     while (game->map_info[i] != NULL && filled_textures(game) != true)
         split_line(game->map_info[i++], game, case_text,2);
+    game->split_parse = false;
+  
     while (game->map_info[i] != NULL && filled_colors(game) != true)
         split_line(game->map_info[i++], game, case_color,1);
+
     check_texture(game); 
     while (game->map_info[i] != NULL && ft_whitespaces(game->map_info[i]) == true)
         i++;

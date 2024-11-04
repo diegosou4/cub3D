@@ -3,12 +3,26 @@
 
 #include "../../includes/cub3D.h"
 
-
-void  	init_ray(t_game *game)
+void init_values2(t_game *game)
 {
-	float x;
-	float y;
-	float distance;
+	game->player.light.status = 0;
+	game->player.texture.status = 0;
+	game->N = 0;
+	game->S = 0;
+	game->E = 0;
+	game->O = 0;
+	game->rot_Left = 0;
+	game->rot_Right = 0;
+	game->frameCtd = 0;
+	game->light_on = 0;
+	game->current_img = -1;
+	game->status_free = PARSE;
+	game->x_mouse = WIDTH / 2;
+	game->y_mouse = HEIGHT / 2;
+}
+
+void  	init_values(t_game *game)
+{
 	game->player.camera.PlaneX = 0;
 	game->player.camera.PlaneY = 0;
 	game->player.deltax = 0;
@@ -32,14 +46,7 @@ void  	init_ray(t_game *game)
 	game->player.ray.lineheight = 0;
 	game->player.ray.drawStart = 0;
 	game->player.ray.drawEnd = 0;
-	game->N = 0;
-	game->S = 0;
-	game->E = 0;
-	game->O = 0;
-	game->rot_Left = 0;
-	game->rot_Right = 0;
-	game->frameCtd = 0;
-	game->light_on = 0;
+	init_values2(game);
 }
 
 
@@ -98,68 +105,42 @@ void draw_circle(t_img *img, int cx, int cy, int radius, int color) {
     }
 }
 
-
-/* void draw_minimap(t_game *game, int minimap_x, int minimap_y, int minimap_width, int minimap_height)
+void start_map2(t_game *game, int ftime,int i, int y)
 {
-    int i, j;
-    float scale_x = (float)minimap_width / (WIDTH * TAM_X_P);
-    float scale_y = (float)minimap_height / (WIDTH * TAM_Y_P);
-    
-    for (i = 0; game->map[i] != NULL; i++)
-    {
-        for (j = 0; j < ft_strlen(game->map[i]); j++)
-        {
-            char tile = game->map[i][j];
-            int minimap_tile_x = minimap_x + (int)(j * TAM_X_P * scale_x);
-            int minimap_tile_y = minimap_y + (int)(i * TAM_Y_P * scale_y);
-            
-            // Draw the tile based on its type
-            if (tile == '1') // Wall
-				draw(minimap_tile_x, minimap_tile_y,808080,game);
-            else if (tile == '0') // Floor
-                draw(minimap_tile_x, minimap_tile_y,0xfdfdfd,game); // Example color
-            else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E') // Player
-                draw(minimap_tile_x, minimap_tile_y,0xfdfdfd,game);
-        }
-    }
-    // Highlight player position in the minimap
-    int player_minimap_x = minimap_x + (int)(game->player.PosX * TAM_X_P * scale_x);
-    int player_minimap_y = minimap_y + (int)(game->player.PosY * TAM_Y_P * scale_y);
-    draw_circle(&game->canva, player_minimap_x, player_minimap_y, 3, RBG_RED); // Draw player position
-} */
-
-void draw_map(t_game *game, int ftime)
-{
-	int i;
 	int j;
 	int x;
-	int y;
+
+	j = 0;
 	x = 0;
-	y = 0;
-	int size = 0;
-	while(game->map[size] != NULL)
-		size++;
-	i = 0;
-	while (i < size)
+	while (j < ft_strlen(game->map[i]))
 	{
-		x = 0;
-		j = 0;
-		while (j < ft_strlen(game->map[i]))
+		if(game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'W' || game->map[i][j] == 'E')
 		{
-			if(game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'W' || game->map[i][j] == 'E')
+			if(ftime == 0)
 			{
-				if(ftime == 0)
-				{
-					define_direction(game,game->map[i][j]);
-					game->player.PosX = j;
-					game->player.PosY = i;
-					game->player.Px = x + 8;
-					game->player.Py = y + 8;
-				}
-			}	
-			j++;
-			x += TAM_X_P;
-		}
+				define_direction(game,game->map[i][j]);
+				game->player.PosX = j;
+				game->player.PosY = i;
+				game->player.Px = x + 8;
+				game->player.Py = y + 8;
+			}
+		}	
+		j++;
+		x += TAM_X_P;
+	}
+}
+
+void start_map(t_game *game, int ftime)
+{
+	int i;
+	int y;
+
+	y = 0;
+	i = 0;
+	
+	while (i < ft_dstrlen(game->map))
+	{
+		start_map2(game,ftime,i,y);
 		y += TAM_Y_P;
 		i++;
 	}

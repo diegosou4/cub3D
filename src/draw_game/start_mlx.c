@@ -91,6 +91,35 @@ void hit_wall(t_game *game, int mapX, int mapY)
 	}
 }
 
+/*void draw_ray(t_game *game, double angle)
+{
+    double cameraX;
+	int mapX;
+	int mapY;
+
+    game->player.ray.currentRayX = angle;
+    cameraX = 2 * angle / WIDTH - 1;
+    double rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
+    double rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
+    game->player.ray.rayDirX = rayDirX;
+    game->player.ray.rayDirY = rayDirY;
+    game->player.deltax = fabs(1 / rayDirX);
+    game->player.deltay = fabs(1 / rayDirY);
+	mapX= (int)game->player.PosX;
+    mapY = (int)game->player.PosY;
+    calculate_ray(game, mapX, mapY);
+    hit_wall(game, mapX, mapY);
+    game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
+    game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
+    if(game->player.ray.drawStart < 0)
+        game->player.ray.drawStart = 0;
+    game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
+    if(game->player.ray.drawEnd >= HEIGHT)
+        game->player.ray.drawEnd = HEIGHT - 1;
+    draw_texture(game, angle);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
+}
+*/
 
 void draw_skyfloor1(t_game *game,double angle,double x, int color)
 {
@@ -360,11 +389,9 @@ void printf_debug(t_game *game)
 	printf("\n");
 }
 
-
 void start_window(t_game *game)
 {
-	game->status_free = MLX;
-	const char *playCommand = "paplay assets/A1-It_s-just-a-burning-memory.wav > /dev/null 2>&1 &";
+
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
@@ -372,6 +399,12 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
+	game->status_free = MLX;
+	/*game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
+	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm");*/
+
+	//load_wall(game);
+	ingame(game);
 	game->player.texture = load_img(game, "assets/xpm/player.xpm");
 	game->player.light = load_img(game, "assets/xpm/Light.xpm");
 	load_wall(game);
