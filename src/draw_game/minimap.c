@@ -91,6 +91,8 @@ void draw_minimap(t_game *game) {
 					} else if (game->map[map_y_int][map_x_int] == 'S' || game->map[map_y_int][map_x_int] == 'N' || game->map[map_y_int][map_x_int] == 'E' \
 							|| game->map[map_y_int][map_x_int] == 'O') {
 						// my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_YELLOW); // Starting position in green color
+					}else if(game->map[map_y_int][map_x_int] == '2'){
+						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RGB_PURPLE); // Starting position in green color
 					}
 				}
 			} 
