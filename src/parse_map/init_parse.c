@@ -41,9 +41,15 @@ void fill_game(t_game *game)
 
 	i = 0;
 	
-	while(i != 4)
+	while(i != 12)
 	{
 		game->wall[i].filled = false;
+		i++;
+	}
+	i = 0;
+	while(i != 2)
+	{
+		game->player.sprites[i].filled = false;
 		i++;
 	}
 }

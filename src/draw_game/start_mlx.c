@@ -179,8 +179,7 @@ void start_window(t_game *game)
 			&game->canva.line_length,
 			&game->canva.endian);
 	game->status_free = MLX;
-	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
-	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm");
+
 	
 	load_wall(game);
 	ingame(game);

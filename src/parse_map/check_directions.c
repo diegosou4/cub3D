@@ -22,6 +22,20 @@ void case_text(t_game *game, char *line, char **split)
     }
 }
 
+void case_addtex(t_game *game,char *line,char **split)
+{
+    if(line[0] == 'M' && line[1] == 'N')
+    {
+        game->player.sprites[0].texture.relative_path = ft_strdup(split[1]);
+        game->player.sprites[0].filled = true;
+    }
+    if(line[0] == 'O' && line[1] == 'B')
+    {
+        game->player.sprites[1].texture.relative_path = ft_strdup(split[1]);
+        game->player.sprites[1].filled = true;
+    }
+}
+
 bool all_num(char **split2)
 {
     int i;
@@ -128,14 +142,14 @@ void check_direction(t_game *game)
     i = 0;
     game->status_free = PARSE;
     game->split_parse = true;
-    while (game->map_info[i] != NULL && filled_textures(game) != true)
+    while (game->map_info[i] != NULL && filled_textures(game,0) != true)
         split_line(game->map_info[i++], game, case_text,2);
     game->split_parse = false;
-  
+    while(game->map_info[i] != NULL && filled_textures(game,1) != true)
+        split_line(game->map_info[i++], game, case_addtex,2);  
     while (game->map_info[i] != NULL && filled_colors(game) != true)
         split_line(game->map_info[i++], game, case_color,1);
-
-    check_texture(game); 
+      check_texture(game); 
     while (game->map_info[i] != NULL && ft_whitespaces(game->map_info[i]) == true)
         i++;
     if(i == ft_dstrlen(game->map_info))
