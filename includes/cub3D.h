@@ -41,6 +41,12 @@ typedef struct s_wall
 	bool filled;
 }	t_wall;
 
+typedef struct s_sprite
+{
+	t_img texture;
+	bool filled;
+}	t_sprite;
+
 typedef struct s_ceiling
 {
 	t_img texture;
@@ -113,8 +119,7 @@ typedef struct s_player
 	double direction;
 	double deltax;
 	double deltay;
-	t_img	texture;
-	t_img	light;
+	t_sprite sprites[2];
 	t_img door;
 	int		sprite_num;
 	int		curr_frame;
@@ -201,7 +206,7 @@ char	*ft_rnewline(char *str);
 
 // Parse Map
 void check_direction(t_game *game);
-bool filled_textures(t_game *game);
+bool filled_textures(t_game *game, int option);
 bool filled_colors(t_game *game);
 int valid_line(char *line);
 void check_texture(t_game *game);
