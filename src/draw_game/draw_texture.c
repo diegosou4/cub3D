@@ -2,7 +2,6 @@
 #include "../../includes/cub3D.h"
 
 
-
 void draw_walls(t_game *game, t_img *texture, double angle, int pos)
 {
   double step;
@@ -23,6 +22,33 @@ void draw_walls(t_game *game, t_img *texture, double angle, int pos)
     	y++;
   }
 }
+
+
+void draw_sprite(t_game *game, t_img *sprite, double angle, int pos)
+{
+    double step;
+    double texPos;
+    int texY;
+    int color;
+    int y;
+    int spriteHeight = game->player.ray.lineheight / 2;  
+    int spriteDrawStart = game->player.ray.drawStart + (game->player.ray.lineheight - spriteHeight);
+    int spriteDrawEnd = spriteDrawStart + spriteHeight;
+
+    step = 1.0 * sprite->img_height / spriteHeight;
+    texPos = (spriteDrawStart - HEIGHT / 2 + spriteHeight / 2) * step;
+    y = spriteDrawStart;
+    
+    while (y < spriteDrawEnd)
+    {
+        texY = (int)texPos & (sprite->img_height - 1);
+        texPos += step;
+        color = my_mlx_pixel_get(sprite, sprite->img_width - (int)angle, texY);
+        my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
+        y++;
+    }
+}
+
 
 int return_pos(t_game *game)
 {

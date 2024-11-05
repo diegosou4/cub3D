@@ -45,7 +45,6 @@ void check_fl(t_game *game, int start, int end)
 }
 int end_map(char *line_map)
 {
-    int i;
     int size_map;
 
     size_map = ft_strlen(line_map) - 1;
@@ -142,6 +141,7 @@ int count_x(t_game *game)
 void check_map(t_game *game, int start)
 {
     int end;
+    (void)start;
     game->status_free = FINAL;
     end = sizemap(game);
     check_fl(game, 0, end);

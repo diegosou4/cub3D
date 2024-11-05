@@ -29,9 +29,6 @@ void  	init_values(t_game *game)
 	game->player.deltay = 0;
 	game->player.dirX = 0;
 	game->player.dirY = 0;
-	game->player.time.time = 0;
-	game->player.time.oldtime = 0;
-	game->player.time.frametime = 0;
 	game->player.ray.rayDirX = 0;
 	game->player.ray.rayDirY = 0;
 	game->player.ray.sideDistX = 0;

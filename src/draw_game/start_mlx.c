@@ -38,7 +38,7 @@ void calculate_ray(t_game *game, int mapX, int mapY)
 
 // aqui e onde calculamos a distancia do raio
 // ate a parede
-void calculate_distance(t_game *game, int mapX, int mapY)
+void calculate_distance(t_game *game)
 {
 	game->player.ray.perpWallDist = 0;
 
@@ -83,7 +83,7 @@ void hit_wall(t_game *game, int mapX, int mapY)
 		}
 			
 	}
-	calculate_distance(game, mapX, mapY);
+	calculate_distance(game);
 }
 
 
@@ -121,7 +121,6 @@ void draw_ray(t_game *game, double angle)
 void draw_allray(t_game *game)
 {
 	int	x;
-	int y;
 
 	x = 0;
 	while(x < WIDTH)

@@ -82,7 +82,6 @@ int	check_ext(char *pathname, char *format, char *type)
 
 void init_parse(char *path)
 {
-    int fd;
 	t_game *game;
 
     if(!(check_ext(path,".cub","map") == 4))

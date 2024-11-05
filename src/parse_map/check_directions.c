@@ -2,7 +2,9 @@
 
 void case_text(t_game *game, char *line, char **split)
 {
-    int i = -1;
+    int i;
+
+    i = -1;
     if (line[0] == 'N' && line[1] == 'O')
        i = 0;
     else if (line[0] == 'S' && line[1] == 'O')
@@ -137,7 +139,7 @@ void split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 void check_direction(t_game *game)
 {
     int i;
-    int j;
+
     
     i = 0;
     game->status_free = PARSE;
