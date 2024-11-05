@@ -8,9 +8,7 @@ void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
 	int texY;
 	int color;
 	int y;
-	int r;
-	int g;
-	int b;
+	int rgb[3];
 
 	step = 1.0 * texture->img_height / game->player.ray.lineheight;
 	texPos = (game->player.ray.drawStart - HEIGHT / 2 + game->player.ray.lineheight / 2) * step;
@@ -25,10 +23,10 @@ void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
 		texY = (int)texPos & (texture->img_height - 1);
 		texPos += step;
 		color = my_mlx_pixel_get(texture, game->wall[pos].texture.img_height - (int)angle, texY);
-		r = (int)(((color >> 16) & 0xFF) * fade_factor);
-		g = (int)(((color >> 8) & 0xFF) * fade_factor);
-		b = (int)((color & 0xFF) * fade_factor);
-		color = (r << 16) | (g << 8) | b;
+		rgb[0] = (int)(((color >> 16) & 0xFF) * fade_factor);
+		rgb[1] = (int)(((color >> 8) & 0xFF) * fade_factor);
+		rgb[2] = (int)((color & 0xFF) * fade_factor);
+		color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
 		y++;
 	}
@@ -85,23 +83,14 @@ void draw_sprite(t_game *game, t_img *sprite, double angle, int pos)
 
 int return_pos(t_game *game)
 {
-
-	if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0 && game->light_on == 0)
-		return 1;
-	else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0 && game->light_on == 0)
-		return 4;
-	else if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0 && game->light_on == 0)
-		return 7;
-	else if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0 && game->light_on == 0)
-		return 10;
-	else if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0 && game->light_on == 1)
-		return 2;
-	else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0 && game->light_on == 1)
-		return 5;
-	else if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0 && game->light_on == 1)
-		return 8;
-	else if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0 && game->light_on == 1)
-		return 11;
+	if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
+		return 1 + game->light_on;
+	else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
+		return 4 + game->light_on;
+	else if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
+		return 7 + game->light_on;
+	else if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
+		return 10 + game->light_on;
 	return 0;
 }
 
