@@ -122,7 +122,8 @@ int mouse_monitor(t_game *game, int keycode)
 
 	deltaX = game->x_mouse - prev_x_mouse;
 	
-	if ((game->x_mouse > 0 && game->x_mouse < WIDTH) || keycode == R_AR || keycode == L_AR)
+	if ((game->x_mouse > 0 && game->x_mouse < WIDTH) || keycode == R_AR || keycode == L_AR || keycode == KEY_W \
+		|| keycode == KEY_A || keycode == KEY_S || keycode == KEY_D)
 	{
 		deltaX = game->x_mouse - prev_x_mouse;
 		if (deltaX != 0 || keycode == R_AR || keycode == L_AR)

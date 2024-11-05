@@ -1,6 +1,6 @@
 #include "../../includes/cub3D.h"
 
-int	key_drop(int keycode, t_game *game)
+/* int	key_drop(int keycode, t_game *game)
 {
 	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
 	{
@@ -26,13 +26,11 @@ int	key_drop(int keycode, t_game *game)
 		game->rot_Left = 0;
 	if (game->rot_Right == 1 && keycode == R_AR)
 		game->rot_Right = 0;
-	if (!game->S && !game->E && !game->N && !game->O)
-		game->light_on = 0;
 	return (0);
-}
+} */
 
 
-int	key_event(int keycode, t_game *game)
+/* int	key_event(int keycode, t_game *game)
 {
 	
 	mouse_monitor(game, keycode);
@@ -51,11 +49,11 @@ int	key_event(int keycode, t_game *game)
 	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
 		printf("bateu\n");
 	return (0);
-}
+} */
 
 void ingame(t_game *game)
 {
-    const char *playCommand = "paplay assets/music/Bessie_Coleman.wav > /dev/null 2>&1 &";
+    const char *playCommand = "paplay assets/music/liminal.wav > /dev/null 2>&1 &";
 	start_map(game,0);
 	
 	// printf_debug(game);
