@@ -28,6 +28,7 @@
 #define GRAY_COLOR 0x808080
 #define SKY_COLOR 1
 #define FLOOR_COLOR 2
+#define RGB_PURPLE 0x800080
 #define RBG_RED 0xFF0000
 #define RBG_GREEN 0x00FF00
 #define RBG_BLUE 0x0000FF

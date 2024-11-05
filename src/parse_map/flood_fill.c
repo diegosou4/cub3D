@@ -20,11 +20,10 @@ int save_direction(t_game *game, int c_col,int c_row)
 
 bool flood_cases(t_game *game, int c_col, int c_row)
 {
-   
 	if (c_col > 0 && flood_fill(game, c_col - 1, c_row) == false)
 		return (false);
 	if (c_col + 1 < len_darray(game->ff_map) && flood_fill(game, c_col + 1, c_row) == false)
-		return (false);
+			return (false);
 	if (c_row > 0 && flood_fill(game, c_col, c_row - 1) == false)
 		return (false);
 	if (c_row + 1 < ft_strlen(game->ff_map[c_col]) && flood_fill(game, c_col, c_row + 1) == false)
@@ -56,16 +55,21 @@ bool flood_fill(t_game *game, int c_col, int c_row)
 			return (true);
 		if(save_direction(game, c_col, c_row) == 3)
 			return (false); 
-		if(game->ff_map[c_col][c_row] == '0')
+		if(game->ff_map[c_col][c_row] == '0' || game->ff_map[c_col][c_row] == '2')
 		{
 			game->ff_map[c_col][c_row] = 'x';
 			if(flood_cases(game, c_col, c_row) == false)
-				return(false); 
+			{
+				 printf("Chega por aqui	\n");
+				 return(false); 
+			}
+				
 		}
 		if(ft_strrchr("01x", game->ff_map[c_col][c_row]) == 0)
 			return(false);
 	   c_row++;
 	}
+
 
 	return (true);
 }

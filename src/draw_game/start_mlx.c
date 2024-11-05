@@ -38,7 +38,7 @@ void calculate_ray(t_game *game, int mapX, int mapY)
 
 // aqui e onde calculamos a distancia do raio
 // ate a parede
-void calculate_distance(t_game *game, int mapX, int mapY)
+void calculate_distance(t_game *game)
 {
 	game->player.ray.perpWallDist = 0;
 
@@ -95,7 +95,7 @@ void hit_wall_fade(t_game *game, int mapX, int mapY)
 void hit_wall(t_game *game, int mapX, int mapY)
 {
 	game->player.ray.side = 0;
-	while (game->map[mapY][mapX] != '1')
+	while(game->map[mapY][mapX] != '1' || game->map[mapY][mapX] != '2')
 	{
 		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
@@ -110,9 +110,17 @@ void hit_wall(t_game *game, int mapX, int mapY)
 			game->player.ray.side = 1;
 		}
 		if(game->map[mapY][mapX] == '1')
+		{
+			game->hit_door = false;
 			break;
+		}else if(game->map[mapY][mapX] == '2')
+		{
+			game->hit_door = true;
+			break;
+		}
+			
 	}
-	calculate_distance(game, mapX, mapY);
+	calculate_distance(game);
 }
 
 
@@ -192,7 +200,7 @@ void draw_ray(t_game *game, double angle)
     if(game->player.ray.drawStart < 0)
         game->player.ray.drawStart = 0;
     game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
-    if(game->player.ray.drawEnd >= HEIGHT)
+    if(game->player.ray.drawEnd >= HEIGHT || game->player.ray.drawEnd < 0)
         game->player.ray.drawEnd = HEIGHT - 1;
 	draw_skyfloor1(game,angle,game->player.ray.drawEnd, TETO);
     draw_texture(game, angle);
@@ -204,7 +212,6 @@ void draw_ray(t_game *game, double angle)
 void draw_allray(t_game *game)
 {
 	int	x;
-	int y;
 
 	x = 0;
 	while(x < WIDTH)
@@ -335,11 +342,9 @@ void start_window(t_game *game)
 			&game->canva.line_length,
 			&game->canva.endian);
 	game->status_free = MLX;
-/* 	game->player.texture = load_img( game,"assets/xpm/New-Project.xpm"); // Leak
-	game->player.light = load_img( game,"assets/xpm/smartBroke.xpm"); */
-	game->player.texture = load_img( game,"assets/xpm/player.xpm"); // Leak
-	game->player.light = load_img( game,"assets/xpm/Light.xpm");
 
+
+	
 	load_wall(game);
 	ingame(game);
 }

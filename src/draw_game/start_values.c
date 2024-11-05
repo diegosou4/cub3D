@@ -5,8 +5,6 @@
 
 void init_values2(t_game *game)
 {
-	game->player.light.status = 0;
-	game->player.texture.status = 0;
 	game->N = 0;
 	game->S = 0;
 	game->E = 0;
@@ -19,6 +17,8 @@ void init_values2(t_game *game)
 	game->status_free = PARSE;
 	game->x_mouse = WIDTH / 2;
 	game->y_mouse = HEIGHT / 2;
+	game->curr_map = 0;
+	game->hit_door = false;
 }
 
 void  	init_values(t_game *game)
@@ -29,9 +29,6 @@ void  	init_values(t_game *game)
 	game->player.deltay = 0;
 	game->player.dirX = 0;
 	game->player.dirY = 0;
-	game->player.time.time = 0;
-	game->player.time.oldtime = 0;
-	game->player.time.frametime = 0;
 	game->player.ray.rayDirX = 0;
 	game->player.ray.rayDirY = 0;
 	game->player.ray.sideDistX = 0;

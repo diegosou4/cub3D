@@ -2,7 +2,9 @@
 
 void case_text(t_game *game, char *line, char **split)
 {
-    int i = -1;
+    int i;
+
+    i = -1;
     if (line[0] == 'N' && line[1] == 'O')
        i = 0;
     else if (line[0] == 'S' && line[1] == 'O')
@@ -19,6 +21,20 @@ void case_text(t_game *game, char *line, char **split)
         game->wall[i].filled = true;
         game->wall[i + 1].filled = true;
         game->wall[i + 2].filled = true;
+    }
+}
+
+void case_addtex(t_game *game,char *line,char **split)
+{
+    if(line[0] == 'M' && line[1] == 'N')
+    {
+        game->player.sprites[0].texture.relative_path = ft_strdup(split[1]);
+        game->player.sprites[0].filled = true;
+    }
+    if(line[0] == 'O' && line[1] == 'B')
+    {
+        game->player.sprites[1].texture.relative_path = ft_strdup(split[1]);
+        game->player.sprites[1].filled = true;
     }
 }
 
@@ -123,19 +139,19 @@ void split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 void check_direction(t_game *game)
 {
     int i;
-    int j;
+
     
     i = 0;
     game->status_free = PARSE;
     game->split_parse = true;
-    while (game->map_info[i] != NULL && filled_textures(game) != true)
+    while (game->map_info[i] != NULL && filled_textures(game,0) != true)
         split_line(game->map_info[i++], game, case_text,2);
     game->split_parse = false;
-  
+    while(game->map_info[i] != NULL && filled_textures(game,1) != true)
+        split_line(game->map_info[i++], game, case_addtex,2);  
     while (game->map_info[i] != NULL && filled_colors(game) != true)
         split_line(game->map_info[i++], game, case_color,1);
-
-    check_texture(game); 
+      check_texture(game); 
     while (game->map_info[i] != NULL && ft_whitespaces(game->map_info[i]) == true)
         i++;
     if(i == ft_dstrlen(game->map_info))

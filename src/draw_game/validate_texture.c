@@ -12,6 +12,7 @@ int hex_color(t_game *game, int pos)
 void draw_skyfloor(t_game *game,double angle,double x, int pos)
 {
 	int y = 0;
+	
 	if(pos == 0)
 	{
 		if(x > 0)
@@ -69,4 +70,14 @@ void load_wall(t_game *game)
 		game->current_img = i;
 		i++;
 	}
+	i = 0;
+	game->wall[12].texture = load_img(game,"/home/diegmore/Desktop/cub3D/assets/xpm/door.xpm");
+	game->current_img = 12;
+	while(i != 2)
+	{
+		game->player.sprites[i].texture = load_img(game, game->player.sprites[i].texture.relative_path);
+		game->current_img += 1;
+		i++;
+	}
+	
 }

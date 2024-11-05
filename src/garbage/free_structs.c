@@ -36,6 +36,13 @@ void free_texture(t_game *game)
             free(game->wall[i].texture.relative_path);
         i++;
     }
+    i = 0;
+    while(i != 2)
+    {
+        if(game->player.sprites[i].texture.relative_path != NULL)
+            free(game->player.sprites[i].texture.relative_path);
+        i++;
+    }
 }
 void free_map(t_game *game)
 {

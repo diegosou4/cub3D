@@ -41,6 +41,12 @@ typedef struct s_wall
 	bool filled;
 }	t_wall;
 
+typedef struct s_sprite
+{
+	t_img texture;
+	bool filled;
+}	t_sprite;
+
 typedef struct s_ceiling
 {
 	t_img texture;
@@ -69,13 +75,7 @@ typedef struct s_camera
 	double PlaneY;
 } t_camera;
 
-typedef struct s_time
-{
-	double oldtime;
-	double time;
-	double frametime;
 
-}	t_time;
 
 
 typedef struct s_ray
@@ -109,12 +109,11 @@ typedef struct s_player
 	double PosX; // Posicao do player no mapa em x e y
 	double PosY;
 	t_ray ray;
-	t_time time;
 	double direction;
 	double deltax;
 	double deltay;
-	t_img	texture;
-	t_img	light;
+	t_sprite sprites[2];
+	t_img door;
 	int		sprite_num;
 	int		curr_frame;
 	t_camera camera;
@@ -131,10 +130,11 @@ typedef struct s_game
 	void		*win;
 	t_img		canva;
 	t_player player;
-	t_wall	wall[12];
-	t_wall	floor;
+	t_wall	wall[13];
+	int curr_map;
 	t_wall	ceiling;
 	t_color color[2];
+	bool hit_door;
 	int		mov;
 	int		frameCtd;
 	bool	light_on;
@@ -199,7 +199,7 @@ char	*ft_rnewline(char *str);
 
 // Parse Map
 void check_direction(t_game *game);
-bool filled_textures(t_game *game);
+bool filled_textures(t_game *game, int option);
 bool filled_colors(t_game *game);
 int valid_line(char *line);
 void check_texture(t_game *game);
