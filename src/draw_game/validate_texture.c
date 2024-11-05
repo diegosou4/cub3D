@@ -79,5 +79,6 @@ void load_wall(t_game *game)
 		game->current_img += 1;
 		i++;
 	}
+	printf("Load Images z\n");
 	
 }

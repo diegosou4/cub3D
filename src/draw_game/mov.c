@@ -10,60 +10,63 @@ int mouse_track(int x, int y, t_game *game)
 	return (0);
 }
 
-int key_w(t_game *game) {
-	// Calcula novas posições
-	double newPosX = game->player.PosX + game->player.dirX * MOVE_SPEED;
-	double newPosY = game->player.PosY + game->player.dirY * MOVE_SPEED;
+int key_w(t_game *game) 
+{
+	double newPosX;
+	double newPosY;
 
-	// Verifica se a nova posição não colide com uma parede
+	newPosX = game->player.PosX + game->player.dirX * MOVE_SPEED;
+	newPosY = game->player.PosY + game->player.dirY * MOVE_SPEED;
 	if (game->map[(int)newPosY][(int)newPosX] != '1') {
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
-
 	return 0;
 }
 
-int key_s(t_game *game) {
-	// Calcula novas posições para a movimentação para trás
-	double newPosX = game->player.PosX - game->player.dirX * MOVE_SPEED;
-	double newPosY = game->player.PosY - game->player.dirY * MOVE_SPEED;
+int key_s(t_game *game) 
+{
+	double newPosX;
+	double newPosY;
 
-	// Verifica se a nova posição não colide com uma parede
-	if (game->map[(int)newPosY][(int)newPosX] != '1') {
+	newPosX = game->player.PosX - game->player.dirX * MOVE_SPEED;
+	newPosY = game->player.PosY - game->player.dirY * MOVE_SPEED;
+	if (game->map[(int)newPosY][(int)newPosX] != '1') 
+	{
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
-
 	return 0;
 }
 
-int key_d(t_game *game) {
-	// Calcula novas posições para a movimentação à direita
-	double newPosX = game->player.PosX + game->player.camera.PlaneX * MOVE_SPEED;
-	double newPosY = game->player.PosY + game->player.camera.PlaneY * MOVE_SPEED;
+int key_d(t_game *game)
+{
+	double newPosX;
+	double newPosY;
 
-	// Verifica se a nova posição não colide com uma parede
-	if (game->map[(int)newPosY][(int)newPosX] != '1') {
+	newPosX = newPosX = game->player.PosX + game->player.camera.PlaneX * MOVE_SPEED;
+	newPosY = game->player.PosY + game->player.camera.PlaneY * MOVE_SPEED;
+	if (game->map[(int)newPosY][(int)newPosX] != '1') 
+	{
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
-
 	return 0;
 }
 
 
-int key_a(t_game *game) {
-	// Calcula novas posições para a movimentação à esquerda
-	double newPosX = game->player.PosX - game->player.camera.PlaneX * MOVE_SPEED;
-	double newPosY = game->player.PosY - game->player.camera.PlaneY * MOVE_SPEED;
+int key_a(t_game *game) 
+{
+	double newPosX;
+	double newPosY;
 
-	// Verifica se a nova posição não colide com uma parede
-	if (game->map[(int)newPosY][(int)newPosX] != '1') {
+	newPosX = game->player.PosX - game->player.camera.PlaneX * MOVE_SPEED;
+	newPosY = game->player.PosY - game->player.camera.PlaneY * MOVE_SPEED;
+	if (game->map[(int)newPosY][(int)newPosX] != '1') 
+	{
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
-
 	return (0);
 }
 
@@ -129,49 +132,22 @@ int mouse_monitor(t_game *game, int keycode)
 		if (deltaX != 0 || keycode == R_AR || keycode == L_AR)
 		{
 			if (deltaX > 0 || game->rot_Right == 1)
-			{
 				arrow_right(game);
-			}
 			else if ( deltaX < 0 || game->rot_Left == 1)
-			{
 				arrow_left(game);
-			}
-			//draw_allray(game);
 			prev_x_mouse = WIDTH /2;
 			//mlx_mouse_move(game->mlx, game->win, WIDTH / 2, HEIGHT / 2);
 		}
-		player_mov2(keycode, game);
-		//key_pressing(game);
+		player_mov(game);
 		draw_allray(game);
 		//draw_minimap(game);
 		mlx_mouse_move(game->mlx, game->win, WIDTH / 2, HEIGHT / 2);
 	}
-	else
-		return (0);
 	return (1);
 }
 
-int player_mov(t_game *game, int keycode)
+int player_mov(t_game *game)
 {
-	if(keycode == KEY_W)
-		return(key_w(game));
-	else if(keycode == KEY_S)
-		return(key_s(game));
-	else if(keycode == KEY_D)
-		return(key_d(game));
-	else if(keycode == KEY_A)
-		return(key_a(game));
-	return (0);
-}
-
-int player_mov2(int keycode, t_game *game)
-{
-	int	x_mov;
-	int	y_mov;
-
-	(void)keycode; // veja o que deve ser feito com esse keycode aqui
-	y_mov = game->y_mov;
-	x_mov = game->x_mov;
 	if (game->N && game->y_mov == -1)
 		key_w(game);
 	if (game->S && game->y_mov == 1)
@@ -184,8 +160,6 @@ int player_mov2(int keycode, t_game *game)
 		arrow_left(game);
 	if(game->rot_Right == 1)
 		arrow_right(game);
-	game->x_mov = x_mov;
-	game->y_mov = y_mov;
 	return (0);
 }
 

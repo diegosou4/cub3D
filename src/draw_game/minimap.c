@@ -57,69 +57,71 @@ void draw_flashlight(t_game *game)
 	game->frameCtd++;
 }
 
-void draw_minimap(t_game *game) 
-{
-	int map_height;
-	int minimap_radius;
-	int player_minimap_x;
-	int player_minimap_y;
-	int map_x_int;
-	int map_y_int;
-	int row_length;
-	int y;
-	int x;
-	double start_map_x;
-	double start_map_y;
-	double end_map_x;
-	double end_map_y;
-	double map_x;
-	double map_y;
+// void draw_minimap(t_game *game) 
+// {
+// 	int map_height;
+// 	int minimap_radius;
+// 	int player_minimap_x;
+// 	int player_minimap_y;
+// 	int map_x_int;
+// 	int map_y_int;
+// 	int row_length;
+// 	int y;
+// 	int x;
+// 	double start_map_x;
+// 	double start_map_y;
+// 	double end_map_x;
+// 	double end_map_y;
+// 	double map_x;
+// 	double map_y;
 
-	map_height = 0;
-	while (game->map[map_height] != NULL)
-		map_height++;
-	minimap_radius = MINIMAP_SIZE / 2;
-	player_minimap_x = MINIMAP_SIZE / 2;
-	player_minimap_y = MINIMAP_SIZE / 2;
+// 	map_height = 0;
+// 	while (game->map[map_height] != NULL)
+// 		map_height++;
+// 	minimap_radius = MINIMAP_SIZE / 2;
+// 	player_minimap_x = MINIMAP_SIZE / 2;
+// 	player_minimap_y = MINIMAP_SIZE / 2;
 
-	start_map_x = game->player.PosX - minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
-	start_map_y = game->player.PosY - minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
-	end_map_x = game->player.PosX + minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
-	end_map_y = game->player.PosY + minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
+// 	start_map_x = game->player.PosX - minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
+// 	start_map_y = game->player.PosY - minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
+// 	end_map_x = game->player.PosX + minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
+// 	end_map_y = game->player.PosY + minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
 
-	y = 0;
-	while (y < MINIMAP_SIZE) 
-	{
-		x = 0;
-		while(x < MINIMAP_SIZE) 
-		{
-			map_x = start_map_x + x / (MINIMAP_SCALE * TILE_SIZE);
-			map_y = start_map_y + y / (MINIMAP_SCALE * TILE_SIZE);
+// 	y = 0;
+// 	while (y < MINIMAP_SIZE) 
+// 	{
+// 		x = 0;
+// 		while(x < MINIMAP_SIZE) 
+// 		{
+// 			map_x = start_map_x + x / (MINIMAP_SCALE * TILE_SIZE);
+// 			map_y = start_map_y + y / (MINIMAP_SCALE * TILE_SIZE);
 
-			map_x_int = (int)map_x;
-			map_y_int = (int)map_y;
+// 			map_x_int = (int)map_x;
+// 			map_y_int = (int)map_y;
 
 
-			if (map_x_int >= 0 && map_y_int >= 0 && map_y_int < map_height) 
-			{
-				row_length = ft_strlen(game->map[map_y_int]);
-				if (map_x_int < row_length) 
-				{
-					if (game->map[map_y_int][map_x_int] == '1')
-						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0xFFFFFF);
-					else if (game->map[map_y_int][map_x_int] == '0')
-						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0x000000);
-					else if (game->map[map_y_int][map_x_int] == 'S' || game->map[map_y_int][map_x_int] == 'N' || game->map[map_y_int][map_x_int] == 'E' \
-							|| game->map[map_y_int][map_x_int] == 'O')
-						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_YELLOW);
-				}
-			} 
-			x++;
-		}
-		//__render(game,  player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
-		paintimage(game, &game->player.sprites[0].texture, player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
-	}
-}
+// 			if (map_x_int >= 0 && map_y_int >= 0 && map_y_int < map_height) 
+// 			{
+// 				row_length = ft_strlen(game->map[map_y_int]);
+// 				if (map_x_int < row_length) 
+// 				{
+// 					if (game->map[map_y_int][map_x_int] == '1')
+// 						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0xFFFFFF);
+// 					else if (game->map[map_y_int][map_x_int] == '0')
+// 						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0x000000);
+// 					else if (game->map[map_y_int][map_x_int] == 'S' || game->map[map_y_int][map_x_int] == 'N' || game->map[map_y_int][map_x_int] == 'E' \
+// 							|| game->map[map_y_int][map_x_int] == 'O')
+// 						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_YELLOW);
+// 				}
+// 			} 
+// 			x++;
+// 		}
+// 		//__render(game,  player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
+// 		paintimage(game, &game->player.sprites[0].texture, player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
+// 	}
+// }
+
+
 
 
 

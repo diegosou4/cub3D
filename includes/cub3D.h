@@ -225,13 +225,12 @@ void draw(int x,int y, int color, t_game *game);
 void ingame(t_game *game);
 void draw_textureD(t_game *game, double angle);
 // Moviment
-void	define_mov2(t_game *game, int keycode);
+void	define_mov(t_game *game, int keycode);
 int	key_event(int keycode, t_game *game);
-int player_mov(t_game *game, int keycode);
 int	key_drop(int keycode, t_game *game);
 int mouse_track(int x, int y, t_game *game);
 int mouse_monitor(t_game *game, int keycode);
-int player_mov2(int keycode, t_game *game);
+int player_mov(t_game *game);
 void  	init_values(t_game *game);
 void draw_texture(t_game *game, double angle);
 void draw_floor(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky);

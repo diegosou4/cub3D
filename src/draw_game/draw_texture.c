@@ -17,7 +17,8 @@ void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
 		fade_factor = 1.0 - (game->player.ray.perpWallDist / MAX_RENDER_DISTANCE);
 	else
 		fade_factor = 1.0 - (game->player.ray.perpWallDist / (MAX_RENDER_DISTANCE * 3));
-	if (fade_factor < 0) fade_factor = 0.0; // Clamp fade factor
+	if (fade_factor < 0) 
+        fade_factor = 0.0; // Clamp fade factor
 	while (y < game->player.ray.drawEnd)
 	{
 		texY = (int)texPos & (texture->img_height - 1);
@@ -33,7 +34,7 @@ void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
 }
 
 
-void draw_walls(t_game *game, t_img *texture, double angle, int pos)
+void draw_walls(t_game *game, t_img *texture, double angle)
 {
   double step;
   double texPos;
@@ -45,44 +46,21 @@ void draw_walls(t_game *game, t_img *texture, double angle, int pos)
   texPos = (game->player.ray.drawStart - HEIGHT / 2 + game->player.ray.lineheight / 2) * step;
   y = game->player.ray.drawStart;
   while(y < game->player.ray.drawEnd)
-	{
+  {
 		texY = (int)texPos & (texture->img_height - 1);
 		texPos += step;
-		color = my_mlx_pixel_get(texture, game->wall[pos].texture.img_height - (int)angle, texY);
+		color = my_mlx_pixel_get(texture, texture->img_height - (int)angle, texY);
 		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
 		y++;
   }
 }
 
 
-void draw_sprite(t_game *game, t_img *sprite, double angle, int pos)
-{
-    double step;
-    double texPos;
-    int texY;
-    int color;
-    int y;
-    int spriteHeight = game->player.ray.lineheight / 2;  
-    int spriteDrawStart = game->player.ray.drawStart + (game->player.ray.lineheight - spriteHeight);
-    int spriteDrawEnd = spriteDrawStart + spriteHeight;
-
-    step = 1.0 * sprite->img_height / spriteHeight;
-    texPos = (spriteDrawStart - HEIGHT / 2 + spriteHeight / 2) * step;
-    y = spriteDrawStart;
-    
-    while (y < spriteDrawEnd)
-    {
-        texY = (int)texPos & (sprite->img_height - 1);
-        texPos += step;
-        color = my_mlx_pixel_get(sprite, sprite->img_width - (int)angle, texY);
-        my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
-        y++;
-    }
-}
-
 
 int return_pos(t_game *game)
 {
+    if(game->hit_door == true)
+        return 12;
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
 		return 1 + game->light_on;
 	else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
@@ -101,8 +79,7 @@ void draw_texture(t_game *game, double angle)
 	double rayx;
 	int pos;
 
-	draw_skyfloor1(game,angle,game->player.ray.drawEnd,0);
-	//draw_skyfloor(game,angle,game->player.ray.drawEnd,0);
+	draw_skyfloor(game,angle,game->player.ray.drawEnd,0);
 	if(game->player.ray.side == 0)
 		wall_x = game->player.PosY + game->player.ray.perpWallDist * game->player.ray.rayDirY;
 	else
@@ -114,5 +91,5 @@ void draw_texture(t_game *game, double angle)
 		rayx = game->wall[pos].texture.img_width - rayx - 1;
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
 		rayx = game->wall[pos].texture.img_width - rayx - 1;
-	draw_walls_fade(game, &game->wall[pos].texture, rayx,pos);
+	draw_walls(game, &game->wall[pos].texture, rayx);
 }
