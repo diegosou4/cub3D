@@ -51,7 +51,6 @@ void	define_mov(t_game *game, int keycode)
     key_rot(game, keycode);
     key_ligths(game, keycode);
     key_direction(game, keycode);
-	game->mov = 0;
 }
 
 

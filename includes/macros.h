@@ -19,7 +19,7 @@
 # define MOVE_SPEED 0.02
 # define ROT_SPEED 0.03
 
-
+#define NUM_TEXTURE 15
 
 # define FOV 66
 
@@ -66,14 +66,6 @@
 #define A_WEST 180
 #define A_EAST 0
 
-enum	direction
-{
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST
-};
-
 //	Frente + 1y
 //	Tras   - 1y
 //	Direita + 1x
@@ -102,6 +94,13 @@ enum option
 	FINAL,
 	FLOOD,
 	MLX
+};
+
+enum adicional_textures
+{
+	PLAYER = 12,
+	OBJECT = 13,
+	DOOR = 14
 };
 
 #endif

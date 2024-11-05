@@ -63,22 +63,12 @@ void load_wall(t_game *game)
 	int i;
 
 	i = 0;
-	game->current_img = 0;
-	while (i != 12)
+	
+	while (i != NUM_TEXTURE)
 	{
-		game->wall[i].texture = load_img(game, game->wall[i].texture.relative_path);
+		game->texture[i].texture = load_img(game, game->texture[i].texture.relative_path);
 		game->current_img = i;
 		i++;
 	}
-	i = 0;
-	game->wall[12].texture = load_img(game,"/home/diegmore/Desktop/cub3D/assets/xpm/door.xpm");
-	game->current_img = 12;
-	while(i != 2)
-	{
-		game->player.sprites[i].texture = load_img(game, game->player.sprites[i].texture.relative_path);
-		game->current_img += 1;
-		i++;
-	}
-	printf("Load Images z\n");
 	
 }

@@ -72,10 +72,13 @@ int key_a(t_game *game)
 
 int arrow_left(t_game *game)
 {
-	double oldDirX = game->player.dirX;
+	double oldDirX;
+	double oldPlaneX;
+
+	oldDirX = game->player.dirX; 
 	game->player.dirX = game->player.dirX * cos(-ROT_SPEED) - game->player.dirY * sin(-ROT_SPEED);
 	game->player.dirY = oldDirX * sin(-ROT_SPEED) + game->player.dirY * cos(-ROT_SPEED);
-	double oldPlaneX = game->player.camera.PlaneX;
+	oldPlaneX = game->player.camera.PlaneX;
 	game->player.camera.PlaneX = game->player.camera.PlaneX * cos(-ROT_SPEED) - game->player.camera.PlaneY * sin(-ROT_SPEED);
 	game->player.camera.PlaneY = oldPlaneX * sin(-ROT_SPEED) + game->player.camera.PlaneY * cos(-ROT_SPEED);
 	return (1);
@@ -83,40 +86,18 @@ int arrow_left(t_game *game)
 
 int arrow_right(t_game *game)
 {
-	double oldDirX = game->player.dirX;
+	double oldDirX;
+	double oldPlaneX;
+
+	oldDirX = game->player.dirX;
 	game->player.dirX = game->player.dirX * cos(ROT_SPEED) - game->player.dirY * sin(ROT_SPEED);
 	game->player.dirY = oldDirX * sin(ROT_SPEED) + game->player.dirY * cos(ROT_SPEED);
-	double oldPlaneX = game->player.camera.PlaneX;
+	oldPlaneX = game->player.camera.PlaneX;
 	game->player.camera.PlaneX = game->player.camera.PlaneX * cos(ROT_SPEED) - game->player.camera.PlaneY * sin(ROT_SPEED);
 	game->player.camera.PlaneY = oldPlaneX * sin(ROT_SPEED) + game->player.camera.PlaneY * cos(ROT_SPEED);
-	
 	return (1);
 }
 
-/* int	key_pressing(t_game *game)
-{
-	if(game->y_mov == 1 && game->x_mov == 1)
-	{
-		key_w(game);
-		key_d(game);
-		return (0);
-	}
-	if(game->y_mov == 1 && game->x_mov == -1)
-	{
-		key_w(game);
-		key_a(game);
-		return (0);
-	}
-	if(game->y_mov == 1)
-		key_w(game);
-	if(game->y_mov == -1)
-		key_s(game);
-	if(game->x_mov == 1)
-		key_d(game);
-	if(game->x_mov == -1)
-		key_a(game);
-	return (0);
-} */
 
 int mouse_monitor(t_game *game, int keycode)
 {

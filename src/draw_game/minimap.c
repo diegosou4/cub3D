@@ -33,7 +33,7 @@ void	paint_player(t_game *vars, t_img *img, int x, int y)
 static void	__render(t_game *this, int sx, int sy)
 {
 	update_player_sprite(this);
-	paint_player(this, &this->player.sprites[0].texture, sx, sy);
+	paint_player(this, &this->texture[13].texture, sx, sy);
 }
 
 
@@ -45,11 +45,10 @@ void draw_flashlight(t_game *game)
 	double vertical_offset = sin(game->frameCtd * frequency) * amplitude;
 
 	y = 0;
-
-	while (y < game->player.sprites[1].texture.img_height && game->light_on) {
+	while (y < game->texture[14].texture.img_height && game->light_on) {
 		x = 0;
-		while (x < game->player.sprites[1].texture.img_width) {
-			my_mlx_pixel_put(&game->canva, WIDTH / 2 + x, (HEIGHT / 2 + 150 + (int)vertical_offset) + y, my_mlx_pixel_get(&game->player.sprites[1].texture, x, y));
+		while (x < game->texture[14].texture.img_width) {
+			my_mlx_pixel_put(&game->canva, WIDTH / 2 + x, (HEIGHT / 2 + 150 + (int)vertical_offset) + y, my_mlx_pixel_get(&game->texture[14].texture, x, y));
 			x++;
 		}
 		y++;

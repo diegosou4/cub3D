@@ -176,17 +176,7 @@ int	key_event(int keycode, t_game *game)
 	return (0);
 }
 
-void printf_debug(t_game *game)
-{
-	printf("\n");
-	printf("Posicao X %f\n", game->player.PosX);
-	printf("Posicao Y %f\n", game->player.PosY);
-	printf("Dir X %f\n", game->player.dirX);
-	printf("Dir Y %f\n", game->player.dirY);
-	printf("Plane X %f\n", game->player.camera.PlaneX);
-	printf("Plane Y %f\n", game->player.camera.PlaneY);
-	printf("\n");
-}
+
 
 void start_window(t_game *game)
 {
