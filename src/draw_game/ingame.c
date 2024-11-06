@@ -1,55 +1,5 @@
 #include "../../includes/cub3D.h"
 
-/* int	key_drop(int keycode, t_game *game)
-{
-	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
-	{
-		game->y_mov += 1;
-		game->N = 0;
-	}	
-	if (keycode == KEY_S && (game->y_mov == 0 || game->y_mov == 1))
-	{
-		game->y_mov -= 1;
-		game->S = 0;
-	}
-	if (keycode == KEY_A && (game->x_mov == 0 || game->x_mov == -1))
-	{
-		game->x_mov += 1;
-		game->O = 0;
-	}
-	if (keycode == KEY_D && (game->x_mov == 0 || game->x_mov == 1)) 
-	{
-		game->x_mov -= 1;
-		game->E = 0;
-	}
-	if (game->rot_Left == 1 && keycode == L_AR)
-		game->rot_Left = 0;
-	if (game->rot_Right == 1 && keycode == R_AR)
-		game->rot_Right = 0;
-	return (0);
-} */
-
-
-/* int	key_event(int keycode, t_game *game)
-{
-	
-	mouse_monitor(game, keycode);
- 	define_mov2(game, keycode);
-	draw_allray(game); 
-	if(keycode == ESC)
-	{
-		system("pkill aplay > /dev/null 2>&1");
-		game->status_free = FINAL;
-		
-		mlx_do_key_autorepeaton(game->mlx);
-		garabe_collector(game);
-		destroy_game(game);
-		exit(0);
-	}
-	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
-		printf("bateu\n");
-	return (0);
-} */
 
 void ingame(t_game *game)
 {

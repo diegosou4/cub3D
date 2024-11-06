@@ -35,29 +35,12 @@ typedef struct s_minimap
 	int			*y_vals;
 }	t_minimap;
 
-typedef struct s_wall
-{
-	t_img texture;
-	bool filled;
-}	t_wall;
 
-typedef struct s_sprite
+typedef struct s_texture
 {
 	t_img texture;
 	bool filled;
-}	t_sprite;
-
-typedef struct s_ceiling
-{
-	t_img texture;
-	bool filled;
-}	t_ceiling;
-
-typedef struct s_floor
-{
-	t_img texture;
-	bool filled;
-}	t_floor;
+}	t_texture;
 
 
 typedef struct s_color
@@ -76,8 +59,6 @@ typedef struct s_camera
 } t_camera;
 
 
-
-
 typedef struct s_ray
 {
 	double rayDirX;
@@ -88,73 +69,70 @@ typedef struct s_ray
 	double deltaDistY;
 	double perpWallDist;
 	double currentRayX;
+	double lineheight;
+	double drawStart;
+	double drawEnd;
 	int stepX;
 	int stepY;
 	int hit;
 	int side;
-	double lineheight;
-	double drawStart;
-	double drawEnd;
+	
 } t_ray;
 
 typedef struct s_map
 {
-	char **data;
-	int width;
-	int height;
+	char	**data;
+	int	width;
+	int	height;
 }	t_map;
 
 typedef struct s_player
 {
-	double PosX; // Posicao do player no mapa em x e y
-	double PosY;
 	t_ray ray;
+	double PosX; 
+	double PosY;
+	double dirX;
+	double dirY;
 	double direction;
 	double deltax;
 	double deltay;
-	t_sprite sprites[2];
-	t_img door;
 	int		sprite_num;
 	int		curr_frame;
 	t_camera camera;
-	double dirX;
-	double dirY;
-	int Py; // Posicao em Pixel
+	int Py; 
 	int Px; 
 	int pa;
 }	t_player;
 
 typedef struct s_game
 {	
-	void		*mlx;
-	void		*win;
-	t_img		canva;
-	t_player player;
-	t_wall	wall[13];
-	int curr_map;
-	t_wall	ceiling;
-	t_color color[2];
-	bool hit_door;
-	int		mov;
-	int		frameCtd;
+	void	*mlx;
+	void	*win;
+	t_img	canva;
+	t_player	player;
+	t_texture texture[15];
+	t_color	color[2];
+	bool	hit_door;
 	bool	light_on;
-	bool split_parse;
-	char **map_info;
-	char **map;
-	char **ff_map;
-	char *line;
-	int current_img;
-	int status_free;
-	int x_mouse;
-	int	y_mouse;
-	int	x_mov;
-	int	y_mov;
-	int	N;
-	int	E;
-	int	O;
-	int	S;
-	int rot_Left;
-	int rot_Right;
+	bool	split_parse;
+	char	**map_info;
+	char	**map;
+	char	**ff_map;
+	char	*line;
+	int		frameCtd;
+	int		curr_map;
+	int		current_img;
+	int		status_free;
+	int		x_mouse;
+	int		y_mouse;
+	int		x_mov;
+	int		y_mov;
+	int		N;
+	int		E;
+	int		O;
+	int		S;
+	int 	rot_Left;
+	int 	rot_Right;
 }   t_game;
 
 
@@ -199,14 +177,13 @@ char	*ft_rnewline(char *str);
 
 // Parse Map
 void check_direction(t_game *game);
-bool filled_textures(t_game *game, int option);
+bool filled_textures(t_game *game);
 bool filled_colors(t_game *game);
 int valid_line(char *line);
 void check_texture(t_game *game);
 void check_map(t_game *game, int start);
 bool flood_fill(t_game *game, int c_col, int c_row);
 // Draw Game
-void draw(int x,int y, int color, t_game *game);
 void start_window(t_game *game);
 void load_wall(t_game *game);
 t_img	load_img(t_game *game, char *path);
@@ -218,31 +195,27 @@ void draw_minimap(t_game *game);
 void draw_flashlight(t_game *game);
 // void draw_ray(t_game *game, double angle);
 void start_map(t_game *game, int ftime);
-void paintimage(t_game *game, t_img *img, int sx, int sy);
+void	paintimage(t_game *game, t_texture *img, int sx, int sy);
 void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
-void draw(int x,int y, int color, t_game *game);
 void ingame(t_game *game);
-void draw_textureD(t_game *game, double angle);
+
 // Moviment
-void	define_mov2(t_game *game, int keycode);
-int	key_event(int keycode, t_game *game);
-int player_mov(t_game *game, int keycode);
-int	key_drop(int keycode, t_game *game);
-int mouse_track(int x, int y, t_game *game);
-int mouse_monitor(t_game *game, int keycode);
-int player_mov2(int keycode, t_game *game);
+void	define_mov(t_game *game, int keycode);
+int		key_event(int keycode, t_game *game);
+int		key_drop(int keycode, t_game *game);
+int		mouse_track(int x, int y, t_game *game);
+int		mouse_monitor(t_game *game, int keycode);
+int		player_mov(t_game *game);
 void  	init_values(t_game *game);
-void draw_texture(t_game *game, double angle);
-void draw_floor(t_game *game, double angle, double drawEnd, t_img *texture, int is_sky);
-void draw_skyfloor1(t_game *game,double angle,double x, int color);
+void	draw_texture(t_game *game, double angle);
 // Garabe Collector
-void garabe_collector(t_game *game);
-void free_game(t_game *game);
-void print_free(t_game *game, char *errostr);
-void free_map_info(t_game *game);
-void free_ff_map(t_game *game);
-void free_walls(t_game *game);
-void destroy_game(t_game *game);
-void define_direction(t_game *game , char direction);
+void	garabe_collector(t_game *game);
+void	free_game(t_game *game);
+void	print_free(t_game *game, char *errostr);
+void	free_map_info(t_game *game);
+void	free_ff_map(t_game *game);
+void	free_walls(t_game *game);
+void	destroy_game(t_game *game);
+void	define_direction(t_game *game , char direction);
 #endif

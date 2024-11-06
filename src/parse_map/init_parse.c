@@ -41,15 +41,9 @@ void fill_game(t_game *game)
 
 	i = 0;
 	
-	while(i != 12)
+	while(i != 14)
 	{
-		game->wall[i].filled = false;
-		i++;
-	}
-	i = 0;
-	while(i != 2)
-	{
-		game->player.sprites[i].filled = false;
+		game->texture[i].filled = false;
 		i++;
 	}
 }
@@ -95,7 +89,6 @@ void init_parse(char *path)
 		free(game);
 		return;
 	}
-	game->mov = IDL;
 	fill_game(game);
 	check_line(game);
 	start_window(game);

@@ -19,6 +19,7 @@ void init_values2(t_game *game)
 	game->y_mouse = HEIGHT / 2;
 	game->curr_map = 0;
 	game->hit_door = false;
+	game->current_img = 0;
 }
 
 void  	init_values(t_game *game)

@@ -15,27 +15,30 @@ void case_text(t_game *game, char *line, char **split)
         i = 9;
     if (i != -1)
     {
-        game->wall[i].texture.relative_path = ft_strdup(split[1]);
-        game->wall[i + 1].texture.relative_path = ft_strdup(split[2]);
-        game->wall[i + 2].texture.relative_path = ft_strdup(split[3]);
-        game->wall[i].filled = true;
-        game->wall[i + 1].filled = true;
-        game->wall[i + 2].filled = true;
+        game->texture[i].texture.relative_path = ft_strdup(split[1]);
+        game->texture[i + 1].texture.relative_path = ft_strdup(split[2]);
+        game->texture[i + 2].texture.relative_path = ft_strdup(split[3]);
+        game->texture[i].filled = true;
+        game->texture[i + 1].filled = true;
+        game->texture[i + 2].filled = true;
     }
 }
 
 void case_addtex(t_game *game,char *line,char **split)
 {
-    if(line[0] == 'M' && line[1] == 'N')
-    {
-        game->player.sprites[0].texture.relative_path = ft_strdup(split[1]);
-        game->player.sprites[0].filled = true;
-    }
-    if(line[0] == 'O' && line[1] == 'B')
-    {
-        game->player.sprites[1].texture.relative_path = ft_strdup(split[1]);
-        game->player.sprites[1].filled = true;
-    }
+    int i;
+
+    i -= 1;
+    if(line[0] == 'D' && line[1] == 'R')
+        i = 12;
+    else if(line[0] == 'M' && line[1] == 'N')
+        i = 13;
+    else if(line[0] == 'O' && line[1] == 'B')
+        i = 14;
+    if(i == -1)
+        return;
+    game->texture[i].texture.relative_path = ft_strdup(split[1]);
+    game->texture[i].filled = true;
 }
 
 bool all_num(char **split2)
@@ -117,16 +120,12 @@ void split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
     if(game->split_parse == true && len == 4)
     {
         if(ft_strlen(split[0]) == charl)
-        {
             l_func(game, line, split);
-        }
     }
     else if(len == 2 && game->split_parse == false)
     {   
         if (ft_strlen(split[0]) == charl)
-        {
             l_func(game, line, split);
-        }
     }
     else if (ft_whitespaces(line) == false)
     {
@@ -140,15 +139,15 @@ void check_direction(t_game *game)
 {
     int i;
 
-    
     i = 0;
     game->status_free = PARSE;
     game->split_parse = true;
-    while (game->map_info[i] != NULL && filled_textures(game,0) != true)
+    while (game->map_info[i] != NULL && filled_textures(game) != true)
         split_line(game->map_info[i++], game, case_text,2);
     game->split_parse = false;
-    while(game->map_info[i] != NULL && filled_textures(game,1) != true)
-        split_line(game->map_info[i++], game, case_addtex,2);  
+    while(game->map_info[i] != NULL && filled_textures(game) != true)
+        split_line(game->map_info[i++], game, case_addtex,2);
+      
     while (game->map_info[i] != NULL && filled_colors(game) != true)
         split_line(game->map_info[i++], game, case_color,1);
       check_texture(game); 

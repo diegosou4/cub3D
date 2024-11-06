@@ -12,18 +12,18 @@
 
 #include "../../includes/cub3D.h"
 
-void	paintimage(t_game *game, t_img *img, int sx, int sy)
+void	paintimage(t_game *game, t_texture *img, int sx, int sy)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < img->img_height)
+	while (y < img->texture.img_height)
 	{
 		x = 0;
-		while (x < img->img_width)
+		while (x < img->texture.img_width)
 		{
-			my_mlx_pixel_put(&game->canva, sx + x, sy + y, my_mlx_pixel_get(img,
+			my_mlx_pixel_put(&game->canva, sx + x, sy + y, my_mlx_pixel_get(&img->texture,
 					x, y));
 			x++;
 		}
