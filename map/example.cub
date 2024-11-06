@@ -2,11 +2,11 @@ NO assets/xpm/d_first.xpm   assets/xpm/monsterface.xpm     assets/xpm/DirtyWall.
 SO assets/xpm/d_second.xpm  assets/xpm/WallSignsDark.xpm    assets/xpm/WallSigns.xpm
 WE assets/xpm/d_third.xpm   assets/xpm/WallDark256.xpm assets/xpm/Wall256.xpm
 EA assets/xpm/d_last.xpm    assets/xpm/MonaLisaDark.xpm     assets/xpm/MonaLisa.xpm
-DR assets/xpm/door.xpm
+DR assets/xpm/PoolPortal.xpm
 MN assets/xpm/New-Project.xpm
 OB assets/xpm/smartBroke.xpm
 
-F 104,196,207
+F 120,6,6
 C 104,96,107
 
 

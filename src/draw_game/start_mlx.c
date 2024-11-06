@@ -105,33 +105,32 @@ void hit_wall(t_game *game, int mapX, int mapY)
 
 void draw_ray(t_game *game, double angle)
 {
-    double cameraX;
+	double cameraX;
 	int mapX;
 	int mapY;
 
-    game->player.ray.currentRayX = angle;
-    cameraX = 2 * angle / WIDTH - 1;
-    double rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
-    double rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
-    game->player.ray.rayDirX = rayDirX;
-    game->player.ray.rayDirY = rayDirY;
-    game->player.deltax = fabs(1 / rayDirX);
-    game->player.deltay = fabs(1 / rayDirY);
+	game->player.ray.currentRayX = angle;
+	cameraX = 2 * angle / WIDTH - 1;
+	double rayDirX = game->player.dirX + game->player.camera.PlaneX * cameraX;
+	double rayDirY = game->player.dirY + game->player.camera.PlaneY * cameraX;
+	game->player.ray.rayDirX = rayDirX;
+	game->player.ray.rayDirY = rayDirY;
+	game->player.deltax = fabs(1 / rayDirX);
+	game->player.deltay = fabs(1 / rayDirY);
 	mapX= (int)game->player.PosX;
-    mapY = (int)game->player.PosY;
-    calculate_ray(game, mapX, mapY);
-    hit_wall(game, mapX, mapY);
-    game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
-    game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
-    if(game->player.ray.drawStart < 0)
-        game->player.ray.drawStart = 0;
-    game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
-    if(game->player.ray.drawEnd >= HEIGHT || game->player.ray.drawEnd < 0)
-        game->player.ray.drawEnd = HEIGHT - 1;
-    draw_texture(game, angle);
+	mapY = (int)game->player.PosY;
+	calculate_ray(game, mapX, mapY);
+	hit_wall(game, mapX, mapY);
+	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
+	game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if(game->player.ray.drawStart < 0)
+		game->player.ray.drawStart = 0;
+	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if(game->player.ray.drawEnd >= HEIGHT || game->player.ray.drawEnd < 0)
+		game->player.ray.drawEnd = HEIGHT - 1;
+	draw_texture(game, angle);
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
 }
-
 
 
 void draw_allray(t_game *game)
@@ -144,13 +143,10 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
-	// draw_minimap(game);
+	draw_minimap(game);
 	draw_flashlight(game);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
-
-
-
 
 
 

@@ -117,7 +117,6 @@ int mouse_monitor(t_game *game, int keycode)
 			else if ( deltaX < 0 || game->rot_Left == 1)
 				arrow_left(game);
 			prev_x_mouse = WIDTH /2;
-			//mlx_mouse_move(game->mlx, game->win, WIDTH / 2, HEIGHT / 2);
 		}
 		player_mov(game);
 		draw_allray(game);

@@ -1,38 +1,5 @@
 #include "../../includes/cub3D.h"
 
-// void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
-// {
-// 	double step;
-// 	double texPos;
-// 	double fade_factor;
-// 	int texY;
-// 	int color;
-// 	int y;
-// 	int rgb[3];
-
-// 	step = 1.0 * texture->img_height / game->player.ray.lineheight;
-// 	texPos = (game->player.ray.drawStart - HEIGHT / 2 + game->player.ray.lineheight / 2) * step;
-// 	y = game->player.ray.drawStart;
-// 	if (game->light_on == 0)
-// 		fade_factor = 1.0 - (game->player.ray.perpWallDist / MAX_RENDER_DISTANCE);
-// 	else
-// 		fade_factor = 1.0 - (game->player.ray.perpWallDist / (MAX_RENDER_DISTANCE * 3));
-// 	if (fade_factor < 0) 
-//         fade_factor = 0.0; // Clamp fade factor
-// 	while (y < game->player.ray.drawEnd)
-// 	{
-// 		texY = (int)texPos & (texture->img_height - 1);
-// 		texPos += step;
-// 		color = my_mlx_pixel_get(texture, game->texture[pos].texture.img_height - (int)angle, texY);
-// 		rgb[0] = (int)(((color >> 16) & 0xFF) * fade_factor);
-// 		rgb[1] = (int)(((color >> 8) & 0xFF) * fade_factor);
-// 		rgb[2] = (int)((color & 0xFF) * fade_factor);
-// 		color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
-// 		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
-// 		y++;
-// 	}
-// }
-
 
 void draw_walls(t_game *game, t_img *texture, double angle)
 {
@@ -53,6 +20,40 @@ void draw_walls(t_game *game, t_img *texture, double angle)
 		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
 		y++;
   }
+}
+
+void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
+{
+	double step;
+	double texPos;
+	double fade_factor;
+	int texY;
+	int color;
+	int y;
+	int r;
+	int g;
+	int b;
+
+	step = 1.0 * texture->img_height / game->player.ray.lineheight;
+	texPos = (game->player.ray.drawStart - HEIGHT / 2 + game->player.ray.lineheight / 2) * step;
+	y = game->player.ray.drawStart;
+	if (game->light_on == 0)
+		fade_factor = 1.0 - (game->player.ray.perpWallDist / MAX_RENDER_DISTANCE);
+	else
+		fade_factor = 1.0 - (game->player.ray.perpWallDist / (MAX_RENDER_DISTANCE * 3));
+	if (fade_factor < 0) fade_factor = 0.0;
+	while (y < game->player.ray.drawEnd)
+	{
+		texY = (int)texPos & (texture->img_height - 1);
+		texPos += step;
+		color = my_mlx_pixel_get(texture, texture->img_height - (int)angle, texY);
+		r = (int)(((color >> 16) & 0xFF) * fade_factor);
+		g = (int)(((color >> 8) & 0xFF) * fade_factor);
+		b = (int)((color & 0xFF) * fade_factor);
+		color = (r << 16) | (g << 8) | b;
+		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
+		y++;
+	}
 }
 
 
@@ -91,5 +92,5 @@ void draw_texture(t_game *game, double angle)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
-	draw_walls(game, &game->texture[pos].texture, rayx);
+	draw_walls_fade(game, &game->texture[pos].texture, rayx, 0);
 }
