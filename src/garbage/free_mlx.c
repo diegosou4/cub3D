@@ -13,7 +13,7 @@ void free_walls(t_game *game)
 {
     if(game->current_img == 0)
         return;
-    while(game->current_img != -1 && game->current_img <= 14)
+    while(game->current_img != -1 && game->current_img <= 15)
     {
         mlx_destroy_image(game->mlx, game->texture[game->current_img].texture.img);
         game->current_img--;
@@ -29,5 +29,6 @@ void destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->canva.img);
 	mlx_destroy_window(game->mlx,game->win);
 	mlx_destroy_display(game->mlx);
+    free(game->zBuffer);
 	free_game(game);
 }

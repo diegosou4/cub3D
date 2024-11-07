@@ -41,7 +41,7 @@ void fill_game(t_game *game)
 
 	i = 0;
 	
-	while(i != 14)
+	while(i != 15)
 	{
 		game->texture[i].filled = false;
 		i++;

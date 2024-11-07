@@ -19,7 +19,11 @@ void init_values2(t_game *game)
 	game->y_mouse = HEIGHT / 2;
 	game->curr_map = 0;
 	game->hit_door = false;
+	game->hit_enemy = false;
 	game->current_img = 0;
+	game->zBuffer = (double *)malloc(sizeof(double) * WIDTH);
+	if (!game->zBuffer)
+		perror("zBiffer alloc");
 }
 
 void  	init_values(t_game *game)

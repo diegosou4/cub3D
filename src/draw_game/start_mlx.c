@@ -73,31 +73,39 @@ void hit_wall_fade(t_game *game, int mapX, int mapY)
 
 void hit_wall(t_game *game, int mapX, int mapY)
 {
-	while(game->map[mapY][mapX] != '1' || game->map[mapY][mapX] != '2')
+	while (game->map[mapY][mapX] != '1')
 	{
-		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
+        if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
-			game->player.ray.sideDistX += game->player.deltax;
-			mapX += game->player.ray.stepX;
-			game->player.ray.side = 0;
-		}
+            game->player.ray.sideDistX += game->player.deltax;
+            mapX += game->player.ray.stepX;
+            game->player.ray.side = 0;
+        }
 		else
 		{
-			game->player.ray.sideDistY += game->player.deltay;
-			mapY += game->player.ray.stepY;
-			game->player.ray.side = 1;
-		}
-		if(game->map[mapY][mapX] == '1')
+            game->player.ray.sideDistY += game->player.deltay;
+            mapY += game->player.ray.stepY;
+            game->player.ray.side = 1;
+        }
+        if (game->map[mapY][mapX] == '1')
 		{
-			game->hit_door = false;
-			break;
-		}else if(game->map[mapY][mapX] == '2')
+            game->hit_enemy = false;
+            game->hit_door = false;
+            break;
+        }
+		else if (game->map[mapY][mapX] == '2')
 		{
-			game->hit_door = true;
-			break;
-		}
-	}
-	calculate_distance(game);
+            game->hit_enemy = false;
+            game->hit_door = true;
+            break;
+        }
+		else if (game->map[mapY][mapX] == '3') {
+            game->hit_door = false;
+            game->hit_enemy = true;
+            break;
+        }
+    }
+    calculate_distance(game);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 12:31:29 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/01 19:32:34 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:59:40 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (color == -16777216)
+	if (color == -16777216 || color == TRANSPARENT_COLOR)
 	{
 		return ;
 	}

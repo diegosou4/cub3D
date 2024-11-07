@@ -86,6 +86,12 @@ typedef struct s_map
 	int	height;
 }	t_map;
 
+typedef struct s_enemy 
+{
+	double x;
+	double y;
+} t_enemy;
+
 typedef struct s_player
 {
 	t_ray ray;
@@ -110,15 +116,18 @@ typedef struct s_game
 	void	*win;
 	t_img	canva;
 	t_player	player;
-	t_texture texture[15];
+	t_enemy		enemy;
+	t_texture texture[16];
 	t_color	color[2];
 	bool	hit_door;
 	bool	light_on;
 	bool	split_parse;
+	bool	hit_enemy;
 	char	**map_info;
 	char	**map;
 	char	**ff_map;
 	char	*line;
+	double	*zBuffer;
 	int		frameCtd;
 	int		curr_map;
 	int		current_img;
@@ -199,6 +208,9 @@ void	paintimage(t_game *game, t_texture *img, int sx, int sy);
 void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
 void ingame(t_game *game);
+void init_enemy(t_game *game, int x, int y);
+void draw_all_sprites(t_game *game);
+void draw_enemy(t_game *game, double angle);
 
 // Moviment
 void	define_mov(t_game *game, int keycode);

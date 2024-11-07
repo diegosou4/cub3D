@@ -50,8 +50,11 @@ void draw_walls_fade(t_game *game, t_img *texture, double angle, int pos)
 		r = (int)(((color >> 16) & 0xFF) * fade_factor);
 		g = (int)(((color >> 8) & 0xFF) * fade_factor);
 		b = (int)((color & 0xFF) * fade_factor);
-		color = (r << 16) | (g << 8) | b;
-		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
+		if (color != TRANSPARENT_COLOR && color != -16777216)
+		{
+			color = (r << 16) | (g << 8) | b;
+			my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y, color);
+		}
 		y++;
 	}
 }
@@ -62,6 +65,8 @@ int return_pos(t_game *game)
 {
     if(game->hit_door == true)
         return 12;
+	if(game->hit_enemy == true)
+		return 15;
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
 		return 1 + game->light_on;
 	else if(game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
