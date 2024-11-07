@@ -24,7 +24,7 @@ static void key_ligths(t_game *game, int keycode)
 
 static void key_direction(t_game *game, int keycode)
 {
-    if (keycode == KEY_A)
+	if (keycode == KEY_A)
 	{
 		game->x_mov -= 1;
 		game->O = 1;
@@ -48,9 +48,9 @@ static void key_direction(t_game *game, int keycode)
 
 void	define_mov(t_game *game, int keycode)
 {
-    key_rot(game, keycode);
-    key_ligths(game, keycode);
-    key_direction(game, keycode);
+	key_rot(game, keycode);
+	key_ligths(game, keycode);
+	key_direction(game, keycode);
 }
 
 
@@ -82,9 +82,9 @@ int	key_drop(int keycode, t_game *game)
 		game->E = 0;
 	}
 	if ((game->rot_Left == 1 && keycode == L_AR) || (game->rot_Right == 1 && keycode == R_AR))
-    {
-        game->rot_Left = 0;
-        game->rot_Right = 0;
-    }
+	{
+		game->rot_Left = 0;
+		game->rot_Right = 0;
+	}
 	return (0);
 }

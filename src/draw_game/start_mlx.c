@@ -88,31 +88,31 @@ void hit_wall(t_game *game, int mapX, int mapY)
 		{
 			game->enemy_x = mapX;
 			game->enemy_y = mapY;
-        }
-        if (game->player.ray.sideDistX < game->player.ray.sideDistY)
+		}
+		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
-            game->player.ray.sideDistX += game->player.deltax;
-            mapX += game->player.ray.stepX;
-            game->player.ray.side = 0;
-        }
+			game->player.ray.sideDistX += game->player.deltax;
+			mapX += game->player.ray.stepX;
+			game->player.ray.side = 0;
+		}
 		else
 		{
-            game->player.ray.sideDistY += game->player.deltay;
-            mapY += game->player.ray.stepY;
-            game->player.ray.side = 1;
-        }
-        if (game->map[mapY][mapX] == '1')
+			game->player.ray.sideDistY += game->player.deltay;
+			mapY += game->player.ray.stepY;
+			game->player.ray.side = 1;
+		}
+		if (game->map[mapY][mapX] == '1')
 		{
-            game->hit_door = false;
-            break;
-        }
+			game->hit_door = false;
+			break;
+		}
 		else if (game->map[mapY][mapX] == '2')
 		{
-            game->hit_door = true;
-            break;
-        }
-    }
-    calculate_distance(game);
+			game->hit_door = true;
+			break;
+		}
+	}
+	calculate_distance(game);
 }
 
 

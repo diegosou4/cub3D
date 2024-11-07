@@ -78,9 +78,9 @@ void init_parse(char *path)
 {
 	t_game *game;
 
-    if(!(check_ext(path,".cub","map") == 4))
-        return;
-    game = ft_calloc(sizeof(t_game) , 1);
+	if(!(check_ext(path,".cub","map") == 4))
+		return;
+	game = ft_calloc(sizeof(t_game) , 1);
 	init_values(game);
 	game->line = open_file(path);
 	if(game->line == NULL)

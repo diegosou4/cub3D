@@ -6,7 +6,7 @@
 
 int hex_color(t_game *game, int pos)
 {
-    return(game->color[pos].r << 16 | game->color[pos].g << 8 | game->color[pos].b);
+	return(game->color[pos].r << 16 | game->color[pos].g << 8 | game->color[pos].b);
 }
 
 void draw_skyfloor(t_game *game,double angle,double x, int pos)
