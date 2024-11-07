@@ -62,8 +62,7 @@ bool flood_fill(t_game *game, int c_col, int c_row)
 			{
 				 printf("Chega por aqui	\n");
 				 return(false); 
-			}
-				
+			}		
 		}
 		if(ft_strrchr("01x", game->ff_map[c_col][c_row]) == 0)
 			return(false);

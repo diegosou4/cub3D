@@ -29,6 +29,5 @@ void destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->canva.img);
 	mlx_destroy_window(game->mlx,game->win);
 	mlx_destroy_display(game->mlx);
-    free(game->zBuffer);
 	free_game(game);
 }

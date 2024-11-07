@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>
+#include <string.h>
 #include <stdbool.h>
 #include "../minilibx-linux/mlx.h"
 
@@ -116,7 +117,6 @@ typedef struct s_game
 	void	*win;
 	t_img	canva;
 	t_player	player;
-	t_enemy		enemy;
 	t_texture texture[16];
 	t_color	color[2];
 	bool	hit_door;
@@ -127,8 +127,9 @@ typedef struct s_game
 	char	**map;
 	char	**ff_map;
 	char	*line;
-	double	*zBuffer;
 	int		frameCtd;
+	int		enemy_x;
+	int		enemy_y;
 	int		curr_map;
 	int		current_img;
 	int		status_free;
@@ -210,7 +211,8 @@ void draw_ray(t_game *game, double angle);
 void ingame(t_game *game);
 void init_enemy(t_game *game, int x, int y);
 void draw_all_sprites(t_game *game);
-void draw_enemy(t_game *game, double angle);
+void	draw_enemy(t_game *game);
+void	paint_canvaw(t_game *varg, t_img *img, int sx, int sy);
 
 // Moviment
 void	define_mov(t_game *game, int keycode);

@@ -21,9 +21,6 @@ void init_values2(t_game *game)
 	game->hit_door = false;
 	game->hit_enemy = false;
 	game->current_img = 0;
-	game->zBuffer = (double *)malloc(sizeof(double) * WIDTH);
-	if (!game->zBuffer)
-		perror("zBiffer alloc");
 }
 
 void  	init_values(t_game *game)
