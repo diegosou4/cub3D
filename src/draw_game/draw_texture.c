@@ -78,7 +78,7 @@ int return_pos(t_game *game)
 	texture_loc = check_world(game, texture_loc);
 	if (game->current_world == 1)
 			texture_loc -= game->light_on;
-	return texture_loc;
+	return texture_loc ;
 }
 int check_world(t_game *game, int pos)
 {
@@ -87,16 +87,16 @@ int check_world(t_game *game, int pos)
     	game->changed_world = true;
     	if (game->current_world == 1) 
 		{
-			game->current_world = 0;
-			return (pos - game->current_world);
-		}
+        game->current_world = 0;
+        return (pos - game->current_world);
     } else if (game->current_world == 0) 
 		{
-			game->current_world = 1;
-			return (pos - game->current_world);
+
+        game->current_world = 1;
+        return (pos - game->current_world);
     	}
-	else if (!game->inside_wall && game->changed_world) 
-	{
+	} else if (!game->inside_wall && game->changed_world) 
+		{
     	game->changed_world = false;
 	}	
 	return (pos - game->current_world);
