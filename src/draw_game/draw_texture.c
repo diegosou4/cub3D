@@ -186,7 +186,8 @@ void draw_enemy(t_game *game)
 		enemy_val_aux(game, i);
         if (game->draw.transformY > 0 && game->draw.transformY < game->player.ray.perpWallDist)
         {
-           enemy_val_aux2(game);
+			bu_timer(game);
+			enemy_val_aux2(game);
             while (game->draw.stripe < game->draw.drawEndX)
             {
                 game->draw.texX = (int)((game->draw.stripe - (-game->draw.spriteWidth / 2 + game->draw.spriteScreenX)) * game->texture[15].texture.img_width / game->draw.spriteWidth);
@@ -200,7 +201,6 @@ void draw_enemy(t_game *game)
         }
 		i++;
     }
-	bu_timer(game);
     game->frameCtd++;
 }
 
