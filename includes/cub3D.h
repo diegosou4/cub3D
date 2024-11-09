@@ -176,8 +176,7 @@ typedef struct s_game
 	int 	rot_Right;
 }   t_game;
 
-
-
+typedef void (*t_draw_func)(t_game *game, t_img *texture, double angle);
 typedef void (*t_case_line_func)(t_game *game, char *line, char **split);
 
 void init_parse(char *path);
@@ -241,9 +240,8 @@ void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
 void ingame(t_game *game);
 void init_enemies(t_game *game);
-void draw_all_sprites(t_game *game);
 void	draw_enemy(t_game *game);
-void	paint_canvaw(t_game *varg, t_img *img, int sx, int sy);
+
 
 // Moviment
 void	define_mov(t_game *game, int keycode);
@@ -254,6 +252,7 @@ int		mouse_monitor(t_game *game, int keycode);
 int		player_mov(t_game *game);
 void  	init_values(t_game *game);
 void	draw_texture(t_game *game, double angle);
+int check_world(t_game *game, int pos);
 // Garabe Collector
 void	garabe_collector(t_game *game);
 void	free_game(t_game *game);
