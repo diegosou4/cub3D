@@ -188,7 +188,7 @@ void draw_enemy(t_game *game)
 		if (distance < MIN_PROXIMITY_DISTANCE)
             continue;
 		enemy_val_aux(game, i);
-        if (game->draw.transformY > 0 && game->draw.transformY < game->player.ray.perpWallDist)
+        if (game->draw.transformY > 0 && game->draw.transformY < game->player.ray.perpWallDist && game->hit_enemy)
         {
 			bu_timer(game);
 			enemy_val_aux2(game);

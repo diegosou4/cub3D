@@ -84,11 +84,6 @@ void hit_wall(t_game *game, int mapX, int mapY)
 {
 	while (game->map[mapY][mapX] != '1')
 	{
-/* 		if (game->map[mapY][mapX] == '3') 
-		{
-			game->enemy_x = mapX;
-			game->enemy_y = mapY;
-		} */
 		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
 			game->player.ray.sideDistX += game->player.deltax;
@@ -108,8 +103,13 @@ void hit_wall(t_game *game, int mapX, int mapY)
 		}
 		else if (game->map[mapY][mapX] == '2')
 		{
+			game->hit_enemy = false;
 			game->hit_door = true;
 			break;
+		}
+		else if (game->map[mapY][mapX] == '3') 
+		{
+			game->hit_enemy = true;
 		}
 	}
 	calculate_distance(game);
@@ -158,11 +158,10 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
-	if (game->light_on == 0)
+	if (game->light_on == 0 && game->hit_enemy)
 		draw_enemy(game);
 	draw_minimap(game);
 	draw_flashlight(game);
-	usleep(200);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 
