@@ -8,8 +8,10 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>
+#include <string.h>
 #include <stdbool.h>
 #include "../minilibx-linux/mlx.h"
+#include "time.h"
 
 
 #include "macros.h"
@@ -86,6 +88,12 @@ typedef struct s_map
 	int	height;
 }	t_map;
 
+typedef struct s_enemy 
+{
+	double x;
+	double y;
+} t_enemy;
+
 typedef struct s_player
 {
 	t_ray ray;
@@ -104,17 +112,44 @@ typedef struct s_player
 	int pa;
 }	t_player;
 
+typedef struct s_draw_x
+{
+	double	invDet;
+    double	transformX;
+    double	transformY;
+    double	frequency; 
+    double	amplitude;
+    double	horizontal_offset;
+	double	enemyX;
+	double	enemyY;
+    int		spriteScreenX;
+    int		spriteHeight;
+    int		drawStartY;
+    int		drawEndY;
+    int		spriteWidth;
+    int		drawStartX;
+    int		drawEndX;
+    int		stripe;
+    int		texX;
+    int		y;
+    int		d;
+    int		texY;
+    int		color;
+	int		i;
+}	t_draw_x;
+
 typedef struct s_game
 {	
 	void	*mlx;
 	void	*win;
 	t_img	canva;
 	t_player	player;
-	t_texture texture[15];
+	t_texture texture[16];
 	t_color	color[2];
 	bool	hit_door;
 	bool	light_on;
 	bool	split_parse;
+	bool	hit_enemy;
 	bool 	inside_wall;
 	bool 	changed_world;
 	int 	current_world;
@@ -135,6 +170,9 @@ typedef struct s_game
 	int		O;
 	int		S;
 	int 	rot_Left;
+	t_enemy enemies[MAX_ENEMIES];
+	t_draw_x draw;
+	int		num_enemies;
 	int 	rot_Right;
 }   t_game;
 
@@ -202,6 +240,10 @@ void	paintimage(t_game *game, t_texture *img, int sx, int sy);
 void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
 void ingame(t_game *game);
+void init_enemies(t_game *game);
+void draw_all_sprites(t_game *game);
+void	draw_enemy(t_game *game);
+void	paint_canvaw(t_game *varg, t_img *img, int sx, int sy);
 
 // Moviment
 void	define_mov(t_game *game, int keycode);

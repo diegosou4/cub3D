@@ -35,6 +35,8 @@ void case_addtex(t_game *game,char *line,char **split)
         i = 13;
     else if(line[0] == 'O' && line[1] == 'B')
         i = 14;
+    else if(line[0] == 'E' && line[1] == 'N')
+        i = 15;
     if(i == -1)
         return;
     game->texture[i].texture.relative_path = ft_strdup(split[1]);

@@ -55,15 +55,14 @@ bool flood_fill(t_game *game, int c_col, int c_row)
 			return (true);
 		if(save_direction(game, c_col, c_row) == 3)
 			return (false); 
-		if(game->ff_map[c_col][c_row] == '0' || game->ff_map[c_col][c_row] == '2')
+		if(game->ff_map[c_col][c_row] == '0' || game->ff_map[c_col][c_row] == '2' || game->ff_map[c_col][c_row] == '3')
 		{
 			game->ff_map[c_col][c_row] = 'x';
 			if(flood_cases(game, c_col, c_row) == false)
 			{
 				 printf("Chega por aqui	\n");
 				 return(false); 
-			}
-				
+			}		
 		}
 		if(ft_strrchr("01x", game->ff_map[c_col][c_row]) == 0)
 			return(false);

@@ -19,6 +19,7 @@ void init_values2(t_game *game)
 	game->y_mouse = HEIGHT / 2;
 	game->curr_map = 0;
 	game->hit_door = false;
+	game->hit_enemy = false;
 	game->current_img = 0;
 	game->inside_wall = false;
 	game->changed_world = false;
@@ -76,34 +77,34 @@ void define_direction(t_game *game , char direction)
 }
 
 void set_pixel(void *img, int x, int y, int color, int width) {
-    char *data;
-    int bpp; // Bits per pixel
-    int size_line; // Size of a line in bytes
-    int endian; // Endianness
+	char *data;
+	int bpp; // Bits per pixel
+	int size_line; // Size of a line in bytes
+	int endian; // Endianness
 
-    // Get image data
-    data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-    
-    if (x >= 0 && x < width && y >= 0) // Ensure x and y are within bounds
-        *(unsigned int *)(data + (y * size_line + x * (bpp / 8))) = color;
+	// Get image data
+	data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
+	
+	if (x >= 0 && x < width && y >= 0) // Ensure x and y are within bounds
+		*(unsigned int *)(data + (y * size_line + x * (bpp / 8))) = color;
 }
 
 void draw_tile(void *mlx_ptr, void *win_ptr, int x, int y, int tile_size, int color) {
-    for (int i = 0; i < tile_size; i++) {
-        for (int j = 0; j < tile_size; j++) {
-            set_pixel(mlx_ptr, x + j, y + i, color, tile_size);
-        }
-    }
+	for (int i = 0; i < tile_size; i++) {
+		for (int j = 0; j < tile_size; j++) {
+			set_pixel(mlx_ptr, x + j, y + i, color, tile_size);
+		}
+	}
 }
 
 void draw_circle(t_img *img, int cx, int cy, int radius, int color) {
-    for (int y = -radius; y <= radius; y++) {
-        for (int x = -radius; x <= radius; x++) {
-            if (sqrt(x * x + y * y) <= radius) { // Check if the point is within the circle
-               my_mlx_pixel_put(img, cx + x, cy + y, color); // Set the pixel color
-            }
-        }
-    }
+	for (int y = -radius; y <= radius; y++) {
+		for (int x = -radius; x <= radius; x++) {
+			if (sqrt(x * x + y * y) <= radius) { // Check if the point is within the circle
+			   my_mlx_pixel_put(img, cx + x, cy + y, color); // Set the pixel color
+			}
+		}
+	}
 }
 
 void start_map2(t_game *game, int ftime,int i, int y)

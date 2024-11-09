@@ -27,7 +27,7 @@ void calculate_ray(t_game *game, int mapX, int mapY)
 		game->player.ray.sideDistY = (mapY + 1.0 - game->player.PosY) * game->player.deltay;
 	}
 }
-void calculate_distance(t_game *game)
+/* void calculate_distance(t_game *game)
 {
 	game->player.ray.perpWallDist = 0;
 
@@ -37,8 +37,17 @@ void calculate_distance(t_game *game)
 		game->player.ray.perpWallDist = (game->player.ray.sideDistY - game->player.deltay);
 	if(game->player.ray.perpWallDist == 0)
 		game->player.ray.perpWallDist = 0.1;	
-}
+} */
 
+void calculate_distance(t_game *game)
+{
+	if(game->player.ray.side == 0)
+		game->player.ray.perpWallDist = (game->player.ray.sideDistX - game->player.deltax);
+	else
+		game->player.ray.perpWallDist = (game->player.ray.sideDistY - game->player.deltay);
+	if(game->player.ray.perpWallDist < 0.1)
+		game->player.ray.perpWallDist = 0.1;
+}
 
 
 void cal_shadow(t_game *game)
@@ -50,7 +59,7 @@ void cal_shadow(t_game *game)
 
 }
 
-void hit_wall_fade(t_game *game, int mapX, int mapY)
+/* void hit_wall_fade(t_game *game, int mapX, int mapY)
 {
 	game->player.ray.side = 0;
 	while (game->map[mapY][mapX] != '1')
@@ -69,12 +78,17 @@ void hit_wall_fade(t_game *game, int mapX, int mapY)
 	}
 		calculate_distance(game);
 		cal_shadow(game);
-}
+} */
 
 void hit_wall(t_game *game, int mapX, int mapY)
 {
-	while(game->map[mapY][mapX] != '1' || game->map[mapY][mapX] != '2')
+	while (game->map[mapY][mapX] != '1')
 	{
+/* 		if (game->map[mapY][mapX] == '3') 
+		{
+			game->enemy_x = mapX;
+			game->enemy_y = mapY;
+		} */
 		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
 			game->player.ray.sideDistX += game->player.deltax;
@@ -87,11 +101,12 @@ void hit_wall(t_game *game, int mapX, int mapY)
 			mapY += game->player.ray.stepY;
 			game->player.ray.side = 1;
 		}
-		if(game->map[mapY][mapX] == '1')
+		if (game->map[mapY][mapX] == '1')
 		{
 			game->hit_door = false;
 			break;
-		}else if(game->map[mapY][mapX] == '2')
+		}
+		else if (game->map[mapY][mapX] == '2')
 		{
 			game->hit_door = true;
 			break;
@@ -143,8 +158,11 @@ void draw_allray(t_game *game)
 		draw_ray(game, x);
 		x++;
 	}
+	if (game->light_on == 0)
+		draw_enemy(game);
 	draw_minimap(game);
 	draw_flashlight(game);
+	usleep(200);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 

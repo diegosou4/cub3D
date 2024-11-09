@@ -41,7 +41,7 @@ void fill_game(t_game *game)
 
 	i = 0;
 	
-	while(i != 14)
+	while(i != 15)
 	{
 		game->texture[i].filled = false;
 		i++;
@@ -78,9 +78,9 @@ void init_parse(char *path)
 {
 	t_game *game;
 
-    if(!(check_ext(path,".cub","map") == 4))
-        return;
-    game = ft_calloc(sizeof(t_game) , 1);
+	if(!(check_ext(path,".cub","map") == 4))
+		return;
+	game = ft_calloc(sizeof(t_game) , 1);
 	init_values(game);
 	game->line = open_file(path);
 	if(game->line == NULL)
