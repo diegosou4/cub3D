@@ -19,7 +19,7 @@ static void key_ligths(t_game *game, int keycode)
 			game->light_on = 1;
 		else 
 			game->light_on = 0;
-	}	
+	}
 }
 
 static void key_direction(t_game *game, int keycode)

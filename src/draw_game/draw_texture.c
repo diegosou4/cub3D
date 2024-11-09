@@ -72,7 +72,28 @@ int return_pos(t_game *game)
 		return 10 + game->light_on;
 	return 0;
 }
+int check_world(t_game *game, int pos)
+{
 
+	if (game->inside_wall && !game->changed_world) 
+	{
+    	game->changed_world = true;
+    if (game->current_world == 1) 
+	{
+        game->current_world = 0;
+        return (pos - game->current_world - game->light_on);
+    } else if (game->current_world == 0) 
+	{
+
+        game->current_world = 1;
+        return (pos - game->current_world - game->light_on);
+    }
+	} else if (!game->inside_wall && game->changed_world) 
+	{
+    	game->changed_world = false;
+	}
+	return (pos - game->current_world - game->light_on);
+}
 
 void draw_texture(t_game *game, double angle)
 {
@@ -87,10 +108,17 @@ void draw_texture(t_game *game, double angle)
 		wall_x = game->player.PosX + game->player.ray.perpWallDist * game->player.ray.rayDirX;
 	wall_x -= floor(wall_x);
 	pos = return_pos(game);
+	if(pos != 12)
+	{
+		pos = check_world(game, pos);
+	}
 	rayx = (int)(wall_x * game->texture[pos].texture.img_width);
 	if(game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
 	if(game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
-	draw_walls_fade(game, &game->texture[pos].texture, rayx, 0);
+	if(game->current_world == 0)
+		draw_walls_fade(game, &game->texture[pos].texture, rayx, 0);
+	else
+		draw_walls(game, &game->texture[pos].texture, rayx);
 }

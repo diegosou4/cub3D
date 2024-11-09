@@ -115,6 +115,9 @@ typedef struct s_game
 	bool	hit_door;
 	bool	light_on;
 	bool	split_parse;
+	bool 	inside_wall;
+	bool 	changed_world;
+	int 	current_world;
 	char	**map_info;
 	char	**map;
 	char	**ff_map;

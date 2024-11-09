@@ -17,10 +17,15 @@ int key_w(t_game *game)
 
 	newPosX = game->player.PosX + game->player.dirX * MOVE_SPEED;
 	newPosY = game->player.PosY + game->player.dirY * MOVE_SPEED;
-	if (game->map[(int)newPosY][(int)newPosX] != '1') {
+	if (game->map[(int)newPosY][(int)newPosX] != '1') 
+	{
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
+	if(game->map[(int)newPosY][(int)newPosX] == '2')
+		game->inside_wall = true;
+	else
+		game->inside_wall = false;
 	return 0;
 }
 
@@ -36,6 +41,10 @@ int key_s(t_game *game)
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
+	if(game->map[(int)newPosY][(int)newPosX] == '2')
+		game->inside_wall = true;
+	else
+		game->inside_wall = false;
 	return 0;
 }
 
@@ -51,6 +60,10 @@ int key_d(t_game *game)
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
+	if(game->map[(int)newPosY][(int)newPosX] == '2')
+		game->inside_wall = true;
+	else
+		game->inside_wall = false;
 	return 0;
 }
 
@@ -67,6 +80,10 @@ int key_a(t_game *game)
 		game->player.PosX = newPosX;
 		game->player.PosY = newPosY;
 	}
+	if(game->map[(int)newPosY][(int)newPosX] == '2')
+		game->inside_wall = true;
+	else
+		game->inside_wall = false;
 	return (0);
 }
 
