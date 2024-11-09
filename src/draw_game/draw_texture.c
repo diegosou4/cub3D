@@ -83,18 +83,18 @@ int check_world(t_game *game, int pos)
     if (game->current_world == 1) 
 	{
         game->current_world = 0;
-        return (pos - game->current_world - game->light_on);
+        return (pos - game->current_world);
     } else if (game->current_world == 0) 
 	{
 
         game->current_world = 1;
-        return (pos - game->current_world - game->light_on);
+        return (pos - game->current_world);
     }
 	} else if (!game->inside_wall && game->changed_world) 
 	{
     	game->changed_world = false;
 	}
-	return (pos - game->current_world - game->light_on);
+	return (pos - game->current_world);
 }
 
 
@@ -178,10 +178,10 @@ void draw_enemy(t_game *game)
 {
 	int	i;
     
-	i = 0;
+	i = -1;
 	game->draw.frequency = 0.02; 
 	game->draw.amplitude = 10.0;
-    while (i < game->num_enemies)
+    while (++i < game->num_enemies)
     {
 		enemy_val_aux(game, i);
         if (game->draw.transformY > 0 && game->draw.transformY < game->player.ray.perpWallDist)
@@ -199,7 +199,6 @@ void draw_enemy(t_game *game)
                 game->draw.stripe++;
             }
         }
-		i++;
     }
     game->frameCtd++;
 }
@@ -220,6 +219,8 @@ void draw_texture(t_game *game, double angle)
 	if(pos != 12)
 	{
 		pos = check_world(game, pos);
+		if (game->current_world == 1)
+			pos -= game->light_on;
 	}
 	rayx = (int)(wall_x * game->texture[pos].texture.img_width);
 	if (game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
