@@ -86,17 +86,11 @@ int check_world(t_game *game, int pos)
 	{
     	game->changed_world = true;
     	if (game->current_world == 1) 
-		{
-        game->current_world = 0;
-        return (pos - game->current_world);
-    } else if (game->current_world == 0) 
-		{
-
-        game->current_world = 1;
-        return (pos - game->current_world);
-    	}
+        	return (pos - (game->current_world = 0));
+		else if (game->current_world == 0) 	
+        	return (pos - (game->current_world = 1));
 	} else if (!game->inside_wall && game->changed_world) 
-		{
+	{
     	game->changed_world = false;
 	}	
 	return (pos - game->current_world);
