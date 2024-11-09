@@ -85,7 +85,7 @@ int check_world(t_game *game, int pos)
 	if (game->inside_wall && !game->changed_world) 
 	{
     	game->changed_world = true;
-    	if (game->current_world == 1) 
+    if (game->current_world == 1) 
 		{
 			game->current_world = 0;
 			return (pos - game->current_world);
@@ -151,8 +151,6 @@ void	bu_timer(t_game *game)
 
 void	enemy_val_aux(t_game *game, int i)
 {
-	game->draw.enemyX = game->enemies[i].x - game->player.PosX;
-	game->draw.enemyY = game->enemies[i].y - game->player.PosY;
 	game->draw.invDet = 1.0 / (game->player.camera.PlaneX * game->player.dirY - game->player.dirX * game->player.camera.PlaneY);
 	game->draw.transformX = game->draw.invDet * (game->player.dirY * game->draw.enemyX - game->player.dirX * game->draw.enemyY);
 	game->draw.transformY = game->draw.invDet * (-game->player.camera.PlaneY * game->draw.enemyX + game->player.camera.PlaneX * game->draw.enemyY);
@@ -182,12 +180,18 @@ void	enemy_val_aux2(t_game *game)
 void draw_enemy(t_game *game)
 {
 	int	i;
+	double distance;
     
-	i = 0;
+	i = -1;
 	game->draw.frequency = 0.02; 
 	game->draw.amplitude = 10.0;
-    while (i < game->num_enemies)
+    while (++i < game->num_enemies)
     {
+		game->draw.enemyX = game->enemies[i].x - game->player.PosX;
+		game->draw.enemyY = game->enemies[i].y - game->player.PosY;
+		distance = sqrt(game->draw.enemyX * game->draw.enemyX + game->draw.enemyY * game->draw.enemyY);
+		if (distance < MIN_PROXIMITY_DISTANCE)
+            continue;
 		enemy_val_aux(game, i);
         if (game->draw.transformY > 0 && game->draw.transformY < game->player.ray.perpWallDist)
         {
@@ -204,7 +208,6 @@ void draw_enemy(t_game *game)
                 game->draw.stripe++;
             }
         }
-		i++;
     }
     game->frameCtd++;
 }
