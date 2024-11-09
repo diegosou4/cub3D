@@ -84,11 +84,11 @@ void hit_wall(t_game *game, int mapX, int mapY)
 {
 	while (game->map[mapY][mapX] != '1')
 	{
-		if (game->map[mapY][mapX] == '3') 
+/* 		if (game->map[mapY][mapX] == '3') 
 		{
 			game->enemy_x = mapX;
 			game->enemy_y = mapY;
-		}
+		} */
 		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
 			game->player.ray.sideDistX += game->player.deltax;

@@ -20,6 +20,7 @@
 # define ROT_SPEED 0.04
 
 #define NUM_TEXTURE 16
+#define MAX_ENEMIES 100
 
 # define FOV 66
 
