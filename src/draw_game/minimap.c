@@ -1,41 +1,5 @@
 #include "../../includes/cub3D.h"
 
-/* void	update_player_sprite(t_game *img)
-{
-	img->player.curr_frame = (img->player.curr_frame + 1) % img->player.sprite_num;
-} */
-
-/* void	paint_player(t_game *vars, t_img *img, int x, int y)
-{
-	int	frame_x_offset;
-	int	frame_y_offset;
-	int	sy;
-	int	sx;
-	int	color;
-
-	frame_x_offset = (vars->player.curr_frame % vars->player.sprite_num) * WIDTH;
-	frame_y_offset = 20;
-	sy = 0;
-	while (sy < HEIGHT)
-	{
-		sx = 0;
-		while (sx < WIDTH)
-		{
-			color = my_mlx_pixel_get(img, frame_x_offset + sx, frame_y_offset
-					+ sy);
-			my_mlx_pixel_put(&vars->canva, x + sx, y + sy, color);
-			sx++;
-		}
-		sy++;
-	}
-}
- */
-/* static void	__render(t_game *this, int sx, int sy)
-{
-	paintimage(this, &this->texture[13], sx, sy);
-} */
-
-
 void draw_flashlight(t_game *game) 
 {
 	int x, y;
@@ -55,16 +19,26 @@ void draw_flashlight(t_game *game)
 	game->frameCtd++;
 }
 
+int cc_mmap(t_game *game, int map_x, int map_y, int color) 
+{
+		color = RBG_BLACK;
+	if (game->map[map_y][map_x] == '1')
+		color = RBG_WHITE;
+	else if (game->map[map_y][map_x] == 'S' \
+			|| game->map[map_y][map_x] == 'N' || \
+			game->map[map_y][map_x] == 'E' \
+			|| game->map[map_y][map_x] == 'O')
+			color = RBG_YELLOW;
+	return (color);	
+}
+
 void draw_minimap_background(t_game *game, int map_height, double start_map_x, double start_map_y) 
 {
-	int	map_x_int;
-	int	map_y_int;
-	int	row_length;
 	int	color;
 	int	y;
 	int	x;
-	double	map_x;
-	double	map_y;
+	int	map_x;
+	int	map_y;
 
 	y = -1;
 	while (++y < MINIMAP_SIZE) 
@@ -72,35 +46,16 @@ void draw_minimap_background(t_game *game, int map_height, double start_map_x, d
 		x = -1;
 		while (++x < MINIMAP_SIZE) 
 		{
-			map_x = start_map_x + x / (MINIMAP_SCALE * TILE_SIZE);
-			map_y = start_map_y + y / (MINIMAP_SCALE * TILE_SIZE);
-			map_x_int = (int)map_x;
-			map_y_int = (int)map_y;
-			if (map_x_int >= 0 && map_y_int >= 0 && map_y_int < map_height) 
+			map_x = (int)(start_map_x + x / (MINIMAP_SCALE * TILE_SIZE));
+			map_y = (int)(start_map_y + y / (MINIMAP_SCALE * TILE_SIZE));
+			if (map_x  >= 0 && map_y >= 0 && map_y < map_height) 
 			{
-				row_length = ft_strlen(game->map[map_y_int]);
-				if (map_x_int < row_length) 
-				{
-					color = RBG_BLACK;
-					if (game->map[map_y_int][map_x_int] == '1')
-						color = RBG_WHITE;
-					else if (game->map[map_y_int][map_x_int] == 'S' \
-						|| game->map[map_y_int][map_x_int] == 'N' || \
-						game->map[map_y_int][map_x_int] == 'E' \
-						|| game->map[map_y_int][map_x_int] == 'O')
-						color = RBG_YELLOW;
-					my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, color);
-				}
+				if (map_x < ft_strlen(game->map[map_y])) 
+					my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, cc_mmap(game, map_x, map_y, color));
 			}
 		}
 	}
 }
-
-/* void draw_minimap_player(t_game *game, int minimap_radius) 
-{
-	__render(game, minimap_radius + TILE_SIZE, minimap_radius + TILE_SIZE);
-	//paintimage(game, minimap_radius + TILE_SIZE, minimap_radius + TILE_SIZE);
-} */
 
 void draw_minimap(t_game *game) 
 {
@@ -121,113 +76,3 @@ void draw_minimap(t_game *game)
 	paintimage(game, &game->texture[13], minimap_radius + TILE_SIZE, minimap_radius + TILE_SIZE);
 	//draw_minimap_player(game, minimap_radius);
 }
-
-// void draw_minimap(t_game *game) 
-// {
-// 	int map_height;
-// 	int minimap_radius;
-// 	int player_minimap_x;
-// 	int player_minimap_y;
-// 	int map_x_int;
-// 	int map_y_int;
-// 	int row_length;
-// 	int y;
-// 	int x;
-// 	double start_map_x;
-// 	double start_map_y;
-// 	double end_map_x;
-// 	double end_map_y;
-// 	double map_x;
-// 	double map_y;
-
-// 	map_height = 0;
-// 	while (game->map[map_height] != NULL)
-// 		map_height++;
-// 	minimap_radius = MINIMAP_SIZE / 2;
-// 	player_minimap_x = MINIMAP_SIZE / 2;
-// 	player_minimap_y = MINIMAP_SIZE / 2;
-
-// 	start_map_x = game->player.PosX - minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
-// 	start_map_y = game->player.PosY - minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
-// 	end_map_x = game->player.PosX + minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
-// 	end_map_y = game->player.PosY + minimap_radius / (MINIMAP_SCALE * TILE_SIZE);
-
-// 	y = 0;
-// 	while (y < MINIMAP_SIZE) 
-// 	{
-// 		x = 0;
-// 		while(x < MINIMAP_SIZE) 
-// 		{
-// 			map_x = start_map_x + x / (MINIMAP_SCALE * TILE_SIZE);
-// 			map_y = start_map_y + y / (MINIMAP_SCALE * TILE_SIZE);
-
-// 			map_x_int = (int)map_x;
-// 			map_y_int = (int)map_y;
-
-
-// 			if (map_x_int >= 0 && map_y_int >= 0 && map_y_int < map_height) 
-// 			{
-// 				row_length = ft_strlen(game->map[map_y_int]);
-// 				if (map_x_int < row_length) 
-// 				{
-// 					if (game->map[map_y_int][map_x_int] == '1')
-// 						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0xFFFFFF);
-// 					else if (game->map[map_y_int][map_x_int] == '0')
-// 						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0x000000);
-// 					else if (game->map[map_y_int][map_x_int] == 'S' || game->map[map_y_int][map_x_int] == 'N' || game->map[map_y_int][map_x_int] == 'E' \
-// 							|| game->map[map_y_int][map_x_int] == 'O')
-// 						my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_YELLOW);
-// 				}
-// 			} 
-// 			x++;
-// 		}
-// 		//__render(game,  player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
-// 		paintimage(game, &game->player.sprites[0].texture, player_minimap_x + TILE_SIZE, player_minimap_y + TILE_SIZE);
-// 	}
-// }
-
-
-
-
-
-
-/* void draw_minimap(t_game *game)
-{
-	int map_width = ft_strlen(game->map[0]);
-	int map_height = 0;
-	while (game->map[map_height] != NULL)
-	{
-		map_height++;
-	}
-	int minimap_radius = MINIMAP_SIZE / 2;
-	int player_minimap_x = MINIMAP_SIZE / 2 - game->player.char_minimap.img_width / 2;
-	int player_minimap_y = MINIMAP_SIZE / 2 - game->player.char_minimap.img_height / 2;
-
-	// Calculate start and end points for the minimap view based on player's position
-	double start_map_x = game->player.PosX - minimap_radius / (MINIMAP_SCALE * TAM_X_P);
-	double start_map_y = game->player.PosY - minimap_radius / (MINIMAP_SCALE * TAM_Y_P);
-
-	// Draw the minimap background (walls and empty spaces)
-	for (int y = 0; y < MINIMAP_SIZE; y++)
-	{
-		for (int x = 0; x < MINIMAP_SIZE; x++)
-		{
-			double map_x = start_map_x + x / (MINIMAP_SCALE * TAM_X_P);
-			double map_y = start_map_y + y / (MINIMAP_SCALE * TAM_Y_P);
-
-			int map_x_int = (int)map_x;
-			int map_y_int = (int)map_y;
-
-			if (map_x_int >= 0 && map_x_int < map_width && map_y_int >= 0 && map_y_int < map_height)
-			{
-				if (game->map[map_y_int][map_x_int] == '1')
-					my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, RBG_YELLOW); // White color for walls
-				else
-					my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, DIRT_YELLOW); // Black color for empty space
-			}
-			else
-				my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y + MINIMAP_MARGIN, 0x000000); // Black for out of bounds
-		}
-	}
-	paintimage(game, &game->player.char_minimap, player_minimap_x + MINIMAP_MARGIN, player_minimap_y + MINIMAP_MARGIN);
-} */

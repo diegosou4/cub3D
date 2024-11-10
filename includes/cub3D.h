@@ -242,7 +242,8 @@ void draw_ray(t_game *game, double angle);
 void ingame(t_game *game);
 void init_enemies(t_game *game);
 void	draw_enemy(t_game *game);
-
+void	bu_timer(t_game *game);
+void swift_rgb(t_game *game,int color ,double fade_factor,int y);
 
 // Moviment
 void	define_mov(t_game *game, int keycode);
@@ -254,6 +255,9 @@ int		player_mov(t_game *game);
 void  	init_values(t_game *game);
 void	draw_texture(t_game *game, double angle);
 int check_world(t_game *game, int pos);
+
+int arrow_left(t_game *game);
+int arrow_right(t_game *game);
 // Garabe Collector
 void	garabe_collector(t_game *game);
 void	free_game(t_game *game);

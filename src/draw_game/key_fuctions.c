@@ -53,35 +53,25 @@ void	define_mov(t_game *game, int keycode)
 	key_direction(game, keycode);
 }
 
-
-
 int	key_drop(int keycode, t_game *game)
 {
 	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
 	{
-		//game->light_on = 0;
 		game->y_mov += 1;
 		game->N = 0;
-	}	
-	if (keycode == KEY_S && (game->y_mov == 0 || game->y_mov == 1))
+	}else if (keycode == KEY_S && (game->y_mov == 0 || game->y_mov == 1))
 	{
-		//game->light_on = 0;
 		game->y_mov -= 1;
 		game->S = 0;
-	}
-	if (keycode == KEY_A && (game->x_mov == 0 || game->x_mov == -1))
+	}else if (keycode == KEY_A && (game->x_mov == 0 || game->x_mov == -1))
 	{
-		//game->light_on = 0;
 		game->x_mov += 1;
 		game->O = 0;
-	}
-	if (keycode == KEY_D && (game->x_mov == 0 || game->x_mov == 1)) 
+	}else if (keycode == KEY_D && (game->x_mov == 0 || game->x_mov == 1)) 
 	{
-		//game->light_on = 0;
 		game->x_mov -= 1;
 		game->E = 0;
-	}
-	if ((game->rot_Left == 1 && keycode == L_AR) || (game->rot_Right == 1 && keycode == R_AR))
+	}else if ((game->rot_Left == 1 && keycode == L_AR) || (game->rot_Right == 1 && keycode == R_AR))
 	{
 		game->rot_Left = 0;
 		game->rot_Right = 0;

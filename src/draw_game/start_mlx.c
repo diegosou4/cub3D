@@ -27,17 +27,6 @@ void calculate_ray(t_game *game, int mapX, int mapY)
 		game->player.ray.sideDistY = (mapY + 1.0 - game->player.PosY) * game->player.deltay;
 	}
 }
-/* void calculate_distance(t_game *game)
-{
-	game->player.ray.perpWallDist = 0;
-
-	if(game->player.ray.side == 0)
-		game->player.ray.perpWallDist = (game->player.ray.sideDistX - game->player.deltax);
-	else
-		game->player.ray.perpWallDist = (game->player.ray.sideDistY - game->player.deltay);
-	if(game->player.ray.perpWallDist == 0)
-		game->player.ray.perpWallDist = 0.1;	
-} */
 
 void calculate_distance(t_game *game)
 {
@@ -58,29 +47,6 @@ void cal_shadow(t_game *game)
 			game->player.ray.perpWallDist = MAX_RENDER_DISTANCE * 3;
 
 }
-
-/* void hit_wall_fade(t_game *game, int mapX, int mapY)
-{
-	game->player.ray.side = 0;
-	while (game->map[mapY][mapX] != '1')
-	{
-		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
-		{
-			game->player.ray.sideDistX += game->player.deltax;
-			mapX += game->player.ray.stepX;
-			game->player.ray.side = 0;
-		}else
-		{
-			game->player.ray.sideDistY += game->player.deltay;
-			mapY += game->player.ray.stepY;
-			game->player.ray.side = 1;
-		}
-	}
-		calculate_distance(game);
-		cal_shadow(game);
-} */
-
-
 
 void hit_wall(t_game *game, int mapX, int mapY)
 {
@@ -197,8 +163,6 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	
-	
 	load_wall(game);
 	ingame(game);
 }
