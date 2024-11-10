@@ -47,10 +47,9 @@ t_img	load_img(t_game *game, char *path)
 			&img.img_width, &img.img_height);
 	if (img.img == NULL)
 	{
-		free_walls(game);
+		printf("Texture path: %s\n", path);
+		printf("Error\nInvalid texture path\n");
 		garabe_collector(game);
-		destroy_game(game);
-		exit(0);
 	}
 	img.status = 1;
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,

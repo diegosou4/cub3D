@@ -21,13 +21,3 @@ void free_walls(t_game *game)
 
 }  
 
-void destroy_game(t_game *game)
-{
-
-	// Precisamos resolver esse problema
-	mlx_clear_window(game->mlx, game->win);
-	mlx_destroy_image(game->mlx, game->canva.img);
-	mlx_destroy_window(game->mlx,game->win);
-	mlx_destroy_display(game->mlx);
-	free_game(game);
-}

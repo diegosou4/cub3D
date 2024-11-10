@@ -169,11 +169,12 @@ typedef struct s_game
 	int		E;
 	int		O;
 	int		S;
+	int		num_enemies;
+	int 	rot_Right;
 	int 	rot_Left;
 	t_enemy enemies[MAX_ENEMIES];
 	t_draw_x draw;
-	int		num_enemies;
-	int 	rot_Right;
+	
 }   t_game;
 
 typedef void (*t_draw_func)(t_game *game, t_img *texture, double angle);

@@ -80,15 +80,12 @@ void cal_shadow(t_game *game)
 		cal_shadow(game);
 } */
 
+
+
 void hit_wall(t_game *game, int mapX, int mapY)
 {
 	while (game->map[mapY][mapX] != '1')
 	{
-/* 		if (game->map[mapY][mapX] == '3') 
-		{
-			game->enemy_x = mapX;
-			game->enemy_y = mapY;
-		} */
 		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
 		{
 			game->player.ray.sideDistX += game->player.deltax;
@@ -159,10 +156,9 @@ void draw_allray(t_game *game)
 		x++;
 	}
 	if (game->light_on == 0)
-		draw_enemy(game);
+		;
 	draw_minimap(game);
 	draw_flashlight(game);
-	usleep(200);
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 
@@ -180,7 +176,6 @@ int	key_event(int keycode, t_game *game)
 		printf("Status game %i", game->status_free);
 		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
-		destroy_game(game);
 		exit(0);
 	}
 	if(game->map[(int)game->player.PosY][(int)game->player.PosX] == '1')
@@ -194,7 +189,7 @@ int	key_event(int keycode, t_game *game)
 
 void start_window(t_game *game)
 {
-
+	game->status_free = MLX;
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH,HEIGHT);
@@ -202,7 +197,7 @@ void start_window(t_game *game)
 			&game->canva.bits_per_pixel,
 			&game->canva.line_length,
 			&game->canva.endian);
-	game->status_free = MLX;
+	
 	
 	load_wall(game);
 	ingame(game);

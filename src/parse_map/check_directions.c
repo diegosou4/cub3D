@@ -142,14 +142,12 @@ void check_direction(t_game *game)
     int i;
 
     i = 0;
-    game->status_free = PARSE;
     game->split_parse = true;
     while (game->map_info[i] != NULL && filled_textures(game) != true)
         split_line(game->map_info[i++], game, case_text,2);
     game->split_parse = false;
     while(game->map_info[i] != NULL && filled_textures(game) != true)
         split_line(game->map_info[i++], game, case_addtex,2);
-      
     while (game->map_info[i] != NULL && filled_colors(game) != true)
         split_line(game->map_info[i++], game, case_color,1);
       check_texture(game); 
@@ -158,7 +156,6 @@ void check_direction(t_game *game)
     if(i == ft_dstrlen(game->map_info))
         print_free(game, "Error when trying to parse the map");
     game->map = ft_dstrdup(game->map_info + i);
-    free_map_info(game);
     check_map(game, i);
     printf("Map is valid ta na hora de carregar as textures\n");
 }
