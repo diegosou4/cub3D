@@ -5,6 +5,9 @@
 
 void init_values2(t_game *game)
 {
+	int i;
+	
+	i = -1;
 	game->N = 0;
 	game->S = 0;
 	game->E = 0;
@@ -24,6 +27,8 @@ void init_values2(t_game *game)
 	game->inside_wall = false;
 	game->changed_world = false;
 	game->current_world = 0;
+	while(++i != NUM_TEXTURE - 1) 
+		game->texture[i].filled = false;
 }
 
 void  	init_values(t_game *game)

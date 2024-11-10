@@ -35,18 +35,6 @@ char *open_file(char *path)
 	return(line);
 }
 
-void fill_game(t_game *game)
-{
-	int i;
-
-	i = 0;
-	
-	while(i != 15)
-	{
-		game->texture[i].filled = false;
-		i++;
-	}
-}
 
 int	check_ext(char *pathname, char *format, char *type)
 {
@@ -88,8 +76,7 @@ void init_parse(char *path)
 		printf("Error\n");
 		free(game);
 		return;
-	}
-	fill_game(game);
+	} 
 	check_line(game);
 	start_window(game);
 	garabe_collector(game);
