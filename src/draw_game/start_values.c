@@ -1,12 +1,23 @@
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_values.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 13:26:22 by diegmore          #+#    #+#             */
+/*   Updated: 2024/11/16 13:26:24 by diegmore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void init_values2(t_game *game)
+#include "../../includes/cub3D.h"
+
+void	init_values2(t_game *game)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	game->N = 0;
 	game->S = 0;
@@ -27,11 +38,11 @@ void init_values2(t_game *game)
 	game->inside_wall = false;
 	game->changed_world = false;
 	game->current_world = 0;
-	while(++i != NUM_TEXTURE - 1) 
+	while (++i != NUM_TEXTURE - 1)
 		game->texture[i].filled = false;
 }
 
-void  	init_values(t_game *game)
+void	init_values(t_game *game)
 {
 	game->player.camera.PlaneX = 0;
 	game->player.camera.PlaneY = 0;
@@ -56,7 +67,7 @@ void  	init_values(t_game *game)
 	init_values2(game);
 }
 
-void define_direction(t_game *game , char direction)
+void	define_direction(t_game *game, char direction)
 {
 	if (direction == 'N')
 	{
@@ -80,43 +91,42 @@ void define_direction(t_game *game , char direction)
 	}
 }
 
-
-void start_map2(t_game *game, int ftime,int i, int y)
+void	start_map2(t_game *game, int ftime, int i, int y)
 {
-	int j;
-	int x;
+	int	j;
+	int	x;
 
 	j = 0;
 	x = 0;
 	while (j < ft_strlen(game->map[i]))
 	{
-		if(game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'W' || game->map[i][j] == 'E')
+		if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
+			|| game->map[i][j] == 'W' || game->map[i][j] == 'E')
 		{
-			if(ftime == 0)
+			if (ftime == 0)
 			{
-				define_direction(game,game->map[i][j]);
+				define_direction(game, game->map[i][j]);
 				game->player.PosX = j;
 				game->player.PosY = i;
 				game->player.Px = x + 8;
 				game->player.Py = y + 8;
 			}
-		}	
+		}
 		j++;
 		x += TAM_X_P;
 	}
 }
 
-void start_map(t_game *game, int ftime)
+void	start_map(t_game *game, int ftime)
 {
-	int i;
-	int y;
+	int	i;
+	int	y;
 
 	y = 0;
 	i = 0;
-	
 	while (i < ft_dstrlen(game->map))
 	{
-		start_map2(game,ftime,i,y);
+		start_map2(game, ftime, i, y);
 		y += TAM_Y_P;
 		i++;
 	}

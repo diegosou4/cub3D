@@ -63,8 +63,8 @@ typedef struct s_camera
 
 typedef struct s_ray
 {
-	double rayDirX;
-	double rayDirY;
+	double ray_dir_x;
+	double ray_dir_y;
 	double sideDistX;
 	double sideDistY;
 	double deltaDistX;
@@ -243,6 +243,7 @@ void start_map(t_game *game, int ftime);
 void	paintimage(t_game *game, t_texture *img, int sx, int sy);
 void draw_allray(t_game *game);
 void draw_ray(t_game *game, double angle);
+int	check_door(t_game *game, int map_x, int map_y);
 void ingame(t_game *game);
 void init_enemies(t_game *game);
 void	draw_enemy(t_game *game);

@@ -1,38 +1,49 @@
-
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_texture.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 13:29:19 by diegmore          #+#    #+#             */
+/*   Updated: 2024/11/16 13:32:12 by diegmore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int hex_color(t_game *game, int pos)
+int	hex_color(t_game *game, int pos)
 {
-	return(game->color[pos].r << 16 | game->color[pos].g << 8 | game->color[pos].b);
+	int	color;
+
+	color = game->color[pos].r << 16 | game->color[pos].g << 8 \
+		| game->color[pos].b;
+	return (color);
 }
 
-void draw_skyfloor(t_game *game,double angle,double x, int pos)
+void	draw_skyfloor(t_game *game, double angle, double x, int pos)
 {
-	int y = 0;
-	
-	if(pos == 0)
+	int	y;
+
+	y = 0;
+	if (pos == 0)
 	{
-		if(x > 0)
+		if (x > 0)
 		{
-			while(y < x)
+			while (y++ < x)
 			{
-				my_mlx_pixel_put(&game->canva, angle, y,  hex_color(game, pos));
-				y++;
+				my_mlx_pixel_put(&game->canva, angle, y, hex_color(game, pos));
 			}
 		}
-		return;	
+		return ;
 	}
-	if(pos == 1)
+	if (pos == 1)
 	{
-		if(x < HEIGHT)
+		if (x < HEIGHT)
 		{
-			while(x < HEIGHT)
+			while (x++ < HEIGHT)
 			{
-				my_mlx_pixel_put(&game->canva, angle, x,  hex_color(game, pos));
-				x++;
+				my_mlx_pixel_put(&game->canva, angle, x, hex_color(game, pos));
 			}
 		}
 	}
@@ -57,17 +68,16 @@ t_img	load_img(t_game *game, char *path)
 	return (img);
 }
 
-void load_wall(t_game *game)
+void	load_wall(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	
 	while (i != NUM_TEXTURE)
 	{
-		game->texture[i].texture = load_img(game, game->texture[i].texture.relative_path);
+		game->texture[i].texture = load_img(game,
+				game->texture[i].texture.relative_path);
 		game->current_img = i;
 		i++;
 	}
-	
 }
