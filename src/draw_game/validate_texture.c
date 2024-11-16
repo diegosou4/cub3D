@@ -30,7 +30,7 @@ void	draw_skyfloor(t_game *game, double angle, double x, int pos)
 	{
 		if (x > 0)
 		{
-			while (y++ < x)
+			while (++y < x)
 			{
 				my_mlx_pixel_put(&game->canva, angle, y, hex_color(game, pos));
 			}
@@ -41,7 +41,7 @@ void	draw_skyfloor(t_game *game, double angle, double x, int pos)
 	{
 		if (x < HEIGHT)
 		{
-			while (x++ < HEIGHT)
+			while (++x < HEIGHT)
 			{
 				my_mlx_pixel_put(&game->canva, angle, x, hex_color(game, pos));
 			}
