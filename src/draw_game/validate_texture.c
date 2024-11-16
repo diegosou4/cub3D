@@ -13,6 +13,8 @@ void draw_skyfloor(t_game *game,double angle,double x, int pos)
 {
 	int y = 0;
 	
+	if (game->map[(int)game->player.PosY][(int)game->player.PosX] == '2')
+		return ;
 	if(pos == 0)
 	{
 		if(x > 0)

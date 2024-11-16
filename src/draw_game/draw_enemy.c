@@ -1,23 +1,27 @@
 #include "../../includes/cub3D.h"
 
 
-// For loop?
 void init_enemies(t_game *game)
 {
-	int x, y;
+	int x;
+    int y;
 
+    y = 0;
 	game->num_enemies = 0;
-	for (y = 0; game->map[y] != NULL; y++)
+	while (game->map[y] != NULL)
 	{
-		for (x = 0; game->map[y][x] != '\0'; x++)
+        x = 0;
+		while (game->map[y][x] != '\0')
 		{
 			if (game->map[y][x] == '3' && game->num_enemies < MAX_ENEMIES)
 			{
-				game->enemies[game->num_enemies].x = x + 0.5; // Center in the cell
-				game->enemies[game->num_enemies].y = y + 0.5; // Center in the cell
+				game->enemies[game->num_enemies].x = x + 0.5;
+				game->enemies[game->num_enemies].y = y + 0.5;
 				game->num_enemies++;
 			}
+            x++;
 		}
+        y++;
 	}
 }
 
@@ -64,8 +68,8 @@ void	enemy_val_aux2(t_game *game)
 
 void draw_enemy(t_game *game)
 {
-	int	i;
-	double distance;
+	int     i;
+	double  distance;
     
 	i = -1;
 	game->draw.frequency = 0.02; 

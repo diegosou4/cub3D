@@ -94,7 +94,8 @@ void draw_texture(t_game *game, double angle)
 
 	draw_func[0] = draw_walls_fade;
 	draw_func[1] = draw_walls;
-	draw_skyfloor(game, angle, game->player.ray.drawEnd, 0);
+	if (game->map[(int)game->player.PosY][(int)game->player.PosX] != '2')
+		draw_skyfloor(game, angle, game->player.ray.drawEnd, 0);
 	if (game->player.ray.side == 0)
 		wall_x = game->player.PosY + game->player.ray.perpWallDist * game->player.ray.rayDirY;
 	else
@@ -106,5 +107,6 @@ void draw_texture(t_game *game, double angle)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
 	if (game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
-	draw_func[game->current_world](game, &game->texture[pos].texture, rayx);
+	if (game->map[(int)game->player.PosY][(int)game->player.PosX] != '2')
+		draw_func[game->current_world](game, &game->texture[pos].texture, rayx);
 }

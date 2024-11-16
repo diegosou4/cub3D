@@ -110,21 +110,47 @@ void draw_ray(t_game *game, double angle)
 	draw_skyfloor(game,angle,game->player.ray.drawEnd,1);
 }
 
+void draw_loading_screen(t_game *game)
+{
+	int x;
+	int	color;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while ( x < WIDTH)
+		{
+			color = my_mlx_pixel_get(&game->texture[12].texture, x * game->texture[12].texture.img_width/ WIDTH, y * game->texture[12].texture.img_height / HEIGHT);
+			my_mlx_pixel_put(&game->canva, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
 
 void draw_allray(t_game *game)
 {
 	int	x;
 
 	x = 0;
+	int playerTileX = (int)game->player.PosX;
+	int playerTileY = (int)game->player.PosY;
 	while(x < WIDTH)
 	{
 		draw_ray(game, x);
 		x++;
 	}
-	if (game->light_on == 0)
-		;
-	draw_minimap(game);
-	draw_flashlight(game);
+	if (game->map[playerTileY][playerTileX] == '2')
+		draw_loading_screen(game);
+	else
+	{
+		if (game->light_on == 0)
+			draw_enemy(game);
+		draw_minimap(game);
+		draw_flashlight(game);
+	}
 	mlx_put_image_to_window(game->mlx,game->win, game->canva.img, 0, 0);
 }
 
