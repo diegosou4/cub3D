@@ -41,7 +41,7 @@ void	start_window(t_game *game)
 	ingame(game);
 }
 
-static void	save_msc(t_game *game)
+void	save_msc(t_game *game)
 {
 	game->playCmd = ft_strdup("paplay assets/music/li.wav > /dev/null 2>&1 &");
 	game->playBur = ft_strdup("paplay assets/music/BU.wav > /dev/null 2>&1 &");

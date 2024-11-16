@@ -19,7 +19,9 @@ void	check_line(t_game *game)
 	game->player.Px = -1;
 	game->player.Py = -1;
 	game->player.direction = -1;
+	
 	check_direction(game);
+		
 }
 
 char	*open_file(char *path)
@@ -71,6 +73,7 @@ void	init_parse(char *path)
 		return ;
 	game = ft_calloc(sizeof(t_game), 1);
 	init_values(game);
+		
 	game->line = open_file(path);
 	if (game->line == NULL)
 	{
@@ -78,8 +81,12 @@ void	init_parse(char *path)
 		free(game);
 		return ;
 	}
+
+
 	check_line(game);
+	
 	start_window(game);
+
 	garabe_collector(game);
 }
 

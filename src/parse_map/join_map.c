@@ -115,3 +115,4 @@ bool	all_num(char **split2)
 		i++;
 	}
 	return (true);
+}

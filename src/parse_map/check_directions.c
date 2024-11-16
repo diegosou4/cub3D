@@ -6,7 +6,7 @@
 /*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:57:54 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 14:04:44 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:57:56 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ void	case_text(t_game *game, char *line, char **split)
 	int	i;
 
 	i = -1;
-	void check_hole(t_game * game, int end) else if (line[0] == 'S'
-			&& line[1] == 'O')
-		i = 3;
-	else if (line[0] == 'W' && line[1] == 'E')
-		i = 6;
-	else if (line[0] == 'E' && line[1] == 'A')
-		i = 9;
+	if (line[0] == 'N' && line[1] == 'O')
+       i = 0;
+    else if (line[0] == 'S' && line[1] == 'O')
+        i = 3;
+    else if (line[0] == 'W' && line[1] == 'E')
+        i = 6;
+    else if (line[0] == 'E' && line[1] == 'A')
+        i = 9;
 	if (i != -1)
 	{
 		game->texture[i].texture.relative_path = ft_strdup(split[1]);
@@ -113,6 +114,7 @@ void	check_direction(t_game *game)
 
 	i = 0;
 	game->split_parse = true;
+
 	while (game->map_info[i] != NULL && filled_textures(game) != true)
 		split_line(game->map_info[i++], game, case_text, 2);
 	game->split_parse = false;
@@ -120,6 +122,8 @@ void	check_direction(t_game *game)
 		split_line(game->map_info[i++], game, case_addtex, 2);
 	while (game->map_info[i] != NULL && filled_colors(game) != true)
 		split_line(game->map_info[i++], game, case_color, 1);
+	
+	
 	check_texture(game);
 	while (game->map_info[i] != NULL
 		&& ft_whitespaces(game->map_info[i]) == true)
@@ -128,4 +132,8 @@ void	check_direction(t_game *game)
 		print_free(game, "Error when trying to parse the map");
 	game->map = ft_dstrdup(game->map_info + i);
 	check_map(game, i);
+
 }
+
+
+

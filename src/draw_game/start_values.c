@@ -12,8 +12,6 @@
 
 #include "../../includes/cub3D.h"
 
-#include "../../includes/cub3D.h"
-
 void	init_values2(t_game *game)
 {
 	int	i;
