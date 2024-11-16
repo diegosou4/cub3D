@@ -209,6 +209,8 @@ int	ft_isdigit(int c);
 int ft_dstrlen(char **str);
 char **ft_dstrdup(char **src);
 int	ft_strrchr(const char *str, int c);
+int	valid_line(char *line);
+bool	all_num(char **split2);
 
 // GNL
 char	*get_next_line(int fd);
@@ -228,6 +230,8 @@ int valid_line(char *line);
 void check_texture(t_game *game);
 void check_map(t_game *game, int start);
 bool flood_fill(t_game *game, int c_col, int c_row);
+int count_x(t_game *game);
+void check_hole(t_game *game , int end);
 // Draw Game
 void start_window(t_game *game);
 void load_wall(t_game *game);
