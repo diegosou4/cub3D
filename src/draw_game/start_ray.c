@@ -16,26 +16,26 @@ void	calculate_ray(t_game *game, int map_x, int map_y)
 {
 	if (game->player.ray.ray_dir_x < 0)
 	{
-		game->player.ray.stepX = -1;
-		game->player.ray.sideDistX = (game->player.PosX - map_x)
+		game->player.ray.stepx = -1;
+		game->player.ray.side_distx = (game->player.posx - map_x)
 			* game->player.deltax;
 	}
 	else
 	{
-		game->player.ray.stepX = 1;
-		game->player.ray.sideDistX = (map_x + 1.0 - game->player.PosX)
+		game->player.ray.stepx = 1;
+		game->player.ray.side_distx = (map_x + 1.0 - game->player.posx)
 			* game->player.deltax;
 	}
 	if (game->player.ray.ray_dir_y < 0)
 	{
-		game->player.ray.stepY = -1;
-		game->player.ray.sideDistY = (game->player.PosY - map_y)
+		game->player.ray.stepy = -1;
+		game->player.ray.side_disty = (game->player.posy - map_y)
 			* game->player.deltay;
 	}
 	else
 	{
-		game->player.ray.stepY = 1;
-		game->player.ray.sideDistY = (map_y + 1.0 - game->player.PosY)
+		game->player.ray.stepy = 1;
+		game->player.ray.side_disty = (map_y + 1.0 - game->player.posy)
 			* game->player.deltay;
 	}
 }
@@ -43,29 +43,29 @@ void	calculate_ray(t_game *game, int map_x, int map_y)
 void	calculate_distance(t_game *game)
 {
 	if (game->player.ray.side == 0)
-		game->player.ray.perpWallDist = (game->player.ray.sideDistX
+		game->player.ray.perpwall_dist = (game->player.ray.side_distx
 				- game->player.deltax);
 	else
-		game->player.ray.perpWallDist = (game->player.ray.sideDistY
+		game->player.ray.perpwall_dist = (game->player.ray.side_disty
 				- game->player.deltay);
-	if (game->player.ray.perpWallDist < 0.1)
-		game->player.ray.perpWallDist = 0.1;
+	if (game->player.ray.perpwall_dist < 0.1)
+		game->player.ray.perpwall_dist = 0.1;
 }
 
 void	hit_wall(t_game *game, int map_x, int map_y)
 {
 	while (game->map[map_y][map_x] != '1')
 	{
-		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
+		if (game->player.ray.side_distx < game->player.ray.side_disty)
 		{
-			game->player.ray.sideDistX += game->player.deltax;
-			map_x += game->player.ray.stepX;
+			game->player.ray.side_distx += game->player.deltax;
+			map_x += game->player.ray.stepx;
 			game->player.ray.side = 0;
 		}
 		else
 		{
-			game->player.ray.sideDistY += game->player.deltay;
-			map_y += game->player.ray.stepY;
+			game->player.ray.side_disty += game->player.deltay;
+			map_y += game->player.ray.stepy;
 			game->player.ray.side = 1;
 		}
 		if (check_door(game, map_x, map_y) == 1)
@@ -76,13 +76,13 @@ void	hit_wall(t_game *game, int map_x, int map_y)
 
 void	check_rays(t_game *game)
 {
-	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpWallDist);
-	game->player.ray.drawStart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
-	if (game->player.ray.drawStart < 0)
-		game->player.ray.drawStart = 0;
-	game->player.ray.drawEnd = game->player.ray.lineheight / 2 + HEIGHT / 2;
-	if (game->player.ray.drawEnd >= HEIGHT || game->player.ray.drawEnd < 0)
-		game->player.ray.drawEnd = HEIGHT - 1;
+	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpwall_dist);
+	game->player.ray.drawstart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if (game->player.ray.drawstart < 0)
+		game->player.ray.drawstart = 0;
+	game->player.ray.drawend = game->player.ray.lineheight / 2 + HEIGHT / 2;
+	if (game->player.ray.drawend >= HEIGHT || game->player.ray.drawend < 0)
+		game->player.ray.drawend = HEIGHT - 1;
 }
 
 void	draw_ray(t_game *game, double angle)
@@ -93,19 +93,19 @@ void	draw_ray(t_game *game, double angle)
 	double	ray_dir_x;
 	double	ray_dir_y;
 
-	game->player.ray.currentRayX = angle;
+	game->player.ray.currentrayx = angle;
 	camera_x = 2 * angle / WIDTH - 1;
-	ray_dir_x = game->player.dirX + game->player.camera.PlaneX * camera_x;
-	ray_dir_y = game->player.dirY + game->player.camera.PlaneY * camera_x;
+	ray_dir_x = game->player.dirx + game->player.camera.planex * camera_x;
+	ray_dir_y = game->player.diry + game->player.camera.planey * camera_x;
 	game->player.ray.ray_dir_x = ray_dir_x;
 	game->player.ray.ray_dir_y = ray_dir_y;
 	game->player.deltax = fabs(1 / ray_dir_x);
 	game->player.deltay = fabs(1 / ray_dir_y);
-	map_x = (int)game->player.PosX;
-	map_y = (int)game->player.PosY;
+	map_x = (int)game->player.posx;
+	map_y = (int)game->player.posy;
 	calculate_ray(game, map_x, map_y);
 	hit_wall(game, map_x, map_y);
 	check_rays(game);
 	draw_texture(game, angle);
-	draw_skyfloor(game, angle, game->player.ray.drawEnd, 1);
+	draw_skyfloor(game, angle, game->player.ray.drawend, 1);
 }

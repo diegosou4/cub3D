@@ -14,10 +14,10 @@
 
 void cal_shadow(t_game *game)
 {
-	if (game->light_on == 0 && game->player.ray.perpWallDist >= MAX_RENDER_DISTANCE)
-		game->player.ray.perpWallDist = MAX_RENDER_DISTANCE;
-	else if (game->player.ray.perpWallDist >= MAX_RENDER_DISTANCE * 3)
-		game->player.ray.perpWallDist = MAX_RENDER_DISTANCE * 3;
+	if (game->light_on == 0 && game->player.ray.perpwall_dist >= MAX_RENDER_DISTANCE)
+		game->player.ray.perpwall_dist = MAX_RENDER_DISTANCE;
+	else if (game->player.ray.perpwall_dist >= MAX_RENDER_DISTANCE * 3)
+		game->player.ray.perpwall_dist = MAX_RENDER_DISTANCE * 3;
 }
 
 int check_door(t_game *game, int map_x, int map_y)
@@ -62,8 +62,8 @@ void draw_allray(t_game *game)
 	int playerTileY;
 
 	x = 0;
-	playerTileX = (int)game->player.PosX;
-	playerTileY = (int)game->player.PosY;
+	playerTileX = (int)game->player.posx;
+	playerTileY = (int)game->player.posy;
 	while (x < WIDTH)
 	{
 		draw_ray(game, x);

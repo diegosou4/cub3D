@@ -21,16 +21,16 @@ void	draw_walls(t_game *game, t_img *texture, double angle)
 	int		y;
 
 	step = 1.0 * texture->img_height / game->player.ray.lineheight;
-	texpos = (game->player.ray.drawStart - HEIGHT / 2
+	texpos = (game->player.ray.drawstart - HEIGHT / 2
 			+ game->player.ray.lineheight / 2) * step;
-	y = game->player.ray.drawStart;
-	while (y < game->player.ray.drawEnd)
+	y = game->player.ray.drawstart;
+	while (y < game->player.ray.drawend)
 	{
 		texy = (int)texpos & (texture->img_height - 1);
 		texpos += step;
 		color = my_mlx_pixel_get(texture, texture->img_height - (int)angle,
 				texy);
-		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y,
+		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentrayx, y,
 			color);
 		y++;
 	}
@@ -44,18 +44,18 @@ void	draw_walls_fade(t_game *game, t_img *texture, double angle)
 	int		y;
 
 	game->player.step = 1.0 * texture->img_height / game->player.ray.lineheight;
-	texpos = (game->player.ray.drawStart - HEIGHT / 2
+	texpos = (game->player.ray.drawstart - HEIGHT / 2
 			+ game->player.ray.lineheight / 2) * game->player.step;
-	y = game->player.ray.drawStart;
+	y = game->player.ray.drawstart;
 	if (game->light_on == 0)
-		game->player.fade_factor = 1.0 - (game->player.ray.perpWallDist
+		game->player.fade_factor = 1.0 - (game->player.ray.perpwall_dist
 				/ MAX_RENDER_DISTANCE);
 	else
-		game->player.fade_factor = 1.0 - (game->player.ray.perpWallDist
+		game->player.fade_factor = 1.0 - (game->player.ray.perpwall_dist
 				/ (MAX_RENDER_DISTANCE * 3));
 	if (game->player.fade_factor < 0)
 		game->player.fade_factor = 0.0;
-	while (y++ < game->player.ray.drawEnd)
+	while (y++ < game->player.ray.drawend)
 	{
 		texy = (int)texpos & (texture->img_height - 1);
 		texpos += game->player.step;
@@ -112,13 +112,13 @@ void	draw_texture(t_game *game, double angle)
 
 	draw_func[0] = draw_walls_fade;
 	draw_func[1] = draw_walls;
-	if (game->map[(int)game->player.PosY][(int)game->player.PosX] != '2')
-		draw_skyfloor(game, angle, game->player.ray.drawEnd, 0);
+	if (game->map[(int)game->player.posy][(int)game->player.posx] != '2')
+		draw_skyfloor(game, angle, game->player.ray.drawend, 0);
 	if (game->player.ray.side == 0)
-		wall_x = game->player.PosY + game->player.ray.perpWallDist
+		wall_x = game->player.posy + game->player.ray.perpwall_dist
 			* game->player.ray.ray_dir_y;
 	else
-		wall_x = game->player.PosX + game->player.ray.perpWallDist
+		wall_x = game->player.posx + game->player.ray.perpwall_dist
 			* game->player.ray.ray_dir_x;
 	wall_x -= floor(wall_x);
 	pos = return_pos(game);
@@ -127,6 +127,6 @@ void	draw_texture(t_game *game, double angle)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
 	if (game->player.ray.side == 1 && game->player.ray.ray_dir_y < 0)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
-	if (game->map[(int)game->player.PosY][(int)game->player.PosX] != '2')
+	if (game->map[(int)game->player.posy][(int)game->player.posx] != '2')
 		draw_func[game->current_world](game, &game->texture[pos].texture, rayx);
 }

@@ -16,8 +16,8 @@ void	check_line(t_game *game)
 {
 	game->map_info = ft_split(game->line, '\n');
 	free(game->line);
-	game->player.Px = -1;
-	game->player.Py = -1;
+	game->player.px = -1;
+	game->player.py = -1;
 	game->player.direction = -1;
 	
 	check_direction(game);

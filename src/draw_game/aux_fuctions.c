@@ -12,7 +12,7 @@ void	swift_rgb(t_game *game, int color, double fade_factor, int y)
 	if (color != -16777216)
 	{
 		color = (r << 16) | (g << 8) | b;
-		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentRayX, y,
+		my_mlx_pixel_put(&game->canva, (int)game->player.ray.currentrayx, y,
 			color);
 	}
 }
@@ -25,8 +25,8 @@ void	bu_timer(t_game *game)
 	current_time = time(NULL);
 	if (difftime(current_time, last_played_time) >= 10)
 	{
-		if (game->playBur != NULL)
-			system(game->playBur);
+		if (game->playbur != NULL)
+			system(game->playbur);
 		last_played_time = current_time;
 	}
 }

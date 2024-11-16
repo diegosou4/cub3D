@@ -24,12 +24,12 @@ void init_enemies(t_game *game)
 
 void draw_aux1(t_game *game)
 {
-    while (game->draw.y < game->draw.drawEndY)
+    while (game->draw.y < game->draw.drawendy)
     {
-        game->draw.d = (game->draw.y) * 256 - HEIGHT * 128 + game->draw.spriteHeight * 128;
-        game->draw.texY = ((game->draw.d * game->texture[15].texture.img_height) / game->draw.spriteHeight) / 256;
+        game->draw.d = (game->draw.y) * 256 - HEIGHT * 128 + game->draw.spriteheight * 128;
+        game->draw.tex_y = ((game->draw.d * game->texture[15].texture.img_height) / game->draw.spriteheight) / 256;
         game->draw.color = my_mlx_pixel_get(&game->texture[15].texture,
-                                            game->draw.texX, game->draw.texY);
+                                            game->draw.tex_x, game->draw.tex_y);
         my_mlx_pixel_put(&game->canva, game->draw.stripe, game->draw.y,
                          game->draw.color);
         game->draw.y++;
@@ -38,30 +38,30 @@ void draw_aux1(t_game *game)
 
 void enemy_val_aux(t_game *game)
 {
-    game->draw.invDet = 1.0 / (game->player.camera.PlaneX * game->player.dirY - game->player.dirX * game->player.camera.PlaneY);
-    game->draw.transformX = game->draw.invDet * (game->player.dirY * game->draw.enemyX - game->player.dirX * game->draw.enemyY);
-    game->draw.transformY = game->draw.invDet * (-game->player.camera.PlaneY * game->draw.enemyX + game->player.camera.PlaneX * game->draw.enemyY);
-    game->draw.horizontal_offset = sin(game->frameCtd * game->draw.frequency) * game->draw.amplitude;
+    game->draw.invdet = 1.0 / (game->player.camera.planex * game->player.diry - game->player.dirx * game->player.camera.planey);
+    game->draw.transformx = game->draw.invdet * (game->player.diry * game->draw.enemyx - game->player.dirx * game->draw.enemyy);
+    game->draw.transformy = game->draw.invdet * (-game->player.camera.planey * game->draw.enemyx + game->player.camera.planex * game->draw.enemyy);
+    game->draw.horizontal_offset = sin(game->framectd * game->draw.frequency) * game->draw.amplitude;
 }
 
 void enemy_val_aux2(t_game *game)
 {
-    game->draw.spriteScreenX = (int)((WIDTH / 2) * (1 + game->draw.transformX / game->draw.transformY)) + (int)game->draw.horizontal_offset;
-    game->draw.spriteHeight = abs((int)(HEIGHT / game->draw.transformY));
-    game->draw.drawStartY = -game->draw.spriteHeight / 2 + HEIGHT / 2;
-    if (game->draw.drawStartY < 0)
-        game->draw.drawStartY = 0;
-    game->draw.drawEndY = game->draw.spriteHeight / 2 + HEIGHT / 2;
-    if (game->draw.drawEndY >= HEIGHT)
-        game->draw.drawEndY = HEIGHT - 1;
-    game->draw.spriteWidth = abs((int)(HEIGHT / game->draw.transformY));
-    game->draw.drawStartX = -game->draw.spriteWidth / 2 + game->draw.spriteScreenX;
-    if (game->draw.drawStartX < 0)
-        game->draw.drawStartX = 0;
-    game->draw.drawEndX = game->draw.spriteWidth / 2 + game->draw.spriteScreenX;
-    if (game->draw.drawEndX >= WIDTH)
-        game->draw.drawEndX = WIDTH - 1;
-    game->draw.stripe = game->draw.drawStartX;
+    game->draw.spritescreenx = (int)((WIDTH / 2) * (1 + game->draw.transformx / game->draw.transformy)) + (int)game->draw.horizontal_offset;
+    game->draw.spriteheight = abs((int)(HEIGHT / game->draw.transformy));
+    game->draw.drawstarty = -game->draw.spriteheight / 2 + HEIGHT / 2;
+    if (game->draw.drawstarty < 0)
+        game->draw.drawstarty = 0;
+    game->draw.drawendy = game->draw.spriteheight / 2 + HEIGHT / 2;
+    if (game->draw.drawendy >= HEIGHT)
+        game->draw.drawendy = HEIGHT - 1;
+    game->draw.spritewidth = abs((int)(HEIGHT / game->draw.transformy));
+    game->draw.drawstartx = -game->draw.spritewidth / 2 + game->draw.spritescreenx;
+    if (game->draw.drawstartx < 0)
+        game->draw.drawstartx = 0;
+    game->draw.drawendx = game->draw.spritewidth / 2 + game->draw.spritescreenx;
+    if (game->draw.drawendx >= WIDTH)
+        game->draw.drawendx = WIDTH - 1;
+    game->draw.stripe = game->draw.drawstartx;
 }
 
 void draw_enemy(t_game *game)
@@ -74,27 +74,27 @@ void draw_enemy(t_game *game)
     game->draw.amplitude = 10.0;
     while (++i < game->num_enemies)
     {
-        game->draw.enemyX = game->enemies[i].x - game->player.PosX;
-        game->draw.enemyY = game->enemies[i].y - game->player.PosY;
-        distance = sqrt(game->draw.enemyX * game->draw.enemyX + game->draw.enemyY * game->draw.enemyY);
+        game->draw.enemyx = game->enemies[i].x - game->player.posx;
+        game->draw.enemyy = game->enemies[i].y - game->player.posy;
+        distance = sqrt(game->draw.enemyx * game->draw.enemyx + game->draw.enemyy * game->draw.enemyy);
         if (distance < MIN_PROXIMITY_DISTANCE)
             continue;
         enemy_val_aux(game);
-        if (game->draw.transformY > 0 && game->draw.transformY < game->player.ray.perpWallDist)
+        if (game->draw.transformy > 0 && game->draw.transformy < game->player.ray.perpwall_dist)
         {
             bu_timer(game);
             enemy_val_aux2(game);
-            while (game->draw.stripe < game->draw.drawEndX)
+            while (game->draw.stripe < game->draw.drawendx)
             {
-                game->draw.texX = (int)((game->draw.stripe - (-game->draw.spriteWidth / 2 + game->draw.spriteScreenX)) * game->texture[15].texture.img_width / game->draw.spriteWidth);
-                if (game->draw.transformY > 0 && game->draw.stripe > 0 && game->draw.stripe < WIDTH && game->draw.transformY < game->player.ray.perpWallDist)
+                game->draw.tex_x = (int)((game->draw.stripe - (-game->draw.spritewidth / 2 + game->draw.spritescreenx)) * game->texture[15].texture.img_width / game->draw.spritewidth);
+                if (game->draw.transformy > 0 && game->draw.stripe > 0 && game->draw.stripe < WIDTH && game->draw.transformy < game->player.ray.perpwall_dist)
                 {
-                    game->draw.y = game->draw.drawStartY;
+                    game->draw.y = game->draw.drawstarty;
                     draw_aux1(game);
                 }
                 game->draw.stripe++;
             }
         }
     }
-    game->frameCtd++;
+    game->framectd++;
 }

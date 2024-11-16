@@ -5,9 +5,9 @@
 static void	key_rot(t_game *game, int keycode)
 {
 	if (keycode == L_AR)
-		game->rot_Left = 1;
+		game->rot_left = 1;
 	else if (keycode == R_AR)
-		game->rot_Right = 1;
+		game->rot_right = 1;
 }
 
 static void	key_ligths(t_game *game, int keycode)
@@ -26,22 +26,22 @@ static void	key_direction(t_game *game, int keycode)
 	if (keycode == KEY_A)
 	{
 		game->x_mov -= 1;
-		game->O = 1;
+		game->o = 1;
 	}
 	else if (keycode == KEY_D)
 	{
 		game->x_mov += 1;
-		game->E = 1;
+		game->e = 1;
 	}
 	else if (keycode == KEY_W)
 	{
 		game->y_mov -= 1;
-		game->N = 1;
+		game->n = 1;
 	}
 	else if (keycode == KEY_S)
 	{
 		game->y_mov += 1;
-		game->S = 1;
+		game->s = 1;
 	}
 }
 
@@ -59,28 +59,28 @@ int	key_drop(int keycode, t_game *game)
 	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
 	{
 		game->y_mov += 1;
-		game->N = 0;
+		game->n = 0;
 	}
 	else if (keycode == KEY_S && (game->y_mov == 0 || game->y_mov == 1))
 	{
 		game->y_mov -= 1;
-		game->S = 0;
+		game->s = 0;
 	}
 	else if (keycode == KEY_A && (game->x_mov == 0 || game->x_mov == -1))
 	{
 		game->x_mov += 1;
-		game->O = 0;
+		game->o = 0;
 	}
 	else if (keycode == KEY_D && (game->x_mov == 0 || game->x_mov == 1))
 	{
 		game->x_mov -= 1;
-		game->E = 0;
+		game->e = 0;
 	}
-	else if ((game->rot_Left == 1 && keycode == L_AR) || (game->rot_Right == 1
+	else if ((game->rot_left == 1 && keycode == L_AR) || (game->rot_right == 1
 			&& keycode == R_AR))
 	{
-		game->rot_Left = 0;
-		game->rot_Right = 0;
+		game->rot_left = 0;
+		game->rot_right = 0;
 	}
 	return (0);
 }

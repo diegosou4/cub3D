@@ -10,7 +10,7 @@ void	draw_flashlight(t_game *game)
 
 	frequency = 0.05;
 	amplitude = 10.0;
-	vertical_offset = sin(game->frameCtd * frequency) * amplitude;
+	vertical_offset = sin(game->framectd * frequency) * amplitude;
 	y = 0;
 	while (y < game->texture[14].texture.img_height && game->light_on)
 	{
@@ -24,7 +24,7 @@ void	draw_flashlight(t_game *game)
 		}
 		y++;
 	}
-	game->frameCtd++;
+	game->framectd++;
 }
 
 int	cc_mmap(t_game *game, int map_x, int map_y, int color)
@@ -79,9 +79,9 @@ void	draw_minimap(t_game *game)
 	while (game->map[map_height] != NULL)
 		map_height++;
 	minimap_radius = MINIMAP_SIZE / 2;
-	start_map_x = game->player.PosX - minimap_radius / (MINIMAP_SCALE
+	start_map_x = game->player.posx - minimap_radius / (MINIMAP_SCALE
 			* TILE_SIZE);
-	start_map_y = game->player.PosY - minimap_radius / (MINIMAP_SCALE
+	start_map_y = game->player.posy - minimap_radius / (MINIMAP_SCALE
 			* TILE_SIZE);
 	draw_minimap_background(game, map_height, start_map_x, start_map_y);
 	paintimage(game, &game->texture[13], minimap_radius + TILE_SIZE,

@@ -17,13 +17,13 @@ void	init_values2(t_game *game)
 	int	i;
 
 	i = -1;
-	game->N = 0;
-	game->S = 0;
-	game->E = 0;
-	game->O = 0;
-	game->rot_Left = 0;
-	game->rot_Right = 0;
-	game->frameCtd = 0;
+	game->n = 0;
+	game->s = 0;
+	game->e = 0;
+	game->o = 0;
+	game->rot_left = 0;
+	game->rot_right = 0;
+	game->framectd = 0;
 	game->light_on = 0;
 	game->current_img = -1;
 	game->status_free = PARSE;
@@ -42,26 +42,26 @@ void	init_values2(t_game *game)
 
 void	init_values(t_game *game)
 {
-	game->player.camera.PlaneX = 0;
-	game->player.camera.PlaneY = 0;
+	game->player.camera.planex = 0;
+	game->player.camera.planey = 0;
 	game->player.deltax = 0;
 	game->player.deltay = 0;
-	game->player.dirX = 0;
-	game->player.dirY = 0;
+	game->player.dirx = 0;
+	game->player.diry = 0;
 	game->player.ray.ray_dir_x = 0;
 	game->player.ray.ray_dir_y = 0;
-	game->player.ray.sideDistX = 0;
-	game->player.ray.sideDistY = 0;
-	game->player.ray.deltaDistX = 0;
-	game->player.ray.deltaDistY = 0;
-	game->player.ray.perpWallDist = 0;
-	game->player.ray.stepX = 0;
-	game->player.ray.stepY = 0;
+	game->player.ray.side_distx = 0;
+	game->player.ray.side_disty = 0;
+	game->player.ray.delta_distx = 0;
+	game->player.ray.delta_disty = 0;
+	game->player.ray.perpwall_dist = 0;
+	game->player.ray.stepx = 0;
+	game->player.ray.stepy = 0;
 	game->player.ray.hit = 0;
 	game->player.ray.side = 0;
 	game->player.ray.lineheight = 0;
-	game->player.ray.drawStart = 0;
-	game->player.ray.drawEnd = 0;
+	game->player.ray.drawstart = 0;
+	game->player.ray.drawend = 0;
 	init_values2(game);
 }
 
@@ -69,23 +69,23 @@ void	define_direction(t_game *game, char direction)
 {
 	if (direction == 'N')
 	{
-		game->player.camera.PlaneX = 0.66;
-		game->player.dirY = -1;
+		game->player.camera.planex = 0.66;
+		game->player.diry = -1;
 	}
 	else if (direction == 'S')
 	{
-		game->player.camera.PlaneX = -0.66;
-		game->player.dirY = 1;
+		game->player.camera.planex = -0.66;
+		game->player.diry = 1;
 	}
 	else if (direction == 'W')
 	{
-		game->player.camera.PlaneY = -0.66;
-		game->player.dirX = -1;
+		game->player.camera.planey = -0.66;
+		game->player.dirx = -1;
 	}
 	else if (direction == 'E')
 	{
-		game->player.camera.PlaneY = 0.66;
-		game->player.dirX = 1;
+		game->player.camera.planey = 0.66;
+		game->player.dirx = 1;
 	}
 }
 
@@ -104,10 +104,10 @@ void	start_map2(t_game *game, int ftime, int i, int y)
 			if (ftime == 0)
 			{
 				define_direction(game, game->map[i][j]);
-				game->player.PosX = j;
-				game->player.PosY = i;
-				game->player.Px = x + 8;
-				game->player.Py = y + 8;
+				game->player.posx = j;
+				game->player.posy = i;
+				game->player.px = x + 8;
+				game->player.py = y + 8;
 			}
 		}
 		j++;

@@ -35,9 +35,9 @@ int	mouse_monitor(t_game *game, int keycode)
 		deltax = game->x_mouse - prev_x_mouse;
 		if (deltax != 0 || keycode == R_AR || keycode == L_AR)
 		{
-			if (deltax > 0 || game->rot_Right == 1)
+			if (deltax > 0 || game->rot_right == 1)
 				arrow_right(game);
-			else if (deltax < 0 || game->rot_Left == 1)
+			else if (deltax < 0 || game->rot_left == 1)
 				arrow_left(game);
 			prev_x_mouse = WIDTH / 2;
 		}
@@ -53,16 +53,16 @@ int	arrow_left(t_game *game)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	old_dir_x = game->player.dirX;
-	game->player.dirX = game->player.dirX * cos(-ROT_SPEED) - game->player.dirY
+	old_dir_x = game->player.dirx;
+	game->player.dirx = game->player.dirx * cos(-ROT_SPEED) - game->player.diry
 		* sin(-ROT_SPEED);
-	game->player.dirY = old_dir_x * sin(-ROT_SPEED) + game->player.dirY
+	game->player.diry = old_dir_x * sin(-ROT_SPEED) + game->player.diry
 		* cos(-ROT_SPEED);
-	old_plane_x = game->player.camera.PlaneX;
-	game->player.camera.PlaneX = game->player.camera.PlaneX * cos(-ROT_SPEED)
-		- game->player.camera.PlaneY * sin(-ROT_SPEED);
-	game->player.camera.PlaneY = old_plane_x * sin(-ROT_SPEED)
-		+ game->player.camera.PlaneY * cos(-ROT_SPEED);
+	old_plane_x = game->player.camera.planex;
+	game->player.camera.planex = game->player.camera.planex * cos(-ROT_SPEED)
+		- game->player.camera.planey * sin(-ROT_SPEED);
+	game->player.camera.planey = old_plane_x * sin(-ROT_SPEED)
+		+ game->player.camera.planey * cos(-ROT_SPEED);
 	return (1);
 }
 
@@ -71,15 +71,15 @@ int	arrow_right(t_game *game)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	old_dir_x = game->player.dirX;
-	game->player.dirX = game->player.dirX * cos(ROT_SPEED) - game->player.dirY
+	old_dir_x = game->player.dirx;
+	game->player.dirx = game->player.dirx * cos(ROT_SPEED) - game->player.diry
 		* sin(ROT_SPEED);
-	game->player.dirY = old_dir_x * sin(ROT_SPEED) + game->player.dirY
+	game->player.diry = old_dir_x * sin(ROT_SPEED) + game->player.diry
 		* cos(ROT_SPEED);
-	old_plane_x = game->player.camera.PlaneX;
-	game->player.camera.PlaneX = game->player.camera.PlaneX * cos(ROT_SPEED)
-		- game->player.camera.PlaneY * sin(ROT_SPEED);
-	game->player.camera.PlaneY = old_plane_x * sin(ROT_SPEED)
-		+ game->player.camera.PlaneY * cos(ROT_SPEED);
+	old_plane_x = game->player.camera.planex;
+	game->player.camera.planex = game->player.camera.planex * cos(ROT_SPEED)
+		- game->player.camera.planey * sin(ROT_SPEED);
+	game->player.camera.planey = old_plane_x * sin(ROT_SPEED)
+		+ game->player.camera.planey * cos(ROT_SPEED);
 	return (1);
 }
