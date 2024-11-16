@@ -11,7 +11,7 @@ PARSER = init_parse.c join_map.c check_directions.c filled_map.c \
 GARBAGE = free_structs.c free_mlx.c
 DRAW =  draw_texture.c mov.c pixel.c start_mlx.c key_fuctions.c \
 		start_values.c minimap.c validate_texture.c ingame.c \
-		aux_fuctions.c draw_enemy.c  mouse_monitor.c 
+		aux_fuctions.c draw_enemy.c  mouse_monitor.c start_ray.c
 GNL = get_next_line.c get_next_line_utils.c 
 LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 		ft_len_darray.c ft_whitespaces.c ft_atoi.c ft_freedarray.c \
@@ -25,7 +25,7 @@ SRC_LIBFT = $(addprefix ./src/libft/, $(LIBFT))
 SRC_GARBAGE = $(addprefix ./src/garbage/, $(GARBAGE))
 SRC = $(SRC_GNL) $(SRC_PARSER) $(SRC_LIBFT) $(SRC_GARBAGE) $(SRC_DRAW)
 
-CFLAGS = -g -o3 -I./ #-Wall -Wextra -Werror
+CFLAGS = -g -o3 -I./ -Wall -Wextra -Werror
 CC = cc
 LIB = minilibx-linux/libmlx_Linux.a
 LIBFLAGS = -lXext -lX11 -lm

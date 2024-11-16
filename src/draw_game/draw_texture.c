@@ -72,13 +72,13 @@ int	return_pos(t_game *game)
 	texture_loc = 0;
 	if (game->hit_door == true)
 		return (12);
-	if (game->player.ray.side == 1 && game->player.ray.rayDirY > 0)
+	if (game->player.ray.side == 1 && game->player.ray.ray_dir_y > 0)
 		texture_loc = 1 + game->light_on;
-	else if (game->player.ray.side == 0 && game->player.ray.rayDirX < 0)
+	else if (game->player.ray.side == 0 && game->player.ray.ray_dir_x < 0)
 		texture_loc = 4 + game->light_on;
-	else if (game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
+	else if (game->player.ray.side == 0 && game->player.ray.ray_dir_x > 0)
 		texture_loc = 7 + game->light_on;
-	else if (game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
+	else if (game->player.ray.side == 1 && game->player.ray.ray_dir_y < 0)
 		texture_loc = 10 + game->light_on;
 	texture_loc = check_world(game, texture_loc);
 	if (game->current_world == 1)
@@ -115,16 +115,16 @@ void	draw_texture(t_game *game, double angle)
 	draw_skyfloor(game, angle, game->player.ray.drawEnd, 0);
 	if (game->player.ray.side == 0)
 		wall_x = game->player.PosY + game->player.ray.perpWallDist
-			* game->player.ray.rayDirY;
+			* game->player.ray.ray_dir_y;
 	else
 		wall_x = game->player.PosX + game->player.ray.perpWallDist
-			* game->player.ray.rayDirX;
+			* game->player.ray.ray_dir_x;
 	wall_x -= floor(wall_x);
 	pos = return_pos(game);
 	rayx = (int)(wall_x * game->texture[pos].texture.img_width);
-	if (game->player.ray.side == 0 && game->player.ray.rayDirX > 0)
+	if (game->player.ray.side == 0 && game->player.ray.ray_dir_x > 0)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
-	if (game->player.ray.side == 1 && game->player.ray.rayDirY < 0)
+	if (game->player.ray.side == 1 && game->player.ray.ray_dir_y < 0)
 		rayx = game->texture[pos].texture.img_width - rayx - 1;
 	draw_func[game->current_world](game, &game->texture[pos].texture, rayx);
 }

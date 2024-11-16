@@ -12,6 +12,35 @@
 
 #include "../../includes/cub3D.h"
 
+int	key_event(int keycode, t_game *game)
+{
+	mouse_monitor(game, keycode);
+	define_mov(game, keycode);
+	draw_allray(game);
+	if (keycode == ESC)
+	{
+		system("pkill paplay > /dev/null 2>&1");
+		game->status_free = FINAL;
+		mlx_do_key_autorepeaton(game->mlx);
+		garabe_collector(game);
+	}
+	return (0);
+}
+
+void	start_window(t_game *game)
+{
+	game->status_free = MLX;
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
+	game->canva.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->canva.addr = mlx_get_data_addr(game->canva.img,
+											&game->canva.bits_per_pixel,
+											&game->canva.line_length,
+											&game->canva.endian);
+	load_wall(game);
+	ingame(game);
+}
+
 static void	save_msc(t_game *game)
 {
 	game->playCmd = ft_strdup("paplay assets/music/li.wav > /dev/null 2>&1 &");

@@ -28,7 +28,7 @@ void case_addtex(t_game *game,char *line,char **split)
 {
     int i;
 
-    i -= 1;
+    i = -1;
     if(line[0] == 'D' && line[1] == 'R')
         i = 12;
     else if(line[0] == 'M' && line[1] == 'N')

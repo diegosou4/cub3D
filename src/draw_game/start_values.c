@@ -39,8 +39,8 @@ void  	init_values(t_game *game)
 	game->player.deltay = 0;
 	game->player.dirX = 0;
 	game->player.dirY = 0;
-	game->player.ray.rayDirX = 0;
-	game->player.ray.rayDirY = 0;
+	game->player.ray.ray_dir_x = 0;
+	game->player.ray.ray_dir_y = 0;
 	game->player.ray.sideDistX = 0;
 	game->player.ray.sideDistY = 0;
 	game->player.ray.deltaDistX = 0;
@@ -55,7 +55,6 @@ void  	init_values(t_game *game)
 	game->player.ray.drawEnd = 0;
 	init_values2(game);
 }
-
 
 void define_direction(t_game *game , char direction)
 {
