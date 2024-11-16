@@ -104,6 +104,8 @@ typedef struct s_player
 	double direction;
 	double deltax;
 	double deltay;
+	double step;
+	double fade_factor;
 	int		sprite_num;
 	int		curr_frame;
 	t_camera camera;
@@ -157,6 +159,8 @@ typedef struct s_game
 	char	**map;
 	char	**ff_map;
 	char	*line;
+	char 	*playCmd;
+	char 	*playBur;
 	int		frameCtd;
 	int		curr_map;
 	int		current_img;

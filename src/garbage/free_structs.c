@@ -55,6 +55,10 @@ void garabe_collector(t_game *game)
     free_map(game);
     free_texture(game);
     free_walls(game);
+    if(game->playCmd != NULL)
+        free(game->playCmd);
+    if(game->playBur != NULL)
+        free(game->playBur);
     if(game->status_free != MLX)
         free_game(game);
     else if(game->status_free == MLX)
