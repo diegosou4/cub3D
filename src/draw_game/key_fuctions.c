@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_fuctions.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 17:33:11 by dde-maga          #+#    #+#             */
+/*   Updated: 2024/11/16 17:33:32 by dde-maga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
@@ -52,7 +62,6 @@ void	define_mov(t_game *game, int keycode)
 	key_direction(game, keycode);
 }
 
-
 // Resolver essa funcao
 int	key_drop(int keycode, t_game *game)
 {
@@ -78,9 +87,6 @@ int	key_drop(int keycode, t_game *game)
 	}
 	else if ((game->rot_left == 1 && keycode == L_AR) || (game->rot_right == 1
 			&& keycode == R_AR))
-	{
-		game->rot_left = 0;
-		game->rot_right = 0;
-	}
+		aux_rotate(game);
 	return (0);
 }

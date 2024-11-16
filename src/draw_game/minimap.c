@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 17:34:36 by dde-maga          #+#    #+#             */
+/*   Updated: 2024/11/16 17:35:08 by dde-maga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3D.h"
 
 void	draw_flashlight(t_game *game)
@@ -86,6 +98,4 @@ void	draw_minimap(t_game *game)
 	draw_minimap_background(game, map_height, start_map_x, start_map_y);
 	paintimage(game, &game->texture[13], minimap_radius + TILE_SIZE,
 		minimap_radius + TILE_SIZE);
-	//draw_minimap_player(game, minimap_radius);
 }
-

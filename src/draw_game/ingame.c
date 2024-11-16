@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ingame.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:07:21 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 12:16:22 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:35:37 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	start_window(t_game *game)
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->canva.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->canva.addr = mlx_get_data_addr(game->canva.img,
-											&game->canva.bits_per_pixel,
-											&game->canva.line_length,
-											&game->canva.endian);
+			&game->canva.bits_per_pixel,
+			&game->canva.line_length,
+			&game->canva.endian);
 	load_wall(game);
 	ingame(game);
 }

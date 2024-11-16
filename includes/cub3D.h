@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:52:41 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 15:52:43 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:40:32 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,8 @@ int				hex_color(t_game *game, int pos);
 void			draw_skyfloor(t_game *game, double angle, double x, int pos);
 t_img			load_img(t_game *game, char *path);
 void			load_wall(t_game *game);
+void			aux_rotate(t_game *game);
+void			draw_enemy_stripes(t_game *game);
 
 // Garbage
 

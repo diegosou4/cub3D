@@ -12,15 +12,16 @@
 
 #include "../../includes/cub3D.h"
 
-void cal_shadow(t_game *game)
+void	cal_shadow(t_game *game)
 {
-	if (game->light_on == 0 && game->player.ray.perpwalldist >= MAX_RENDER_DISTANCE)
+	if (game->light_on == 0
+		&& game->player.ray.perpwalldist >= MAX_RENDER_DISTANCE)
 		game->player.ray.perpwalldist = MAX_RENDER_DISTANCE;
 	else if (game->player.ray.perpwalldist >= MAX_RENDER_DISTANCE * 3)
 		game->player.ray.perpwalldist = MAX_RENDER_DISTANCE * 3;
 }
 
-int check_door(t_game *game, int map_x, int map_y)
+int	check_door(t_game *game, int map_x, int map_y)
 {
 	if (game->map[map_y][map_x] == '1')
 	{
@@ -35,11 +36,11 @@ int check_door(t_game *game, int map_x, int map_y)
 	return (0);
 }
 
-void draw_loading_screen(t_game *game)
+void	draw_loading_screen(t_game *game)
 {
-	int x;
-	int color;
-	int y;
+	int	x;
+	int	color;
+	int	y;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -47,7 +48,9 @@ void draw_loading_screen(t_game *game)
 		x = 0;
 		while (x < WIDTH)
 		{
-			color = my_mlx_pixel_get(&game->texture[12].texture, x * game->texture[12].texture.img_width / WIDTH, y * game->texture[12].texture.img_height / HEIGHT);
+			color = my_mlx_pixel_get(&game->texture[12].texture, x
+					* game->texture[12].texture.img_width / WIDTH, y
+					* game->texture[12].texture.img_height / HEIGHT);
 			my_mlx_pixel_put(&game->canva, x, y, color);
 			x++;
 		}
@@ -55,11 +58,11 @@ void draw_loading_screen(t_game *game)
 	}
 }
 
-void draw_allray(t_game *game)
+void	draw_allray(t_game *game)
 {
-	int x;
-	int playertilex;
-	int playertiley;
+	int	x;
+	int	playertilex;
+	int	playertiley;
 
 	x = 0;
 	playertilex = (int)game->player.posx;
