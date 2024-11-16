@@ -1,87 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mov.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 12:40:55 by diegmore          #+#    #+#             */
+/*   Updated: 2024/11/16 12:44:02 by diegmore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int key_w(t_game *game) 
+int	key_w(t_game *game)
 {
-	double newPosX;
-	double newPosY;
+	double	newpos_x;
+	double	newpos_y;
 
-	newPosX = game->player.PosX + game->player.dirX * MOVE_SPEED;
-	newPosY = game->player.PosY + game->player.dirY * MOVE_SPEED;
-	if (game->map[(int)newPosY][(int)newPosX] != '1') 
+	newpos_x = game->player.PosX + game->player.dirX * MOVE_SPEED;
+	newpos_y = game->player.PosY + game->player.dirY * MOVE_SPEED;
+	if (game->map[(int)newpos_y][(int)newpos_x] != '1')
 	{
-		game->player.PosX = newPosX;
-		game->player.PosY = newPosY;
+		game->player.PosX = newpos_x;
+		game->player.PosY = newpos_y;
 	}
-	if(game->map[(int)newPosY][(int)newPosX] == '2')
-		game->inside_wall = true;
-	else
-		game->inside_wall = false;
-	return 0;
-}
-
-int key_s(t_game *game) 
-{
-	double newPosX;
-	double newPosY;
-
-	newPosX = game->player.PosX - game->player.dirX * MOVE_SPEED;
-	newPosY = game->player.PosY - game->player.dirY * MOVE_SPEED;
-	if (game->map[(int)newPosY][(int)newPosX] != '1') 
-	{
-		game->player.PosX = newPosX;
-		game->player.PosY = newPosY;
-	}
-	if(game->map[(int)newPosY][(int)newPosX] == '2')
-		game->inside_wall = true;
-	else
-		game->inside_wall = false;
-	return 0;
-}
-
-int key_d(t_game *game)
-{
-	double newPosX;
-	double newPosY;
-
-	newPosX = newPosX = game->player.PosX + game->player.camera.PlaneX * MOVE_SPEED;
-	newPosY = game->player.PosY + game->player.camera.PlaneY * MOVE_SPEED;
-	if (game->map[(int)newPosY][(int)newPosX] != '1') 
-	{
-		game->player.PosX = newPosX;
-		game->player.PosY = newPosY;
-	}
-	if(game->map[(int)newPosY][(int)newPosX] == '2')
-		game->inside_wall = true;
-	else
-		game->inside_wall = false;
-	return 0;
-}
-
-
-int key_a(t_game *game) 
-{
-	double newPosX;
-	double newPosY;
-
-	newPosX = game->player.PosX - game->player.camera.PlaneX * MOVE_SPEED;
-	newPosY = game->player.PosY - game->player.camera.PlaneY * MOVE_SPEED;
-	if (game->map[(int)newPosY][(int)newPosX] != '1') 
-	{
-		game->player.PosX = newPosX;
-		game->player.PosY = newPosY;
-	}
-	if(game->map[(int)newPosY][(int)newPosX] == '2')
+	if (game->map[(int)newpos_y][(int)newpos_x] == '2')
 		game->inside_wall = true;
 	else
 		game->inside_wall = false;
 	return (0);
 }
 
+int	key_s(t_game *game)
+{
+	double	newpos_x;
+	double	newpos_y;
 
+	newpos_x = game->player.PosX - game->player.dirX * MOVE_SPEED;
+	newpos_y = game->player.PosY - game->player.dirY * MOVE_SPEED;
+	if (game->map[(int)newpos_y][(int)newpos_x] != '1')
+	{
+		game->player.PosX = newpos_x;
+		game->player.PosY = newpos_y;
+	}
+	if (game->map[(int)newpos_y][(int)newpos_x] == '2')
+		game->inside_wall = true;
+	else
+		game->inside_wall = false;
+	return (0);
+}
 
+int	key_d(t_game *game)
+{
+	double	newpos_x;
+	double	newpos_y;
 
-int player_mov(t_game *game)
+	newpos_x = game->player.PosX + game->player.camera.PlaneX * MOVE_SPEED;
+	newpos_y = game->player.PosY + game->player.camera.PlaneY * MOVE_SPEED;
+	if (game->map[(int)newpos_y][(int)newpos_x] != '1')
+	{
+		game->player.PosX = newpos_x;
+		game->player.PosY = newpos_y;
+	}
+	if (game->map[(int)newpos_y][(int)newpos_x] == '2')
+		game->inside_wall = true;
+	else
+		game->inside_wall = false;
+	return (0);
+}
+
+int	key_a(t_game *game)
+{
+	double	newpos_x;
+	double	newpos_y;
+
+	newpos_x = game->player.PosX - game->player.camera.PlaneX * MOVE_SPEED;
+	newpos_y = game->player.PosY - game->player.camera.PlaneY * MOVE_SPEED;
+	if (game->map[(int)newpos_y][(int)newpos_x] != '1')
+	{
+		game->player.PosX = newpos_x;
+		game->player.PosY = newpos_y;
+	}
+	if (game->map[(int)newpos_y][(int)newpos_x] == '2')
+		game->inside_wall = true;
+	else
+		game->inside_wall = false;
+	return (0);
+}
+
+int	player_mov(t_game *game)
 {
 	if (game->N && game->y_mov == -1)
 		key_w(game);
@@ -91,15 +98,9 @@ int player_mov(t_game *game)
 		key_d(game);
 	if (game->O && game->x_mov == -1)
 		key_a(game);
-	if(game->rot_Left == 1)
+	if (game->rot_Left == 1)
 		arrow_left(game);
-	if(game->rot_Right == 1)
+	if (game->rot_Right == 1)
 		arrow_right(game);
 	return (0);
 }
-
-
-
-
-
-
