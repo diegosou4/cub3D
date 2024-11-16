@@ -25,6 +25,8 @@ void	case_text(t_game *game, char *line, char **split)
         i = 6;
     else if (line[0] == 'E' && line[1] == 'A')
         i = 9;
+	else 
+		i = -1;
 	if (i != -1)
 	{
 		game->texture[i].texture.relative_path = ft_strdup(split[1]);
@@ -122,8 +124,6 @@ void	check_direction(t_game *game)
 		split_line(game->map_info[i++], game, case_addtex, 2);
 	while (game->map_info[i] != NULL && filled_colors(game) != true)
 		split_line(game->map_info[i++], game, case_color, 1);
-	
-	
 	check_texture(game);
 	while (game->map_info[i] != NULL
 		&& ft_whitespaces(game->map_info[i]) == true)

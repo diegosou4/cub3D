@@ -54,7 +54,7 @@ void	init_values(t_game *game)
 	game->player.ray.side_disty = 0;
 	game->player.ray.delta_distx = 0;
 	game->player.ray.delta_disty = 0;
-	game->player.ray.perpwall_dist = 0;
+	game->player.ray.perpwalldist = 0;
 	game->player.ray.stepx = 0;
 	game->player.ray.stepy = 0;
 	game->player.ray.hit = 0;

@@ -48,10 +48,10 @@ void	draw_walls_fade(t_game *game, t_img *texture, double angle)
 			+ game->player.ray.lineheight / 2) * game->player.step;
 	y = game->player.ray.drawstart;
 	if (game->light_on == 0)
-		game->player.fade_factor = 1.0 - (game->player.ray.perpwall_dist
+		game->player.fade_factor = 1.0 - (game->player.ray.perpwalldist
 				/ MAX_RENDER_DISTANCE);
 	else
-		game->player.fade_factor = 1.0 - (game->player.ray.perpwall_dist
+		game->player.fade_factor = 1.0 - (game->player.ray.perpwalldist
 				/ (MAX_RENDER_DISTANCE * 3));
 	if (game->player.fade_factor < 0)
 		game->player.fade_factor = 0.0;
@@ -115,10 +115,10 @@ void	draw_texture(t_game *game, double angle)
 	if (game->map[(int)game->player.posy][(int)game->player.posx] != '2')
 		draw_skyfloor(game, angle, game->player.ray.drawend, 0);
 	if (game->player.ray.side == 0)
-		wall_x = game->player.posy + game->player.ray.perpwall_dist
+		wall_x = game->player.posy + game->player.ray.perpwalldist
 			* game->player.ray.ray_dir_y;
 	else
-		wall_x = game->player.posx + game->player.ray.perpwall_dist
+		wall_x = game->player.posx + game->player.ray.perpwalldist
 			* game->player.ray.ray_dir_x;
 	wall_x -= floor(wall_x);
 	pos = return_pos(game);

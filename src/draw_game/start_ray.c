@@ -43,13 +43,13 @@ void	calculate_ray(t_game *game, int map_x, int map_y)
 void	calculate_distance(t_game *game)
 {
 	if (game->player.ray.side == 0)
-		game->player.ray.perpwall_dist = (game->player.ray.side_distx
+		game->player.ray.perpwalldist = (game->player.ray.side_distx
 				- game->player.deltax);
 	else
-		game->player.ray.perpwall_dist = (game->player.ray.side_disty
+		game->player.ray.perpwalldist = (game->player.ray.side_disty
 				- game->player.deltay);
-	if (game->player.ray.perpwall_dist < 0.1)
-		game->player.ray.perpwall_dist = 0.1;
+	if (game->player.ray.perpwalldist < 0.1)
+		game->player.ray.perpwalldist = 0.1;
 }
 
 void	hit_wall(t_game *game, int map_x, int map_y)
@@ -76,7 +76,7 @@ void	hit_wall(t_game *game, int map_x, int map_y)
 
 void	check_rays(t_game *game)
 {
-	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpwall_dist);
+	game->player.ray.lineheight = (int)(HEIGHT / game->player.ray.perpwalldist);
 	game->player.ray.drawstart = -game->player.ray.lineheight / 2 + HEIGHT / 2;
 	if (game->player.ray.drawstart < 0)
 		game->player.ray.drawstart = 0;

@@ -2,7 +2,7 @@
 
 #include "../../includes/cub3D.h"
 
-static void	key_rot(t_game *game, int keycode)
+void	key_rot(t_game *game, int keycode)
 {
 	if (keycode == L_AR)
 		game->rot_left = 1;
@@ -10,7 +10,7 @@ static void	key_rot(t_game *game, int keycode)
 		game->rot_right = 1;
 }
 
-static void	key_ligths(t_game *game, int keycode)
+void	key_ligths(t_game *game, int keycode)
 {
 	if (keycode == KEY_F)
 	{
@@ -21,7 +21,7 @@ static void	key_ligths(t_game *game, int keycode)
 	}
 }
 
-static void	key_direction(t_game *game, int keycode)
+void	key_direction(t_game *game, int keycode)
 {
 	if (keycode == KEY_A)
 	{

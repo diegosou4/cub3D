@@ -2,8 +2,10 @@
 
 void init_enemies(t_game *game)
 {
-    int x, y;
+    int x;
+    int y;
 
+    y = 0;
     game->num_enemies = 0;
     while (game->map[y] != NULL)
     {
@@ -80,14 +82,14 @@ void draw_enemy(t_game *game)
         if (distance < MIN_PROXIMITY_DISTANCE)
             continue;
         enemy_val_aux(game);
-        if (game->draw.transformy > 0 && game->draw.transformy < game->player.ray.perpwall_dist)
+        if (game->draw.transformy > 0 && game->draw.transformy < game->player.ray.perpwalldist)
         {
             bu_timer(game);
             enemy_val_aux2(game);
             while (game->draw.stripe < game->draw.drawendx)
             {
                 game->draw.tex_x = (int)((game->draw.stripe - (-game->draw.spritewidth / 2 + game->draw.spritescreenx)) * game->texture[15].texture.img_width / game->draw.spritewidth);
-                if (game->draw.transformy > 0 && game->draw.stripe > 0 && game->draw.stripe < WIDTH && game->draw.transformy < game->player.ray.perpwall_dist)
+                if (game->draw.transformy > 0 && game->draw.stripe > 0 && game->draw.stripe < WIDTH && game->draw.transformy < game->player.ray.perpwalldist)
                 {
                     game->draw.y = game->draw.drawstarty;
                     draw_aux1(game);
