@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 12:31:29 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/07 18:12:35 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:45:42 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	paintimage(t_game *game, t_texture *img, int sx, int sy)
 		x = 0;
 		while (x < img->texture.img_width)
 		{
-			my_mlx_pixel_put(&game->canva, sx + x, sy + y, my_mlx_pixel_get(&img->texture,
-					x, y));
+			my_mlx_pixel_put(&game->canva, sx + x, sy + y,
+				my_mlx_pixel_get(&img->texture, x, y));
 			x++;
 		}
 		y++;

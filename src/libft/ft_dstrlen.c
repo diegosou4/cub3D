@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_dstrlen.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 13:47:48 by diegmore          #+#    #+#             */
+/*   Updated: 2024/11/16 13:48:26 by diegmore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3D.h"
 
-
-int ft_dstrlen(char **str)
+int	ft_dstrlen(char **str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(str[i] != NULL)
-        i++;
-    return(i);
+	i = 0;
+	while (str[i] != NULL)
+		i++;
+	return (i);
 }

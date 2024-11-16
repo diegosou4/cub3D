@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   join_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 14:12:55 by diegmore          #+#    #+#             */
+/*   Updated: 2024/11/16 14:12:58 by diegmore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
@@ -61,4 +72,47 @@ char	*joinmap(char *new_str, char *buffer)
 	new_str[j] = '\0';
 	free(buffer);
 	return (new_str);
+}
+
+int	valid_line(char *line)
+{
+	int	i;
+
+	i = 2;
+	if (line[i] == ' ')
+	{
+		i++;
+		while (line[i] != '\0')
+		{
+			if (line[i] == ' ')
+				return (0);
+			i++;
+		}
+	}
+	return (1);
+}
+
+bool	all_num(char **split2)
+{
+	int	i;
+	int	num;
+	int	j;
+
+	i = 0;
+	num = 0;
+	while (i != 3)
+	{
+		j = 0;
+		if (ft_strlen(split2[i]) == 0 || ft_strlen(split2[i]) > 3)
+			return (false);
+		while (split2[i][j] != '\0')
+		{
+			num = ft_atoi(split2[i]);
+			if (ft_isdigit(split2[i][j]) == 0 || num < 0 || num > 255)
+				return (false);
+			j++;
+		}
+		i++;
+	}
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: diegmore <diegmore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:19:52 by diegmore          #+#    #+#             */
-/*   Updated: 2024/08/13 11:10:37 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:52:52 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,18 @@ char	*ft_strdup(const char *src)
 	return (dest);
 }
 
-char **ft_dstrdup(char **src)
+char	**ft_dstrdup(char **src)
 {
-	char **dest;
-	int i;
+	char	**dest;
+	int		i;
 
 	i = 0;
 	dest = (char **)ft_calloc((ft_dstrlen(src) + 1), sizeof(char *));
-	while(src[i] != NULL)
+	while (src[i] != NULL)
 	{
 		dest[i] = ft_strdup(src[i]);
 		i++;
 	}
 	dest[i] = NULL;
-	return(dest);
+	return (dest);
 }
-// pega o src e faz uma copia
-// usa o malloc para isso
-// eu uso o calloc por ser mais seguro
-// muito bom para uma string que tem
-// um tamanho menor que o buff

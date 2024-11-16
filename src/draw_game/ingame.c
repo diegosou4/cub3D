@@ -1,18 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ingame.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 12:07:21 by diegmore          #+#    #+#             */
+/*   Updated: 2024/11/16 12:16:22 by diegmore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3D.h"
 
-
-void ingame(t_game *game)
+int	key_event(int keycode, t_game *game)
 {
-    const char *playCommand = "paplay assets/music/liminal.wav > /dev/null 2>&1 &";
-	start_map(game,0);
+	mouse_monitor(game, keycode);
+	define_mov(game, keycode);
+	draw_allray(game);
+	if (keycode == ESC)
+	{
+		system("pkill paplay > /dev/null 2>&1");
+		game->status_free = FINAL;
+		mlx_do_key_autorepeaton(game->mlx);
+		garabe_collector(game);
+	}
+	return (0);
+}
+
+void	start_window(t_game *game)
+{
+	game->status_free = MLX;
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
+	game->canva.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->canva.addr = mlx_get_data_addr(game->canva.img,
+											&game->canva.bits_per_pixel,
+											&game->canva.line_length,
+											&game->canva.endian);
+	load_wall(game);
+	ingame(game);
+}
+
+void	save_msc(t_game *game)
+{
+	game->playCmd = ft_strdup("paplay assets/music/li.wav > /dev/null 2>&1 &");
+	game->playBur = ft_strdup("paplay assets/music/BU.wav > /dev/null 2>&1 &");
+}
+
+void	ingame(t_game *game)
+{
+	start_map(game, 0);
 	init_enemies(game);
 	draw_allray(game);
-
-	// system(playCommand);
+	save_msc(game);
+	if (game->playCmd != NULL)
+	{
+		system(game->playCmd);
+	}
 	mlx_hook(game->win, 2, (1L << 0), key_event, game);
 	mlx_hook(game->win, 3, (1L << 1), key_drop, game);
 	mlx_hook(game->win, 6, (1L << 6), mouse_track, game);
 	mlx_do_key_autorepeatoff(game->mlx);
-	mlx_loop_hook(game->mlx, mouse_monitor, game);	//consoante a mudança de posição ela executa um movimento
+	mlx_loop_hook(game->mlx, mouse_monitor, game);
 	mlx_loop(game->mlx);
 }

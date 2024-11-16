@@ -1,29 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_parse.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 14:10:40 by diegmore          #+#    #+#             */
+/*   Updated: 2024/11/16 14:10:48 by diegmore         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-
-// This ideia is salve the map in *map after this
-// i will use slip to create **map
-// and after i will check the map
-
-
-void check_line(t_game *game)
+void	check_line(t_game *game)
 {
-
 	game->map_info = ft_split(game->line, '\n');
-	free(game->line);	
+	free(game->line);
 	game->player.Px = -1;
 	game->player.Py = -1;
 	game->player.direction = -1;
+	
 	check_direction(game);
+		
 }
 
-
-char *open_file(char *path)
+char	*open_file(char *path)
 {
-
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -32,9 +36,8 @@ char *open_file(char *path)
 		return (NULL);
 	}
 	line = open_read(fd);
-	return(line);
+	return (line);
 }
-
 
 int	check_ext(char *pathname, char *format, char *type)
 {
@@ -62,23 +65,28 @@ int	check_ext(char *pathname, char *format, char *type)
 	return (j);
 }
 
-void init_parse(char *path)
+void	init_parse(char *path)
 {
-	t_game *game;
+	t_game	*game;
 
-	if(!(check_ext(path,".cub","map") == 4))
-		return;
-	game = ft_calloc(sizeof(t_game) , 1);
+	if (!(check_ext(path, ".cub", "map") == 4))
+		return ;
+	game = ft_calloc(sizeof(t_game), 1);
 	init_values(game);
+		
 	game->line = open_file(path);
-	if(game->line == NULL)
+	if (game->line == NULL)
 	{
 		printf("Error\n");
 		free(game);
-		return;
-	} 
+		return ;
+	}
+
+
 	check_line(game);
+	
 	start_window(game);
+
 	garabe_collector(game);
 }
 
@@ -99,7 +107,7 @@ char	*open_read(int fd)
 			free(buffer);
 			break ;
 		}
-		if(sizestr == 1 && buffer[0] == '\n')
+		if (sizestr == 1 && buffer[0] == '\n')
 		{
 			free(buffer);
 			buffer = ft_strdup(" \n");
@@ -108,4 +116,3 @@ char	*open_read(int fd)
 	}
 	return (str);
 }
-
