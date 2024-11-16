@@ -73,7 +73,7 @@ void draw_allray(t_game *game)
 		draw_loading_screen(game);
 	else
 	{
-		if (game->light_on == 0)
+		if (game->light_on == 0 && game->current_world == 0)
 			draw_enemy(game);
 		draw_minimap(game);
 		draw_flashlight(game);
