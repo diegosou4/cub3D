@@ -55,13 +55,13 @@ void	draw_walls_fade(t_game *game, t_img *texture, double angle)
 				/ (MAX_RENDER_DISTANCE * 3));
 	if (game->player.fade_factor < 0)
 		game->player.fade_factor = 0.0;
-	while (y++ < game->player.ray.drawend)
+	while (y < game->player.ray.drawend)
 	{
 		texy = (int)texpos & (texture->img_height - 1);
 		texpos += game->player.step;
 		color = my_mlx_pixel_get(texture, texture->img_height - (int)angle,
 				texy);
-		swift_rgb(game, color, game->player.fade_factor, y);
+		swift_rgb(game, color, game->player.fade_factor, y++);
 	}
 }
 

@@ -62,7 +62,6 @@ void	define_mov(t_game *game, int keycode)
 	key_direction(game, keycode);
 }
 
-// Resolver essa funcao
 int	key_drop(int keycode, t_game *game)
 {
 	if (keycode == KEY_W && (game->y_mov == 0 || game->y_mov == -1))
