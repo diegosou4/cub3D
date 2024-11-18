@@ -20,7 +20,7 @@ int	key_event(int keycode, t_game *game)
 	if (keycode == ESC)
 	{
 		system("pkill paplay > /dev/null 2>&1");
-		game->status_free = FINAL;
+		game->status_free = MLX;
 		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
 	}
@@ -38,6 +38,7 @@ void	start_window(t_game *game)
 			&game->canva.line_length,
 			&game->canva.endian);
 	load_wall(game);
+	game->status_free = MLX;
 	ingame(game);
 }
 

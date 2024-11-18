@@ -38,6 +38,8 @@ void	destroy_game(t_game *game)
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
+	if(game->mlx != NULL)
+		free(game->mlx);
 	free_game(game);
 	exit(0);
 }
@@ -56,7 +58,10 @@ void	garabe_collector(t_game *game)
 	if (game->status_free != MLX)
 		free_game(game);
 	else if (game->status_free == MLX)
+	{
 		destroy_game(game);
+	}
+		
 	exit(0);
 }
 
