@@ -6,7 +6,7 @@
 /*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:57:54 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 13:57:56 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:12:24 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	case_text(t_game *game, char *line, char **split)
 		i = 6;
 	else if (line[0] == 'E' && line[1] == 'A')
 		i = 9;
-	if(game->texture[i].filled == true)
+	if (game->texture[i].filled == true)
 	{
 		game->texture[i].duplicate = 1;
 		i = -1;
@@ -56,22 +56,20 @@ void	case_addtex(t_game *game, char *line, char **split)
 		i = 15;
 	if (i == -1)
 		return ;
-	if(game->texture[i].filled == true)
+	if (game->texture[i].filled == true)
 	{
 		game->texture[i].duplicate = 1;
-		return;
+		return ;
 	}
 	game->texture[i].texture.relative_path = ft_strdup(split[1]);
 	game->texture[i].filled = true;
 }
-
 
 void	case_color(t_game *game, char *line, char **split)
 {
 	char	**split2;
 
 	split2 = ft_split(split[1], ',');
-
 	if (len_darray(split2) != 3 || all_num(split2) == false)
 	{
 		ft_freedarray(split);
@@ -80,15 +78,15 @@ void	case_color(t_game *game, char *line, char **split)
 	}
 	if (line[0] == 'F')
 	{
-		if(game->color[F].filled == true)
+		if (game->color[F].filled == true)
 			game->color[F].duplicate = 1;
-		fill_rgb(game,split2,F);
+		fill_rgb(game, split2, F);
 	}
 	else if (line[0] == 'C')
 	{
-		if(game->color[C].filled == true)
+		if (game->color[C].filled == true)
 			game->color[C].duplicate = 1;
-		fill_rgb(game,split2,C);
+		fill_rgb(game, split2, C);
 	}
 	ft_freedarray(split2);
 }
@@ -97,7 +95,7 @@ void	split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 {
 	char	**split;
 	int		len;
-	
+
 	split = ft_split(line, ' ');
 	len = len_darray(split);
 	if (game->split_parse == true && len == 4)
@@ -118,7 +116,7 @@ void	split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 		print_free(game, "Error when trying to parse the map");
 	}
 	ft_freedarray(split);
-	if(len == -1)
+	if (len == -1)
 		print_free(game, "Error when trying to parse the map");
 }
 
@@ -137,8 +135,7 @@ void	check_direction(t_game *game)
 	{
 		split_line(game->map_info[i], game, case_color, 1);
 		i++;
-	}	
-
+	}
 	check_texture(game);
 	while (game->map_info[i] != NULL
 		&& ft_whitespaces(game->map_info[i]) == true)

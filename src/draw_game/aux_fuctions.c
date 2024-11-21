@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:41:22 by dde-maga          #+#    #+#             */
-/*   Updated: 2024/11/16 17:42:09 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:08:07 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ void	draw_enemy_stripes(t_game *game)
 		game->draw.stripe++;
 	}
 }
-void fill_rgb(t_game *game,char **split, int index)
+
+void	fill_rgb(t_game *game, char **split, int index)
 {
-	if(game->color[index].duplicate == 1)
-		return;
+	if (game->color[index].duplicate == 1)
+		return ;
 	game->color[index].r = ft_atoi(split[0]);
 	game->color[index].g = ft_atoi(split[1]);
 	game->color[index].b = ft_atoi(split[2]);

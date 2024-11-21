@@ -6,7 +6,7 @@
 /*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:06:40 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 14:08:28 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:13:20 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	filled_textures(t_game *game)
 		i = 0;
 		while (i != 12)
 		{
-			if(game->texture[i].duplicate == 1)
+			if (game->texture[i].duplicate == 1)
 				print_free(game, "Invalid Duplicate Texture");
 			if (game->texture[i].filled == false)
 				return (false);
@@ -31,8 +31,8 @@ bool	filled_textures(t_game *game)
 	}
 	while (i != NUM_TEXTURE)
 	{
-		if(game->texture[i].duplicate == 1)
-				print_free(game, "Invalid Duplicate Texture");
+		if (game->texture[i].duplicate == 1)
+			print_free(game, "Invalid Duplicate Texture");
 		if (game->texture[i].filled == false)
 			return (false);
 		i++;
@@ -59,19 +59,19 @@ void	check_texture(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i != NUM_TEXTURE )
+	while (i != NUM_TEXTURE)
 	{
 		if (check_ext(game->texture[i].texture.relative_path, ".xpm",
 				"texture") != 4)
 			print_free(game, "Invalid  Texture Path");
-		if(game->texture[i].duplicate == 1)
+		if (game->texture[i].duplicate == 1)
 			print_free(game, "Duplicate Texture");
 		i++;
 	}
 	i = 0;
-	while(i != 2)
+	while (i != 2)
 	{
-		if(game->color[i].duplicate == 1)
+		if (game->color[i].duplicate == 1)
 			print_free(game, "Duplicate Color");
 		i++;
 	}

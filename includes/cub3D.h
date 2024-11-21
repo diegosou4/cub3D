@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:52:41 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/21 17:44:39 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:04:59 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ char			*joinmap(char *new_str, char *buffer);
 int				valid_line(char *line);
 bool			all_num(char **split2);
 int				save_direction(t_game *game, int c_col, int c_row);
-void			fill_rgb(t_game *game,char **split, int index);
+void			fill_rgb(t_game *game, char **split, int index);
 bool			flood_cases(t_game *game, int c_col, int c_row);
 bool			is_wall(t_game *game, int c_col, int c_row);
 bool			flood_fill(t_game *game, int c_col, int c_row);
