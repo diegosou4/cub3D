@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:52:41 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 17:40:32 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:44:39 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,11 +261,11 @@ int				check_world(t_game *game, int pos);
 void			draw_texture(t_game *game, double angle);
 int				key_event(int keycode, t_game *game);
 void			start_window(t_game *game);
-void		save_msc(t_game *game);
+void			save_msc(t_game *game);
 void			ingame(t_game *game);
-void		key_rot(t_game *game, int keycode);
-void		key_ligths(t_game *game, int keycode);
-void		key_direction(t_game *game, int keycode);
+void			key_rot(t_game *game, int keycode);
+void			key_ligths(t_game *game, int keycode);
+void			key_direction(t_game *game, int keycode);
 void			define_mov(t_game *game, int keycode);
 int				key_drop(int keycode, t_game *game);
 void			draw_flashlight(t_game *game);

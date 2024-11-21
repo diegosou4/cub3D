@@ -6,7 +6,7 @@
 /*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:42:03 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 13:42:05 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:43:44 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	destroy_game(t_game *game)
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
-	if(game->mlx != NULL)
+	if (game->mlx != NULL)
 		free(game->mlx);
 	free_game(game);
 	exit(0);
@@ -61,7 +61,6 @@ void	garabe_collector(t_game *game)
 	{
 		destroy_game(game);
 	}
-		
 	exit(0);
 }
 

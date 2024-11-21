@@ -6,17 +6,17 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:48:57 by dde-maga          #+#    #+#             */
-/*   Updated: 2024/11/16 17:49:09 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:45:56 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3D.h" 
+#include "includes/cub3D.h"
 
-int main(int ac,char **av)
+int	main(int ac, char **av)
 {
-    if(ac == 2)
-    {
-        init_parse(av[1]);
-    }  
-    return (0);
+	if (ac == 2)
+	{
+		init_parse(av[1]);
+	}
+	return (0);
 }
