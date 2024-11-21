@@ -6,7 +6,7 @@
 /*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:10:40 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 14:10:48 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:33:12 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	init_parse(char *path)
 		return ;
 	}
 	check_line(game);
+	if (game->player.direction == -1)
+		print_free(game, "Error Parse");
 	start_window(game);
 	garabe_collector(game);
 }

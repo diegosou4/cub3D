@@ -6,7 +6,7 @@
 /*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:09:13 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 14:10:09 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:32:33 by diegmore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	save_direction(t_game *game, int c_col, int c_row)
 	{
 		if (game->player.direction != -1)
 		{
-			printf("Invalid tem que tratar  isso\n");
 			return (3);
 		}
 		game->player.direction = game->ff_map[c_col][c_row];
@@ -75,7 +74,6 @@ bool	flood_fill(t_game *game, int c_col, int c_row)
 			game->ff_map[c_col][c_row] = 'x';
 			if (flood_cases(game, c_col, c_row) == false)
 			{
-				printf("Chega por aqui	\n");
 				return (false);
 			}
 		}
