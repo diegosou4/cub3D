@@ -27,6 +27,8 @@ void	case_text(t_game *game, char *line, char **split)
 		i = 9;
 	else
 		i = -1;
+	if(game->texture[i].filled == true)
+		i = -1;
 	if (i != -1)
 	{
 		game->texture[i].texture.relative_path = ft_strdup(split[1]);
