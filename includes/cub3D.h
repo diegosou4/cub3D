@@ -48,6 +48,7 @@ typedef struct s_texture
 {
 	t_img		texture;
 	bool		filled;
+	int			duplicate;
 }				t_texture;
 
 typedef struct s_color
@@ -56,6 +57,7 @@ typedef struct s_color
 	int			g;
 	int			b;
 	bool		filled;
+	int			duplicate;
 }				t_color;
 
 typedef struct s_camera
@@ -225,6 +227,7 @@ char			*joinmap(char *new_str, char *buffer);
 int				valid_line(char *line);
 bool			all_num(char **split2);
 int				save_direction(t_game *game, int c_col, int c_row);
+void			fill_rgb(t_game *game,char **split, int index);
 bool			flood_cases(t_game *game, int c_col, int c_row);
 bool			is_wall(t_game *game, int c_col, int c_row);
 bool			flood_fill(t_game *game, int c_col, int c_row);
@@ -295,6 +298,7 @@ void			check_rays(t_game *game);
 void			draw_ray(t_game *game, double angle);
 void			init_values2(t_game *game);
 void			init_values(t_game *game);
+void			init_values3(t_game *game);
 void			define_direction(t_game *game, char direction);
 void			start_map2(t_game *game, int ftime, int i, int y);
 void			start_map(t_game *game, int ftime);

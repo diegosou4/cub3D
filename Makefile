@@ -11,7 +11,8 @@ PARSER = init_parse.c join_map.c check_directions.c filled_map.c \
 GARBAGE = free_structs.c free_mlx.c
 DRAW =  draw_texture.c mov.c pixel.c start_mlx.c key_fuctions.c \
 		start_values.c minimap.c validate_texture.c ingame.c \
-		aux_fuctions.c draw_enemy.c  mouse_monitor.c start_ray.c
+		aux_fuctions.c draw_enemy.c  mouse_monitor.c start_ray.c \
+		aux_start.c
 GNL = get_next_line.c get_next_line_utils.c 
 LIBFT = ft_bzero.c ft_calloc.c ft_strdup.c ft_is_space.c ft_split.c \
 		ft_len_darray.c ft_whitespaces.c ft_atoi.c ft_freedarray.c \

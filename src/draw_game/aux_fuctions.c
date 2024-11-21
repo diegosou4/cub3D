@@ -66,3 +66,12 @@ void	draw_enemy_stripes(t_game *game)
 		game->draw.stripe++;
 	}
 }
+void fill_rgb(t_game *game,char **split, int index)
+{
+	if(game->color[index].duplicate == 1)
+		return;
+	game->color[index].r = ft_atoi(split[0]);
+	game->color[index].g = ft_atoi(split[1]);
+	game->color[index].b = ft_atoi(split[2]);
+	game->color[index].filled = true;
+}

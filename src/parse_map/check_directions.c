@@ -25,10 +25,11 @@ void	case_text(t_game *game, char *line, char **split)
 		i = 6;
 	else if (line[0] == 'E' && line[1] == 'A')
 		i = 9;
-	else
-		i = -1;
 	if(game->texture[i].filled == true)
+	{
+		game->texture[i].duplicate = 1;
 		i = -1;
+	}
 	if (i != -1)
 	{
 		game->texture[i].texture.relative_path = ft_strdup(split[1]);
@@ -55,15 +56,22 @@ void	case_addtex(t_game *game, char *line, char **split)
 		i = 15;
 	if (i == -1)
 		return ;
+	if(game->texture[i].filled == true)
+	{
+		game->texture[i].duplicate = 1;
+		return;
+	}
 	game->texture[i].texture.relative_path = ft_strdup(split[1]);
 	game->texture[i].filled = true;
 }
+
 
 void	case_color(t_game *game, char *line, char **split)
 {
 	char	**split2;
 
 	split2 = ft_split(split[1], ',');
+
 	if (len_darray(split2) != 3 || all_num(split2) == false)
 	{
 		ft_freedarray(split);
@@ -72,17 +80,15 @@ void	case_color(t_game *game, char *line, char **split)
 	}
 	if (line[0] == 'F')
 	{
-		game->color[F].r = ft_atoi(split2[0]);
-		game->color[F].g = ft_atoi(split2[1]);
-		game->color[F].b = ft_atoi(split2[2]);
-		game->color[F].filled = true;
+		if(game->color[F].filled == true)
+			game->color[F].duplicate = 1;
+		fill_rgb(game,split2,F);
 	}
 	else if (line[0] == 'C')
 	{
-		game->color[C].r = ft_atoi(split2[0]);
-		game->color[C].g = ft_atoi(split2[1]);
-		game->color[C].b = ft_atoi(split2[2]);
-		game->color[C].filled = true;
+		if(game->color[C].filled == true)
+			game->color[C].duplicate = 1;
+		fill_rgb(game,split2,C);
 	}
 	ft_freedarray(split2);
 }
@@ -91,7 +97,7 @@ void	split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 {
 	char	**split;
 	int		len;
-
+	
 	split = ft_split(line, ' ');
 	len = len_darray(split);
 	if (game->split_parse == true && len == 4)
@@ -103,6 +109,8 @@ void	split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 	{
 		if (ft_strlen(split[0]) == charl)
 			l_func(game, line, split);
+		else
+			len = -1;
 	}
 	else if (ft_whitespaces(line) == false)
 	{
@@ -110,6 +118,8 @@ void	split_line(char *line, t_game *game, t_case_line_func l_func, int charl)
 		print_free(game, "Error when trying to parse the map");
 	}
 	ft_freedarray(split);
+	if(len == -1)
+		print_free(game, "Error when trying to parse the map");
 }
 
 void	check_direction(t_game *game)
@@ -124,7 +134,11 @@ void	check_direction(t_game *game)
 	while (game->map_info[i] != NULL && filled_textures(game) != true)
 		split_line(game->map_info[i++], game, case_addtex, 2);
 	while (game->map_info[i] != NULL && filled_colors(game) != true)
-		split_line(game->map_info[i++], game, case_color, 1);
+	{
+		split_line(game->map_info[i], game, case_color, 1);
+		i++;
+	}	
+
 	check_texture(game);
 	while (game->map_info[i] != NULL
 		&& ft_whitespaces(game->map_info[i]) == true)

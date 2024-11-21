@@ -66,7 +66,7 @@ void	garabe_collector(t_game *game)
 
 void	print_free(t_game *game, char *errostr)
 {
-	garabe_collector(game);
 	printf("%s\n", errostr);
+	garabe_collector(game);
 	exit(0);
 }

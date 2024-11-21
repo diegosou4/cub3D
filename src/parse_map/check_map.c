@@ -93,7 +93,7 @@ void	check_middle(t_game *game, int end)
 			if (game->map[col][row] != '1' || end_map(game->map[col]) == 0)
 				print_free(game, "Invalid Map");
 			if (flood_fill(game, col, row + 1) == false)
-				print_free(game, "Invalid Map aqui");
+				print_free(game, "Invalid Map");
 			break ;
 		}
 		col++;
