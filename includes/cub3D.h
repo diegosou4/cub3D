@@ -319,7 +319,7 @@ void			free_game(t_game *game);
 void			free_texture(t_game *game);
 void			free_map(t_game *game);
 void			destroy_game(t_game *game);
-void			garabe_collector(t_game *game);
+int			garabe_collector(t_game *game);
 void			print_free(t_game *game, char *errostr);
 
 #endif

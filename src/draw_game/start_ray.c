@@ -48,8 +48,6 @@ void	calculate_distance(t_game *game)
 	else
 		game->player.ray.perpwalldist = (game->player.ray.side_disty
 				- game->player.deltay);
-	if (game->player.ray.perpwalldist < 0.1)
-		game->player.ray.perpwalldist = 0.1;
 }
 
 void	hit_wall(t_game *game, int map_x, int map_y)

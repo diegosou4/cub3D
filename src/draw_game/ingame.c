@@ -21,7 +21,6 @@ int	key_event(int keycode, t_game *game)
 	{
 		system("pkill paplay > /dev/null 2>&1");
 		game->status_free = MLX;
-		mlx_do_key_autorepeaton(game->mlx);
 		garabe_collector(game);
 	}
 	return (0);
@@ -59,6 +58,7 @@ void	ingame(t_game *game)
 		system(game->playcmd);
 	}
 	mlx_hook(game->win, 2, (1L << 0), key_event, game);
+	mlx_hook(game->win, 17, (1L << 0), garabe_collector, game);
 	mlx_hook(game->win, 3, (1L << 1), key_drop, game);
 	mlx_hook(game->win, 6, (1L << 6), mouse_track, game);
 	mlx_do_key_autorepeatoff(game->mlx);

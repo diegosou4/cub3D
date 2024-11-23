@@ -44,7 +44,7 @@ void	destroy_game(t_game *game)
 	exit(0);
 }
 
-void	garabe_collector(t_game *game)
+int	garabe_collector(t_game *game)
 {
 	free_map_info(game);
 	free_ff_map(game);
@@ -60,8 +60,10 @@ void	garabe_collector(t_game *game)
 	else if (game->status_free == MLX)
 	{
 		destroy_game(game);
+		mlx_do_key_autorepeaton(game->mlx);
 	}
 	exit(0);
+	return(0);
 }
 
 void	print_free(t_game *game, char *errostr)
