@@ -59,8 +59,8 @@ int	garabe_collector(t_game *game)
 		free_game(game);
 	else if (game->status_free == MLX)
 	{
-		destroy_game(game);
 		mlx_do_key_autorepeaton(game->mlx);
+		destroy_game(game);
 	}
 	exit(0);
 	return(0);
