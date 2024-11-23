@@ -103,7 +103,7 @@ void	draw_enemy(t_game *game)
 		game->draw.enemyy = game->enemies[i].y - game->player.posy;
 		distance = sqrt(game->draw.enemyx * game->draw.enemyx
 				+ game->draw.enemyy * game->draw.enemyy);
-		if (distance < MIN_PROXIMITY_DISTANCE)
+		if (distance < MIN_PROXIMITY_DISTANCE || distance > 2)
 			continue ;
 		enemy_val_aux(game);
 		if (game->draw.transformy > 0

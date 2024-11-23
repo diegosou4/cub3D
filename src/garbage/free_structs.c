@@ -63,7 +63,7 @@ int	garabe_collector(t_game *game)
 		destroy_game(game);
 	}
 	exit(0);
-	return(0);
+	return (0);
 }
 
 void	print_free(t_game *game, char *errostr)
