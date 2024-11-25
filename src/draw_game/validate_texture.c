@@ -90,11 +90,11 @@ void	load_wall(t_game *game)
 				game->texture[i].texture.relative_path);
 		img_height = game->texture[i].texture.img_width;
 		img_width = game->texture[i].texture.img_height;
-		if (img_height > img_width)
+		if (img_height > img_width && i != 14)
 			print_free(game, "Invalid Texture Dimensions");
 		game->current_img = i;
 		i++;
 	}
-	if (game->texture[14].texture.img_height > 200)
+	if (game->texture[14].texture.img_height > WIDTH)
 		print_free(game, "Invalid Texture Dimensions");
 }

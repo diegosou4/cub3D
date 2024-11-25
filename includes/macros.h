@@ -25,9 +25,9 @@
 # define KEY_F 102
 # define L_AR 65361
 # define R_AR 65363
-# define MOVE_SPEED 0.02
+# define MOVE_SPEED 0.03
 # define MIN_PROXIMITY_DISTANCE 0.4
-# define ROT_SPEED 0.03
+# define ROT_SPEED 0.04
 
 # define NUM_TEXTURE 16
 # define MAX_ENEMIES 100
@@ -53,8 +53,8 @@
 # define BLOOD_RED 0x780606
 # define TRANSPARENT_COLOR 0xfff000
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 440
+# define HEIGHT 500
 # define TAM_TEXT 256
 # define TAM_Y_P 32
 # define TAM_X_P 32

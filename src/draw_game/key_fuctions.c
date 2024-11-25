@@ -60,6 +60,13 @@ void	define_mov(t_game *game, int keycode)
 	key_rot(game, keycode);
 	key_ligths(game, keycode);
 	key_direction(game, keycode);
+	if (keycode == 65505)
+	{
+		if (game->sp == 1)
+			game->sp = 2;
+		else
+			game->sp = 1;
+	}
 }
 
 int	key_drop(int keycode, t_game *game)

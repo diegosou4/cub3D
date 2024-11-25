@@ -17,8 +17,8 @@ int	key_w(t_game *game)
 	double	newpos_x;
 	double	newpos_y;
 
-	newpos_x = game->player.posx + game->player.dirx * MOVE_SPEED;
-	newpos_y = game->player.posy + game->player.diry * MOVE_SPEED;
+	newpos_x = game->player.posx + game->player.dirx * (MOVE_SPEED * game->sp);
+	newpos_y = game->player.posy + game->player.diry * (MOVE_SPEED * game->sp);
 	if (game->map[(int)game->player.posy][(int)newpos_x] != '1')
 	{
 		game->player.posx = newpos_x;
@@ -39,8 +39,8 @@ int	key_s(t_game *game)
 	double	newpos_x;
 	double	newpos_y;
 
-	newpos_x = game->player.posx - game->player.dirx * MOVE_SPEED;
-	newpos_y = game->player.posy - game->player.diry * MOVE_SPEED;
+	newpos_x = game->player.posx - game->player.dirx * (MOVE_SPEED * game->sp);
+	newpos_y = game->player.posy - game->player.diry * (MOVE_SPEED * game->sp);
 	if (game->map[(int)game->player.posy][(int)newpos_x] != '1')
 	{
 		game->player.posx = newpos_x;
@@ -61,8 +61,10 @@ int	key_d(t_game *game)
 	double	newpos_x;
 	double	newpos_y;
 
-	newpos_x = game->player.posx + game->player.camera.planex * MOVE_SPEED;
-	newpos_y = game->player.posy + game->player.camera.planey * MOVE_SPEED;
+	newpos_x = game->player.posx + game->player.camera.planex \
+		* (MOVE_SPEED * game->sp);
+	newpos_y = game->player.posy + game->player.camera.planey \
+		* (MOVE_SPEED * game->sp);
 	if (game->map[(int)game->player.posy][(int)newpos_x] != '1')
 	{
 		game->player.posx = newpos_x;
@@ -83,8 +85,10 @@ int	key_a(t_game *game)
 	double	newpos_x;
 	double	newpos_y;
 
-	newpos_x = game->player.posx - game->player.camera.planex * MOVE_SPEED;
-	newpos_y = game->player.posy - game->player.camera.planey * MOVE_SPEED;
+	newpos_x = game->player.posx - game->player.camera.planex \
+		* (MOVE_SPEED * game->sp);
+	newpos_y = game->player.posy - game->player.camera.planey \
+		* (MOVE_SPEED * game->sp);
 	if (game->map[(int)game->player.posy][(int)newpos_x] != '1')
 	{
 		game->player.posx = newpos_x;

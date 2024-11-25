@@ -12,30 +12,42 @@
 
 #include "../../includes/cub3D.h"
 
+void	anim_or_still(t_game *game, double frequency, double amplitude)
+{
+	int		x;
+	int		y;
+	double	vertical_offset;
+	int		start_y;
+
+	vertical_offset = sin(game->framectd * frequency) * amplitude;
+	start_y = HEIGHT - game->texture[14].texture.img_height + \
+		(int)vertical_offset + (HEIGHT / 90);
+	y = -1;
+	while (++y < game->texture[14].texture.img_height && game->light_on)
+	{
+		x = -1;
+		while (++x < game->texture[14].texture.img_width)
+		{
+			if ((WIDTH / 4 + x) < WIDTH && (start_y + y) < HEIGHT)
+			{
+				my_mlx_pixel_put(&game->canva, WIDTH / 4 + x, start_y + y, \
+					my_mlx_pixel_get(&game->texture[14].texture, x, y));
+			}
+		}
+	}
+}
+
 void	draw_flashlight(t_game *game)
 {
 	double	frequency;
 	double	amplitude;
-	double	vertical_offset;
-	int		x;
-	int		y;
 
 	frequency = 0.05;
 	amplitude = 10.0;
-	vertical_offset = sin(game->framectd * frequency) * amplitude;
-	y = 0;
-	while (y < game->texture[14].texture.img_height && game->light_on)
-	{
-		x = 0;
-		while (x < game->texture[14].texture.img_width)
-		{
-			my_mlx_pixel_put(&game->canva, WIDTH / 2 + x, (HEIGHT / 2 + 150
-					+ (int)vertical_offset) + y,
-				my_mlx_pixel_get(&game->texture[14].texture, x, y));
-			x++;
-		}
-		y++;
-	}
+	if (game->y_mov != 0 || game->x_mov != 0)
+		anim_or_still(game, frequency, amplitude);
+	else
+		anim_or_still(game, 0, 0);
 	game->framectd++;
 }
 
@@ -47,7 +59,11 @@ int	cc_mmap(t_game *game, int map_x, int map_y, int color)
 	else if (game->map[map_y][map_x] == 'S' || game->map[map_y][map_x] == 'N' ||
 				game->map[map_y][map_x] == 'E'
 					|| game->map[map_y][map_x] == 'O')
-		color = RBG_YELLOW;
+		color = RBG_BLACK;
+	else if (game->map[map_y][map_x] == '2')
+		color = RBG_GREEN;
+	else if (game->map[map_y][map_x] == ' ')
+		color = -16777216;
 	return (color);
 }
 
@@ -72,9 +88,8 @@ void	draw_minimap_background(t_game *game, int map_height,
 			if (map_x >= 0 && map_y >= 0 && map_y < map_height)
 			{
 				if (map_x < ft_strlen(game->map[map_y]))
-					my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y
-						+ MINIMAP_MARGIN, cc_mmap(game, map_x, map_y,
-							color));
+					my_mlx_pixel_put(&game->canva, x + MINIMAP_MARGIN, y \
+					+ MINIMAP_MARGIN, cc_mmap(game, map_x, map_y, color));
 			}
 		}
 	}
@@ -96,6 +111,6 @@ void	draw_minimap(t_game *game)
 	start_map_y = game->player.posy - minimap_radius / (MINIMAP_SCALE
 			* TILE_SIZE);
 	draw_minimap_background(game, map_height, start_map_x, start_map_y);
-	paintimage(game, &game->texture[13], minimap_radius + TILE_SIZE,
-		minimap_radius + TILE_SIZE);
+	paintimage(game, &game->texture[13], minimap_radius + TILE_SIZE, \
+			minimap_radius + TILE_SIZE);
 }

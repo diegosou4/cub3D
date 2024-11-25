@@ -159,6 +159,7 @@ typedef struct s_game
 	bool		hit_enemy;
 	bool		inside_wall;
 	bool		changed_world;
+	int			sp;
 	int			current_world;
 	char		**map_info;
 	char		**map;
@@ -319,7 +320,7 @@ void			free_game(t_game *game);
 void			free_texture(t_game *game);
 void			free_map(t_game *game);
 void			destroy_game(t_game *game);
-int			garabe_collector(t_game *game);
+int				garabe_collector(t_game *game);
 void			print_free(t_game *game, char *errostr);
 
 #endif

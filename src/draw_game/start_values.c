@@ -33,6 +33,7 @@ void	init_values2(t_game *game)
 	game->inside_wall = false;
 	game->changed_world = false;
 	game->current_world = 0;
+	game->sp = 1;
 	init_values3(game);
 }
 
