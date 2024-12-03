@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:52:41 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/21 20:04:59 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:36:03 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,13 @@ typedef struct s_enemy
 	double		y;
 }				t_enemy;
 
+typedef struct s_doors
+{
+	double		x;
+	double		y;
+	bool		open;
+}				t_doors;
+
 typedef struct s_player
 {
 	t_ray		ray;
@@ -182,6 +189,8 @@ typedef struct s_game
 	int			num_enemies;
 	int			rot_right;
 	int			rot_left;
+	int			num_doors;
+	t_doors		doors[MAX_DOORS];
 	t_enemy		enemies[MAX_ENEMIES];
 	t_draw_x	draw;
 
@@ -249,6 +258,7 @@ void			case_color(t_game *game, char *line, char **split);
 void			split_line(char *line, t_game *game, t_case_line_func l_func,
 					int charl);
 void			check_direction(t_game *game);
+void			init_doors(t_game *game);
 
 // Draw
 void			swift_rgb(t_game *game, int color, double fade_factor, int y);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:09:58 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 16:10:00 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:58:58 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 # define NUM_TEXTURE 16
 # define MAX_ENEMIES 100
+# define MAX_DOORS 10
 
 # define FOV 66
 
@@ -53,8 +54,8 @@
 # define BLOOD_RED 0x780606
 # define TRANSPARENT_COLOR 0xfff000
 
-# define WIDTH 440
-# define HEIGHT 500
+# define WIDTH 1080
+# define HEIGHT 720
 # define TAM_TEXT 256
 # define TAM_Y_P 32
 # define TAM_X_P 32
