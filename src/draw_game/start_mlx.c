@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:03:59 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 15:17:45 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:16:08 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,15 @@ int	check_door(t_game *game, int map_x, int map_y)
 		game->hit_door = false;
 		return (1);
 	}
-	else if (game->map[map_y][map_x] == '2')
+	else if (game->map[map_y][map_x] == '2' && game->light_on == 0)
 	{
 		game->hit_door = true;
 		return (1);
+	}
+	else if (game->map[map_y][map_x] == '2' && game->light_on == 1)
+	{
+		game->hit_door = false;
+		return (0);
 	}
 	return (0);
 }

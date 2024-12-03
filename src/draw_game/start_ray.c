@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:15:11 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 13:15:14 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:52:30 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	calculate_distance(t_game *game)
 	else
 		game->player.ray.perpwalldist = (game->player.ray.side_disty
 				- game->player.deltay);
+	if (game->player.ray.perpwalldist < 0.000002)
+		game->player.ray.perpwalldist += 0.000002;
 }
 
 void	hit_wall(t_game *game, int map_x, int map_y)

@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:33:11 by dde-maga          #+#    #+#             */
-/*   Updated: 2024/11/16 17:33:32 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:30:03 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	key_ligths(t_game *game, int keycode)
 	{
 		if (game->light_on == 0)
 			game->light_on = 1;
-		else
+		else if (game->light_on == 1 && !game->inside_wall)
 			game->light_on = 0;
 	}
 }

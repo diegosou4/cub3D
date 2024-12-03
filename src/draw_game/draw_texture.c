@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 11:47:38 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 12:04:15 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:11:38 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	return_pos(t_game *game)
 
 int	check_world(t_game *game, int pos)
 {
-	if (game->inside_wall && !game->changed_world)
+	if (game->inside_wall && !game->changed_world && game->light_on == 1)
 	{
 		game->changed_world = true;
 		if (game->current_world == 1)
@@ -130,3 +130,21 @@ void	draw_texture(t_game *game, double angle)
 	if (game->map[(int)game->player.posy][(int)game->player.posx] != '2')
 		draw_func[game->current_world](game, &game->texture[pos].texture, rayx);
 }
+
+/* void hit_door(t_game *game, double angle)
+{
+	double		wall_x;
+	double		rayx;
+	if (game->player.ray.side == 0)
+		wall_x = game->player.posy + game->player.door.perpwalldist
+			* game->player.ray.ray_dir_y;
+	else
+		wall_x = game->player.posx + game->player.door.perpwalldist
+			* game->player.ray.ray_dir_x;
+	wall_x -= floor(wall_x);
+	if (game->player.ray.side == 0 && game->player.ray.ray_dir_x > 0)
+		rayx = game->texture[12].texture.img_width - rayx - 1;
+	if (game->player.ray.side == 1 && game->player.ray.ray_dir_y < 0)
+		rayx = game->texture[12].texture.img_width - rayx - 1;
+	draw_walls(game, 12,angle);
+} */
