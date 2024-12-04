@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:52:41 by diegmore          #+#    #+#             */
-/*   Updated: 2024/12/02 18:36:03 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:01:10 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,6 @@ void			case_color(t_game *game, char *line, char **split);
 void			split_line(char *line, t_game *game, t_case_line_func l_func,
 					int charl);
 void			check_direction(t_game *game);
-void			init_doors(t_game *game);
 
 // Draw
 void			swift_rgb(t_game *game, int color, double fade_factor, int y);

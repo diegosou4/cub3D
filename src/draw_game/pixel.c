@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 12:31:29 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 12:45:42 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:09:59 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 int	my_mlx_pixel_get(t_img *data, int x, int y)
 {
 	char	*dst;
-
+	
+	if (x < 0 || y < 0)
+		return (-16777216);
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }

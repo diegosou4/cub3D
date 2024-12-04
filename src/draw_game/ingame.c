@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:07:21 by diegmore          #+#    #+#             */
-/*   Updated: 2024/12/03 15:13:53 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:54:08 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	key_event(int keycode, t_game *game)
 {
 	mouse_monitor(game, keycode);
-	define_mov(game, keycode);
-	draw_allray(game);
 	if (keycode == ESC)
 	{
 		system("pkill paplay > /dev/null 2>&1");

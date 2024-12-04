@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diegmore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:38:02 by diegmore          #+#    #+#             */
-/*   Updated: 2024/11/16 12:39:01 by diegmore         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:55:33 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	mouse_monitor(t_game *game, int keycode)
 
 	prev_x_mouse = WIDTH / 2;
 	deltax = game->x_mouse - prev_x_mouse;
+	define_mov(game, keycode);
 	if ((game->x_mouse > 0 && game->x_mouse < WIDTH) || keycode == R_AR
 		|| keycode == L_AR || keycode == KEY_W || keycode == KEY_A
 		|| keycode == KEY_S || keycode == KEY_D)

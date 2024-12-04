@@ -6,7 +6,7 @@
 /*   By: dde-maga <dde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:03:59 by diegmore          #+#    #+#             */
-/*   Updated: 2024/12/03 15:16:08 by dde-maga         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:50:42 by dde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	draw_allray(t_game *game)
 	{
 		if (game->light_on == 0 && game->current_world == 0)
 			draw_enemy(game);
-		draw_minimap(game);
 		draw_flashlight(game);
 	}
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->canva.img, 0, 0);
 }
