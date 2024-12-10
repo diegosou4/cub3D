@@ -25,7 +25,7 @@ Por exemplo, imagine o seguinte mapa:
 
 O ponto `P` representa a posição inicial do jogador. Normalmente, utilizamos um **FOV (Field of View)** de 66 graus para criar uma experiência imersiva. Representando o FOV no mapa, teríamos algo assim:
 
-11111111 <br>
+11111111<br>
 10\00001<br>
 100\0001<br> 
 1000\0/1<br>
