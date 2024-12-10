@@ -15,22 +15,22 @@ A ideia principal do **ray casting** é simples e engenhosa:
 
 Por exemplo, imagine o seguinte mapa:
 
-11111111 
-10000001 
-10000001 
-10000001 
-10000P11 
-11111111
+11111111<br>
+10000001<br>
+10000001<br>
+10000001<br>
+10000P11<br>
+11111111<br>
 
 
 O ponto `P` representa a posição inicial do jogador. Normalmente, utilizamos um **FOV (Field of View)** de 66 graus para criar uma experiência imersiva. Representando o FOV no mapa, teríamos algo assim:
 
-11111111 
-10\00001 
-100\0001 
-1000\0/1 
-10000P11 
-11111111
+11111111 <br>
+10\00001<br>
+100\0001<br> 
+1000\0/1<br>
+10000P11<br> 
+11111111<br>
 
 
 Aqui, os caracteres `\` e `/` simulam o ângulo de visão do jogador.
@@ -50,9 +50,9 @@ Aqui, os caracteres `\` e `/` simulam o ângulo de visão do jogador.
 3. **Iteração por Colunas:**
    Com a largura da tela definida, iteramos por cada coluna vertical (valor `x`) e calculamos as distâncias para identificar onde o jogador enxerga paredes, chão e teto. Por exemplo:
 
-1000\0/1 
-10000P11 
-11111111
+1000\0/1<br>
+10000P11<br> 
+11111111<br>
 
 Neste caso, o `\` seria o valor `1` e o `P` (meio bloco) seria `0.5`. Para alcançar a parede, precisaríamos percorrer uma distância de `3.5`.
 
